@@ -84,7 +84,6 @@
     romhacks: 'mdi-nintendo-game-boy',
     scripts: 'mdi-code-json',
     sprites: 'mdi-pokeball',
-    steam: 'mdi-script-text-outline',
     // 404
     default: 'mdi-link-variant',
   };
@@ -93,12 +92,27 @@
     assets: 'All Assets',
   };
 
-  const orderedRoutes: Record<string, number> = {
-    home: 0,
-    // assets: 1,
-    // romhacks: 2,
-    // scripts: 3,
-    // steam: 4,
+  // TODO: Add optional manual indexing later.
+  const orderMap = new Map(
+    [
+      'home',
+      // assets: 1,
+      // romhacks: 2,
+      // scripts: 3,
+      // steam: 4,
+    ].map((route, i) => [route, i]),
+  );
+
+  const sort = (a: string, b: string) => {
+    const lowerA = a.toLowerCase();
+    const lowerB = b.toLowerCase();
+
+    const aIndex = orderMap.get(lowerA) ?? Infinity;
+    const bIndex = orderMap.get(lowerB) ?? Infinity;
+
+    if (aIndex !== bIndex) return aIndex - bIndex;
+
+    return lowerA.localeCompare(lowerB);
   };
 
   const routes = router.getRoutes();
@@ -130,7 +144,10 @@
 
   const items = routes
     .filter((route) => !route.path.includes('/', 1))
-    .map(createNav);
+    .map(createNav)
+    .sort((a, b) => sort(a.title!.toString(), b.title!.toString()));
+
+  console.log(items);
 
   const opened = ref([] as string[]);
 </script>
