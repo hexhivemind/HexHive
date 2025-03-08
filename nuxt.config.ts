@@ -11,10 +11,12 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
+  // See: https://nuxtseo.com/docs/sitemap/getting-started/installation
   site: {
     url: 'https://example.com',
     name: 'My Awesome Website',
   },
+  // See: https://nuxtseo.com/docs/robots/getting-started/installation
   robots: {
     blockNonSeoBots: true,
     blockAiBots: true,
