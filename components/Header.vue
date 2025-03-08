@@ -147,7 +147,5 @@
     .map(createNav)
     .sort((a, b) => sort(a.title!.toString(), b.title!.toString()));
 
-  console.log(items);
-
   const opened = ref([] as string[]);
 </script>
