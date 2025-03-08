@@ -5,6 +5,6 @@
 <script lang="ts" setup>
   definePageMeta({
     name: 'Romhacks',
-    layout: 'Listings',
+    layout: 'listings',
   });
 </script>
