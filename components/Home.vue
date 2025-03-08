@@ -1,27 +1,26 @@
 <template>
-  <v-main>
-    <v-container>
-      <v-row>
-        <v-col>
-          <v-file-input
-            label="Upload Files"
-            prepend-icon="mdi-paperclip"
-            :rules="[filesRequired]"
-            v-model="files"
-            multiple
-            chip
-            show-size
-          />
-        </v-col>
+  <v-container>
+    <!-- <v-spacer /> -->
+    <v-row align="baseline" justify="center">
+      <v-col cols="6">
+        <v-file-input
+          v-model="files"
+          label="Upload Files"
+          prepend-icon="mdi-paperclip"
+          :rules="[filesRequired]"
+          multiple
+          chip
+          show-size
+        />
+      </v-col>
 
-        <v-col>
-          <v-btn prepend-icon="mdi-cloud-upload" @click="handleUpload">
-            Upload
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-main>
+      <v-col cols="auto">
+        <v-btn prepend-icon="mdi-cloud-upload" @click="handleUpload">
+          Upload
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
