@@ -13,7 +13,6 @@
     "@mdi/font": "^7.4.47",
     "@nuxt/eslint": "1.1.0",
     "@nuxtjs/robots": "5.2.6",
-    "@nuxtjs/seo": "2.2.0",
     "@nuxtjs/sitemap": "7.2.7",
     "mongoose": "^8.12.1",
     "nuxt": "^3.16.0",
@@ -35,5 +34,11 @@
     "vite-plugin-vuetify": "^2.1.0",
     "vue-tsc": "^2.2.8",
     "vuetify": "^3.7.15"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild"
+    ]
   }
 }
