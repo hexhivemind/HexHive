@@ -44,7 +44,10 @@
             :to="item.to"
             :disabled="item.to === route.path"
             :prepend-icon="item.icon"
-            :title="item.title?.toString()"
+            :title="
+              groupRouteName[item.title?.toString().toLowerCase() || ''] ||
+              item.title?.toString()
+            "
           />
 
           <v-list-item
@@ -83,6 +86,10 @@
     romhacks: 'mdi-nintendo-game-boy',
     steam: 'mdi-script-text-outline',
     '404': 'mdi-link-variant',
+  };
+
+  const groupRouteName: Record<string, string> = {
+    assets: 'All Assets',
   };
 
   const routes = router.getRoutes();
