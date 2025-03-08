@@ -10,6 +10,10 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/test-utils',
   ],
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+    layoutTransition: { name: 'layout', mode: 'out-in' },
+  },
   typescript: {
     typeCheck: true,
   },
