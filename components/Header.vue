@@ -17,7 +17,7 @@
     </template>
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer">
+  <v-navigation-drawer v-model="drawer" temporary>
     <v-list>
       <v-list-item
         :value="item"
@@ -43,8 +43,11 @@
 
   const routeIcons: Record<string, string> = {
     home: 'mdi-home',
-    steam: 'mdi-magnify',
-    '404': 'mdi-magnify',
+    assets: 'mdi-multimedia',
+    scripts: 'mdi-code-json',
+    romhacks: 'mdi-nintendo-game-boy',
+    steam: 'mdi-script-text-outline',
+    '404': 'mdi-link-variant',
   };
 
   const routes = router.getRoutes();
