@@ -19,11 +19,16 @@
 
   <v-navigation-drawer v-model="drawer">
     <v-list>
-      <v-list-item v-for="(item, i) in items" :key="i" :value="item">
-        <NuxtLink to="">
-          {{ item.icon }}
-          {{ item.title }}
-        </NuxtLink>
+      <v-list-item
+        :value="item"
+        v-for="(item, i) in items"
+        :key="i"
+        :to="item.to"
+      >
+        <template v-slot:prepend>
+          <v-icon :icon="item.icon" />
+        </template>
+        <v-list-item-title v-text="item.title" />
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -32,19 +37,36 @@
 <script lang="ts" setup>
   const drawer = ref(false);
 
-  const items = [
-    {
-      title: 'Item #1',
-      value: 1,
-      icon: 'mdi-magnify',
-    },
-    {
-      title: 'Item #2',
-      value: 2,
-    },
-    {
-      title: 'Item #3',
-      value: 3,
-    },
-  ];
+  const router = useRouter();
+  console.log(router.getRoutes());
+
+  const routeIcons: Record<string, string> = {
+    home: 'mdi-home',
+    steam: 'mdi-magnify',
+    '404': 'mdi-magnify',
+  };
+
+  const routes = router.getRoutes();
+
+  const items = routes.map((route) => ({
+    title: route.name,
+    to: route.path,
+    icon: routeIcons[route.name?.toString().toLowerCase() || '404'],
+  }));
+
+  // const items = [
+  //   {
+  //     title: 'Item #1',
+  //     value: 1,
+  //     icon: 'mdi-magnify',
+  //   },
+  //   {
+  //     title: 'Item #2',
+  //     value: 2,
+  //   },
+  //   {
+  //     title: 'Item #3',
+  //     value: 3,
+  //   },
+  // ];
 </script>
