@@ -1,11 +1,10 @@
 <template>
-  <v-main>
-    <Listings />
-  </v-main>
+  <!-- <Listings /> -->
 </template>
 
 <script lang="ts" setup>
   definePageMeta({
     name: 'Romhacks',
+    layout: 'Listings',
   });
 </script>
