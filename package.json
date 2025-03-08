@@ -30,6 +30,7 @@
     "sass": "^1.85.1",
     "typescript": "^5.8.2",
     "vite-plugin-vuetify": "^2.1.0",
+    "vue-tsc": "^2.2.8",
     "vuetify": "^3.7.15"
   }
 }
