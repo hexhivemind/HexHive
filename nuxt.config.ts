@@ -7,9 +7,13 @@ export default defineNuxtConfig({
     'vuetify-nuxt-module',
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
+    '@pinia/nuxt',
   ],
   typescript: {
     typeCheck: true,
+  },
+  pinia: {
+    storesDirs: ['./stores/**'],
   },
   // See: https://nuxtseo.com/docs/sitemap/getting-started/installation
   site: {
