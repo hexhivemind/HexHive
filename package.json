@@ -12,6 +12,8 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@nuxt/eslint": "1.1.0",
+    "@nuxtjs/robots": "5.2.6",
+    "@nuxtjs/sitemap": "7.2.7",
     "mongoose": "^8.12.1",
     "nuxt": "^3.16.0",
     "pinia": "^3.0.1",
