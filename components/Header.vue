@@ -78,18 +78,27 @@
   const route = useRoute();
 
   const routeIcons: Record<string, string> = {
-    home: 'mdi-home',
     assets: 'mdi-multimedia',
-    sprites: 'mdi-pokeball',
+    home: 'mdi-home',
     music: 'mdi-music',
-    scripts: 'mdi-code-json',
     romhacks: 'mdi-nintendo-game-boy',
+    scripts: 'mdi-code-json',
+    sprites: 'mdi-pokeball',
     steam: 'mdi-script-text-outline',
-    '404': 'mdi-link-variant',
+    // 404
+    default: 'mdi-link-variant',
   };
 
   const groupRouteName: Record<string, string> = {
     assets: 'All Assets',
+  };
+
+  const orderedRoutes: Record<string, number> = {
+    home: 0,
+    // assets: 1,
+    // romhacks: 2,
+    // scripts: 3,
+    // steam: 4,
   };
 
   const routes = router.getRoutes();
@@ -105,8 +114,8 @@
     title: route.name,
     to: route.path,
     icon:
-      routeIcons[route.name?.toString().toLowerCase() || '404'] ||
-      routeIcons['404'],
+      routeIcons[route.name?.toString().toLowerCase() || 'default'] ||
+      routeIcons.default,
     ...(route.children.length > 0
       ? {
           children: route.children.map((child) =>
@@ -124,20 +133,4 @@
     .map(createNav);
 
   const opened = ref([] as string[]);
-
-  // const items = [
-  //   {
-  //     title: 'Item #1',
-  //     value: 1,
-  //     icon: 'mdi-magnify',
-  //   },
-  //   {
-  //     title: 'Item #2',
-  //     value: 2,
-  //   },
-  //   {
-  //     title: 'Item #3',
-  //     value: 3,
-  //   },
-  // ];
 </script>
