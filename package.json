@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
+    "@nuxt/eslint": "1.1.0",
     "mongoose": "^8.12.1",
     "nuxt": "^3.16.0",
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "vuetify-nuxt-module": "0.18.3"
   },
   "packageManager": "pnpm@10.5.2+sha256.79a98daa90248b50815e31460790f118c56fe099113370826caa0153be6daba5",
   "devDependencies": {
@@ -25,6 +27,8 @@
     "eslint-plugin-vue": "^10.0.0",
     "eslint-plugin-vuetify": "^2.5.1",
     "prettier": "^3.5.3",
+    "sass": "^1.85.1",
+    "typescript": "^5.8.2",
     "vite-plugin-vuetify": "^2.1.0",
     "vuetify": "^3.7.15"
   }
