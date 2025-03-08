@@ -1,11 +1,8 @@
-<template>
-  <v-main>
-    <Listings />
-  </v-main>
-</template>
+<template></template>
 
 <script lang="ts" setup>
   definePageMeta({
     name: 'Music',
+    layout: 'listings',
   });
 </script>
