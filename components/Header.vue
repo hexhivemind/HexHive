@@ -5,13 +5,13 @@
     scroll-behavior="collapse fade-image"
     scroll-threshold="200"
   >
-    <template v-slot:prepend>
+    <template #prepend>
       <v-app-bar-nav-icon @click="drawer = !drawer" />
     </template>
 
     <v-app-bar-title>HexHive</v-app-bar-title>
 
-    <template v-slot:append>
+    <template #append>
       <v-btn icon="mdi-magnify" />
       <v-btn icon="mdi-dots-vertical" />
     </template>
@@ -69,7 +69,6 @@
   import type {
     RouteRecordNameGeneric,
     RouteRecordNormalized,
-    RouteRecordRaw,
   } from 'vue-router';
 
   const drawer = ref(false);
@@ -116,6 +115,9 @@
   };
 
   const routes = router.getRoutes();
+  const routeMap = new Map<string, RouteRecordNormalized>(
+    routes.map((r) => [r.path, r]),
+  );
 
   interface NavItem {
     title: RouteRecordNameGeneric;
@@ -130,20 +132,28 @@
     icon:
       routeIcons[route.name?.toString().toLowerCase() || 'default'] ||
       routeIcons.default,
-    ...(route.children.length > 0
+    ...(route.children.length
       ? {
           children: route.children.map((child) =>
-            createNav(getChildRouteData(child)),
+            createNav(child as RouteRecordNormalized),
           ),
         }
       : {}),
   });
 
-  const getChildRouteData = (route: RouteRecordRaw): RouteRecordNormalized =>
-    routes.find((r) => r.name === route.name)!; // We know it should exist, so we can assert that. Linter can fuck off.
+  routes.forEach((route) => {
+    const parentPath = route.path.split('/').slice(0, -1).join('/') || '/';
+    if (
+      parentPath !== '/' &&
+      routeMap.has(parentPath) &&
+      route.path !== parentPath &&
+      !routeMap.get(parentPath)!.children.includes(route)
+    )
+      routeMap.get(parentPath)!.children!.push(route);
+  });
 
-  const items = routes
-    .filter((route) => !route.path.includes('/', 1))
+  const items = [...routeMap.values()]
+    .filter((r) => r.children!.length || !r.path.includes('/', 1))
     .map(createNav)
     .sort((a, b) => sort(a.title!.toString(), b.title!.toString()));
 
