@@ -1,18 +1,22 @@
 <template>
-  <v-layout class="overflow-visible" style="height: 56px">
-    <v-bottom-navigation v-model="value" :bg-color="color" mode="shift">
-      <v-btn>
-        <v-icon>mdi-fire</v-icon>
-        <span>Fire Red</span>
-      </v-btn>
+  <v-bottom-navigation
+    v-model="value"
+    :bg-color="color"
+    mode="shift"
+    tag="footer"
+  >
+    <v-btn>
+      <v-icon>mdi-fire</v-icon>
+      <span>Fire Red</span>
+    </v-btn>
 
-      <v-btn>
-        <v-icon>mdi-diamond-stone</v-icon>
-        <span>Emerald</span>
-      </v-btn>
-    </v-bottom-navigation>
-  </v-layout>
+    <v-btn>
+      <v-icon>mdi-diamond-stone</v-icon>
+      <span>Emerald</span>
+    </v-btn>
+  </v-bottom-navigation>
 </template>
+
 <script setup>
   import { computed, ref } from 'vue';
 
