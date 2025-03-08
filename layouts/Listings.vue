@@ -12,5 +12,9 @@
 </template>
 
 <script lang="ts" setup>
-  const title = useState('title');
+  const title = useState('title', () => 'Title here');
+
+  onBeforeUnmount(() => {
+    title.value = '';
+  });
 </script>

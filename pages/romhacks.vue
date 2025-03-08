@@ -1,10 +1,9 @@
-<template></template>
-
 <script lang="ts" setup>
   definePageMeta({
     name: 'Romhacks',
     layout: 'listings',
   });
 
-  useState('title', () => 'Romhacks');
+  const title = useState('title');
+  title.value = 'Romhacks';
 </script>
