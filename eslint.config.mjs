@@ -1,9 +1,6 @@
 // @ts-check
 import withNuxt from './.nuxt/eslint.config.mjs';
-import vue from 'eslint-plugin-vue';
-import { vueTsConfigs } from '@vue/eslint-config-typescript';
 import prettier from '@vue/eslint-config-prettier';
-import vuetify from 'eslint-plugin-vuetify';
 
 export default withNuxt(
   // Your custom configs here
@@ -16,10 +13,6 @@ export default withNuxt(
     name: 'app/files-to-ignore',
     ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
   },
-
-  vue.configs['flat/recommended'],
-  vueTsConfigs.recommendedTypeChecked,
-  vuetify,
 
   {
     rules: {
@@ -35,4 +28,10 @@ export default withNuxt(
   },
 
   prettier,
+
+  {
+    rules: {
+      'no-console': 'warn',
+    },
+  },
 );
