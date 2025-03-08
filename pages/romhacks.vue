@@ -1,10 +1,10 @@
-<template>
-  <!-- <Listings /> -->
-</template>
+<template></template>
 
 <script lang="ts" setup>
   definePageMeta({
     name: 'Romhacks',
-    layout: 'Listings',
+    layout: 'listings',
   });
+
+  useState('title', () => 'Romhacks');
 </script>
