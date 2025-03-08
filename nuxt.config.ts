@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
     '@pinia/nuxt',
+    '@nuxt/test-utils',
   ],
   typescript: {
     typeCheck: true,
