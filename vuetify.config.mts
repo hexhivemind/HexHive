@@ -6,5 +6,5 @@ export default defineVuetifyConfiguration({
   theme: {
     defaultTheme: 'dark',
   },
-  blueprint: md3
+  blueprint: md3,
 });
