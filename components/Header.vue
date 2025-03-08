@@ -24,6 +24,7 @@
         v-for="(item, i) in items"
         :key="i"
         :to="item.to"
+        :disabled="item.to === route.path"
       >
         <template v-slot:prepend>
           <v-icon :icon="item.icon" />
@@ -38,7 +39,7 @@
   const drawer = ref(false);
 
   const router = useRouter();
-  console.log(router.getRoutes());
+  const route = useRoute();
 
   const routeIcons: Record<string, string> = {
     home: 'mdi-home',
