@@ -27,14 +27,27 @@
           <v-expansion-panel-text class="changelog">
             <v-select
               v-model="selectedVersion"
-              :items="model.changelog?.versionList"
+              :items="versionOptions"
               label="Select Version"
               dense
             />
 
-            <div v-if="selectedVersion" class="mt-4">
-              <h3>{{ selectedVersion }} Changes</h3>
-              <p>{{ getChangelog(selectedVersion) }}</p>
+            <div v-if="selectedVersion">
+              <template v-if="selectedVersion === 'All Changes'">
+                <div
+                  v-for="version in model.changelog?.versionList"
+                  :key="version"
+                >
+                  <h3>{{ version }} Changes</h3>
+                  <p>{{ model.changelog?.entries[version] }}</p>
+                  <br />
+                </div>
+              </template>
+
+              <template v-else>
+                <h3>{{ selectedVersion }} Changes</h3>
+                <p>{{ getChangelog(selectedVersion) }}</p>
+              </template>
             </div>
           </v-expansion-panel-text>
         </v-expansion-panel>
@@ -72,7 +85,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
 
   definePageMeta({
     name: 'Listing',
@@ -84,8 +97,14 @@
   // By default, open these Expansion Panels:
   const activePanels = ref(['changelog', 'screenshots']);
 
-  // List of versions for the Changelog:
-  const selectedVersion = ref(model.value.changelog?.versionList[0] || '');
+  // Create computed version options with an "all" option prepended:
+  const versionOptions = computed(() => {
+    const list = model.value.changelog?.versionList || [];
+    return ['All Changes', ...list];
+  });
+
+  // Default to "all" so all entries are listed initially.
+  const selectedVersion = ref('All Changes');
 
   function getChangelog(version: string) {
     return (
@@ -117,9 +136,6 @@
       width: 80%;
       max-width: 80rem;
       text-align: center;
-    }
-    .mt-4 {
-      margin-top: 1rem;
     }
   }
 </style>
