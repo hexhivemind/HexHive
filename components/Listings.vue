@@ -12,9 +12,16 @@
     </v-row>
 
     <v-row>
-      <v-col v-for="n in 12" :key="n" cols="4">
-        <v-card height="200"></v-card>
-      </v-col>
+      <template v-if="!data.length">
+        <v-col v-for="n in 12" :key="n" cols="4">
+          <v-card height="200"></v-card>
+        </v-col>
+      </template>
+      <template v-else>
+        <v-col v-for="(n, i) in data" :key="i" cols="4">
+          <!-- Component for data. -->
+        </v-col>
+      </template>
     </v-row>
   </v-container>
 
@@ -26,6 +33,10 @@
 <script lang="ts" setup>
   const route = useRoute();
   const router = useRouter();
+
+  // TOFIX: Define data type and get rid of below eslint disable.
+  // eslint-disable-next-line vue/require-prop-types
+  const data = defineModel('data', { default: [] });
 
   const breadcrumbs = computed(() => {
     const segments = route.path.split('/').filter(Boolean); // Remove Empty Segments
