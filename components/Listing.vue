@@ -17,20 +17,33 @@
       <br />
       <small>ID or Slug: {{ model.id }}</small>
 
-      <v-expansion-panels>
-        <v-expansion-panel>
+      <v-expansion-panels v-model="activePanels" multiple>
+        <v-expansion-panel value="changelog">
+          <template #title>
+            <h3>Changelog</h3>
+          </template>
+
+          <!-- The changelog content -->
+          <v-expansion-panel-text class="changelog">
+            <ul>
+              <li>test</li>
+              <li>test</li>
+            </ul>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+
+        <v-expansion-panel value="screenshots">
           <template #title>
             <h3>Screenshots</h3>
           </template>
 
-          <v-expansion-panel-text>
+          <v-expansion-panel-text class="screenshots">
             <v-carousel v-if="model.screenshots?.length">
               <v-carousel-item
                 v-for="(screenshot, i) in model.screenshots"
                 :key="i"
                 :src="screenshot"
-              >
-              </v-carousel-item>
+              ></v-carousel-item>
             </v-carousel>
           </v-expansion-panel-text>
         </v-expansion-panel>
@@ -52,6 +65,11 @@
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue';
+
+  // By Default, open these Expansion Panels
+  const activePanels = ref(['changelog', 'screenshots']);
+
   definePageMeta({
     name: 'Listing',
   });
@@ -63,6 +81,18 @@
 <style lang="scss" scoped>
   .v-container {
     height: 100%;
+
+    .v-expansion-panel-text {
+      text-align: left;
+
+      // &.changelog {
+
+      // }
+
+      // &.screenshots {
+
+      // }
+    }
 
     .v-card {
       margin: auto;
