@@ -132,11 +132,11 @@
     icon:
       routeIcons[route.name?.toString().toLowerCase() || 'default'] ||
       routeIcons.default,
-    ...(route.children.length
+    ...(route.children.filter((c) => !c.path.includes(':')).length
       ? {
-          children: route.children.map((child) =>
-            createNav(child as RouteRecordNormalized),
-          ),
+          children: route.children
+            .filter((c) => !c.path.includes(':'))
+            .map((child) => createNav(child as RouteRecordNormalized)),
         }
       : {}),
   });
@@ -153,7 +153,11 @@
   });
 
   const items = [...routeMap.values()]
-    .filter((r) => r.children!.length || !r.path.includes('/', 1))
+    .filter(
+      (r) =>
+        !r.path.includes('/', 1) ||
+        r.children!.filter((c) => !c.path.includes(':')).length,
+    )
     .map(createNav)
     .sort((a, b) => sort(a.title!.toString(), b.title!.toString()));
 

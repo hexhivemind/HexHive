@@ -2,8 +2,4 @@
   <span />
 </template>
 
-<script lang="ts" setup>
-  definePageMeta({
-    name: '',
-  });
-</script>
+<script lang="ts" setup></script>
