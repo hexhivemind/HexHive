@@ -17,14 +17,24 @@
       <br />
       <small>ID or Slug: {{ model.id }}</small>
 
-      <v-carousel v-if="model.screenshots?.length">
-        <v-carousel-item
-          v-for="(screenshot, i) in model.screenshots"
-          :key="i"
-          :src="screenshot"
-        >
-        </v-carousel-item>
-      </v-carousel>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <template #title>
+            <h3>Screenshots</h3>
+          </template>
+
+          <v-expansion-panel-text>
+            <v-carousel v-if="model.screenshots?.length">
+              <v-carousel-item
+                v-for="(screenshot, i) in model.screenshots"
+                :key="i"
+                :src="screenshot"
+              >
+              </v-carousel-item>
+            </v-carousel>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-card>
 
     <!--
