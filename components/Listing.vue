@@ -16,6 +16,15 @@
 
       <br />
       <small>ID or Slug: {{ model.id }}</small>
+
+      <v-carousel v-if="model.screenshots?.length">
+        <v-carousel-item
+          v-for="(screenshot, i) in model.screenshots"
+          :key="i"
+          :src="screenshot"
+        >
+        </v-carousel-item>
+      </v-carousel>
     </v-card>
 
     <!--
@@ -40,3 +49,17 @@
   // For testing, change data type, should be ListingData eventually
   const model = defineModel<RomhackData>('data', { required: true });
 </script>
+
+<style lang="scss" scoped>
+  .v-container {
+    height: 100%;
+
+    .v-card {
+      margin: auto;
+      height: 100%;
+      width: 80%;
+      max-width: 80rem;
+      text-align: center;
+    }
+  }
+</style>
