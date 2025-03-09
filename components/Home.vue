@@ -23,20 +23,14 @@
   </v-container>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        files: [],
-        filesRequired: (value) =>
-          value.length > 0 || 'You must select at least one file.',
-      };
-    },
-    methods: {
-      handleUpload() {
-        // Handle file upload action here
-        console.log('Upload button clicked', this.files);
-      },
-    },
+<script lang="ts" setup>
+  const files = ref([]);
+
+  const filesRequired = (value: []) =>
+    value.length > 0 || 'You must select at least one file.';
+
+  const handleUpload = () => {
+    // Handle file upload action here
+    console.log('Upload button clicked', files.value);
   };
 </script>
