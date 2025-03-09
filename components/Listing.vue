@@ -25,10 +25,17 @@
 
           <!-- The changelog content -->
           <v-expansion-panel-text class="changelog">
-            <ul>
-              <li>test</li>
-              <li>test</li>
-            </ul>
+            <v-select
+              v-model="selectedVersion"
+              :items="model.changelog?.versionList"
+              label="Select Version"
+              dense
+            />
+
+            <div v-if="selectedVersion" class="mt-4">
+              <h3>{{ selectedVersion }} Changes</h3>
+              <p>{{ getChangelog(selectedVersion) }}</p>
+            </div>
           </v-expansion-panel-text>
         </v-expansion-panel>
 
@@ -67,15 +74,25 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
 
-  // By Default, open these Expansion Panels
-  const activePanels = ref(['changelog', 'screenshots']);
-
   definePageMeta({
     name: 'Listing',
   });
 
   // For testing, change data type, should be ListingData eventually
   const model = defineModel<RomhackData>('data', { required: true });
+
+  // By default, open these Expansion Panels:
+  const activePanels = ref(['changelog', 'screenshots']);
+
+  // List of versions for the Changelog:
+  const selectedVersion = ref(model.value.changelog?.versionList[0] || '');
+
+  function getChangelog(version: string) {
+    return (
+      model.value.changelog?.entries[version] ||
+      'No changelog available for this version.'
+    );
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -100,6 +117,9 @@
       width: 80%;
       max-width: 80rem;
       text-align: center;
+    }
+    .mt-4 {
+      margin-top: 1rem;
     }
   }
 </style>

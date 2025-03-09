@@ -58,4 +58,9 @@ declare interface RomhackData extends ListingData {
   trailer?: string[];
   tags?: string[]; // User-defined tag cloud
   flags?: string[]; // Internal/Moderator applied, flags like mature content
+
+  changelog?: {
+    versionList: string[];
+    entries: { [version: string]: string };
+  };
 }

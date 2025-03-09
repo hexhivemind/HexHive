@@ -21,6 +21,16 @@
 
     screenshots: ['/demo/titlescreen.webp'],
 
+    // Added changelog entries to the model
+    changelog: {
+      versionList: ['v1.2', 'v1.1', 'v1.0'],
+      entries: {
+        'v1.2': 'Added new user interface enhancements and updated features.',
+        'v1.1': 'Fixed several minor bugs and improved overall performance.',
+        'v1.0': 'Initial release of Fire Red Omega++ with basic features.',
+      },
+    },
+
     // slug: '',
     // rating: ''
   };
