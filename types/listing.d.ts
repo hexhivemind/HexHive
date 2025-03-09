@@ -60,7 +60,6 @@ declare interface RomhackData extends ListingData {
   flags?: string[]; // Internal/Moderator applied, flags like mature content
 
   changelog?: {
-    versionList: string[];
     entries: { [version: string]: string };
   };
 }

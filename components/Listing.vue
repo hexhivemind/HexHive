@@ -19,9 +19,9 @@
 
       <v-expansion-panels v-model="activePanels" multiple>
         <v-expansion-panel value="changelog">
-          <template #title>
+          <v-expansion-panel-title>
             <h3>Changelog</h3>
-          </template>
+          </v-expansion-panel-title>
 
           <!-- The changelog content -->
           <v-expansion-panel-text class="changelog">
@@ -35,17 +35,19 @@
             <div v-if="selectedVersion">
               <template v-if="selectedVersion === 'All Changes'">
                 <div
-                  v-for="version in model.changelog?.versionList"
+                  v-for="version in Object.keys(model.changelog?.entries || {})"
                   :key="version"
                 >
-                  <h3>{{ version }} Changes</h3>
+                  <h3 class="changelog-subheader">{{ version }} Changes</h3>
                   <p>{{ model.changelog?.entries[version] }}</p>
                   <br />
                 </div>
               </template>
 
               <template v-else>
-                <h3>{{ selectedVersion }} Changes</h3>
+                <h3 class="changelog-subheader">
+                  {{ selectedVersion }} Changes
+                </h3>
                 <p>{{ getChangelog(selectedVersion) }}</p>
               </template>
             </div>
@@ -53,9 +55,9 @@
         </v-expansion-panel>
 
         <v-expansion-panel value="screenshots">
-          <template #title>
+          <v-expansion-panel-title>
             <h3>Screenshots</h3>
-          </template>
+          </v-expansion-panel-title>
 
           <v-expansion-panel-text class="screenshots">
             <v-carousel v-if="model.screenshots?.length">
@@ -99,7 +101,7 @@
 
   // Create computed version options with an "all" option prepended:
   const versionOptions = computed(() => {
-    const list = model.value.changelog?.versionList || [];
+    const list = Object.keys(model.value.changelog?.entries || {});
     return ['All Changes', ...list];
   });
 
@@ -117,6 +119,11 @@
 <style lang="scss" scoped>
   .v-container {
     height: 100%;
+
+    .v-expansion-panel-title,
+    .changelog-subheader {
+      font-family: 'Retro Gaming', sans-serif;
+    }
 
     .v-expansion-panel-text {
       text-align: left;

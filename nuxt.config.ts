@@ -24,6 +24,7 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
+  css: ['~/assets/scss/fonts.scss'],
   pinia: {
     storesDirs: ['./stores/**'],
   },
