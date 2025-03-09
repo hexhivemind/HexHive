@@ -9,6 +9,8 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" />
     </template>
 
+    <v-img src="public/favicon.ico" />
+
     <v-app-bar-title>HexHive</v-app-bar-title>
 
     <template #append>
