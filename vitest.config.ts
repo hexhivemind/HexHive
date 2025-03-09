@@ -2,6 +2,8 @@
 // import { fileURLToPath } from 'node:url';
 import { defineVitestConfig } from '@nuxt/test-utils/config';
 
+import { coverageConfigDefaults } from 'vitest/config';
+
 export default defineVitestConfig({
   test: {
     environment: 'nuxt',
@@ -15,5 +17,14 @@ export default defineVitestConfig({
     //     }
     //   }
     // }
+    globals: true,
+    coverage: {
+      exclude: [
+        'pages/**',
+        'layouts/**',
+        '*.config.*',
+        ...coverageConfigDefaults.exclude,
+      ],
+    },
   },
 });
