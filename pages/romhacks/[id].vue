@@ -19,7 +19,7 @@
     baseRomVersion: 'v1.0',
     baseRomRegion: 'English',
 
-    screenshots: ['~/assets/demo/titlescreen.webp'],
+    screenshots: ['/demo/titlescreen.webp'],
 
     // slug: '',
     // rating: ''
