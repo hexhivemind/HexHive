@@ -122,7 +122,15 @@
 
     .v-expansion-panel-title,
     .changelog-subheader {
-      font-family: 'Retro Gaming', sans-serif;
+      font-family: 'GBBoot', sans-serif;
+    }
+
+    .v-expansion-panel-title {
+      font-size: 1.334rem;
+    }
+
+    .changelog-subheader {
+      font-size: 1.25rem;
     }
 
     .v-expansion-panel-text {

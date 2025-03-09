@@ -78,3 +78,6 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 Retro Gaming font:
 https://www.dafont.com/retro-gaming.font?text=Content+Description
+
+GBBoot Font
+https://www.fontspace.com/gbboot-font-f2385
