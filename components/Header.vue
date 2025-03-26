@@ -2,14 +2,16 @@
   <v-app-bar
     :elevation="1"
     rounded
-    scroll-behavior="collapse fade-image"
+    scroll-behavior="fade-image"
     scroll-threshold="200"
   >
     <template #prepend>
       <v-app-bar-nav-icon @click="drawer = !drawer" />
-    </template>
 
-    <v-img src="public/favicon.ico" />
+      <v-avatar>
+        <v-img src="public/favicon.ico" />
+      </v-avatar>
+    </template>
 
     <v-app-bar-title>HexHive</v-app-bar-title>
 
