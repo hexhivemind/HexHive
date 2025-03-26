@@ -49,10 +49,10 @@ declare interface RomhackData extends ListingData {
   baseRomVersion: SupportedBaseRomVersions;
   baseRomRegion: SupportedBaseRomRegions;
   release: string; // User-defined version
-  lastUpdated?: DateTime; // TODO: will come from db, won't be optional
+  lastUpdated?: luxon.DateTime; // TODO: will come from db, won't be optional
 
   // TODO: Features, completion status, binary/decomp, etc
-  releaseDate?: string;
+  releaseDate?: luxon.DateTime;
   boxart?: string[];
   screenshots?: string[];
   trailer?: string[];

@@ -3,6 +3,8 @@
 </template>
 
 <script lang="ts" setup>
+  import { DateTime } from 'luxon';
+
   const route = useRoute();
 
   const data: RomhackData = {
@@ -12,7 +14,7 @@
     author: 'Jordank',
     filename: 'FRO++.gba',
     release: 'v4.9',
-    releaseDate: 'December 2024',
+    releaseDate: DateTime.local(2024, 12), //'December 2024',
 
     // 1636 Pokemon Fire Red (U)(Squirrels)
     baseRom: 'Fire Red',
