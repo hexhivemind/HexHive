@@ -3,7 +3,7 @@
     <Header />
     <v-main>
       <slot />
-      <Listings>
+      <Listings :data="data">
         <template #title>{{ title }}</template>
       </Listings>
     </v-main>
@@ -13,6 +13,7 @@
 
 <script lang="ts" setup>
   const title = useState('title', () => 'Title here');
+  const data = useState('listings', () => [] as ListingData[]);
 
   onBeforeUnmount(() => {
     title.value = '';
