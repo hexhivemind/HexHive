@@ -14,12 +14,13 @@
     <v-row>
       <template v-if="!data.length">
         <v-col v-for="n in 12" :key="n" cols="4">
-          <v-card height="200"></v-card>
+          <v-card height="200" :to="`${route.path}/test-${n}`" />
         </v-col>
       </template>
       <template v-else>
         <v-col v-for="(n, i) in data" :key="i" cols="4">
-          <!-- Component for data. -->
+          <!-- TODO: Add artwork to cards based on type and data -->
+          <v-card height="200" :to="`${route.path}/${n.id}`" />
         </v-col>
       </template>
     </v-row>
@@ -32,23 +33,8 @@
 
 <script lang="ts" setup>
   const route = useRoute();
-  const router = useRouter();
 
-  // TOFIX: Define data type and get rid of below eslint disable.
-  // eslint-disable-next-line vue/require-prop-types
-  const data = defineModel('data', { default: [] });
+  const data = defineModel<ListingData[]>('data', { default: [] });
 
-  const breadcrumbs = computed(() => {
-    const segments = route.path.split('/').filter(Boolean); // Remove Empty Segments
-    const routes = router.getRoutes();
-    return segments.map((segment, index) => {
-      const to = '/' + segments.slice(0, index + 1).join('/');
-      const title =
-        routes.find((r) => r.path === to)?.name?.toString() || segment;
-      return {
-        title,
-        to,
-      };
-    });
-  });
+  const { breadcrumbs } = useBreadcrumbs();
 </script>

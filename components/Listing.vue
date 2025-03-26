@@ -1,6 +1,8 @@
 <template>
   <v-container fluid>
     <v-card>
+      <v-breadcrumbs :items="breadcrumbs" />
+
       <h1>{{ model.title }} - {{ model.release }}</h1>
       <h2>{{ model.description }}</h2>
       <h3>By: {{ model.author }}</h3>
@@ -87,11 +89,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, computed } from 'vue';
-
   definePageMeta({
     name: 'Listing',
   });
+
+  const { breadcrumbs } = useBreadcrumbs();
 
   // For testing, change data type, should be ListingData eventually
   const model = defineModel<RomhackData>('data', { required: true });
