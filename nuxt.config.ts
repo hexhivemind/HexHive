@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@nuxtjs/robots',
     '@pinia/nuxt',
     '@nuxt/test-utils',
+    '@vueuse/nuxt',
   ],
   app: {
     head: {
