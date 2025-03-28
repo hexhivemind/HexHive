@@ -13,7 +13,7 @@
 
 <script lang="ts" setup>
   const title = useState('title', () => 'Title here');
-  const data = useState('listings', () => [] as ListingData[]);
+  const data = useState('listings', () => [] as ListEntry<ListingData>[]);
 
   onBeforeUnmount(() => {
     title.value = '';

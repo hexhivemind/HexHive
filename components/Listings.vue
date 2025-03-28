@@ -34,7 +34,7 @@
 <script lang="ts" setup>
   const route = useRoute();
 
-  const data = defineModel<ListingData[]>('data', { default: [] });
+  const data = defineModel<ListEntry<ListingData>[]>('data', { default: [] });
 
   const { breadcrumbs } = useBreadcrumbs();
 </script>
