@@ -11,7 +11,7 @@
   const title = useState('title');
   title.value = 'Romhacks';
 
-  const data = useState('listings', () => [] as ListingData[]);
+  const data = useState('listings');
   const store = useRomhacksStore();
   const interval = ref();
 
@@ -21,7 +21,7 @@
     interval.value = setInterval(() => {
       store.refreshData();
       data.value = store.data;
-    }, store.refresh_window);
+    }, store.refreshWindow);
 
     data.value = store.data;
   });
