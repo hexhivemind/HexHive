@@ -1,3 +1,4 @@
+import type { Model } from 'mongoose';
 import mongoose, { Schema, model } from 'mongoose';
 
 import { BaseListings } from './Shared';
@@ -36,5 +37,7 @@ RomhacksSchema.index(
   },
 );
 
-export default mongoose.models.Romhacks ||
-  model<RomhackData>('Romhacks', RomhacksSchema);
+const Romhacks: Model<RomhackData> =
+  mongoose.models.Romhacks || model<RomhackData>('Romhacks', RomhacksSchema);
+
+export default Romhacks;
