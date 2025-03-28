@@ -1,4 +1,5 @@
 declare interface ListingData {
+  _id: string; // Set by database, will be private, internal
   id: string;
   title: string;
   description: string;
@@ -63,3 +64,12 @@ declare interface RomhackData extends ListingData {
     entries: { [version: string]: string };
   };
 }
+
+// Placeholder data for all types, to show that an item was deleted.
+declare interface DeletedEntry {
+  _id: string;
+  deleted: boolean;
+  reason?: string; // Optional for now, but later server will provide a reason.
+}
+
+declare type ListEntry<T extends ListingData> = T | DeletedEntry;
