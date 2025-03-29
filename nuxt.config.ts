@@ -32,6 +32,7 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
     '@vueuse/nuxt',
     'nuxt-auth-utils',
+    '@vee-validate/nuxt',
   ],
 
   nitro: {
