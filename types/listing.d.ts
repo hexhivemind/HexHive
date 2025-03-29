@@ -1,5 +1,5 @@
 declare interface ListingData {
-  _id: string; // Set by database, will be private, internal
+  _id?: string; // Set by database, will be private, internal
   id: string;
   title: string;
   description: string;
