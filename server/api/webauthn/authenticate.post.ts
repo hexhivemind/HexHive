@@ -26,7 +26,7 @@ export default defineWebAuthnAuthenticateEventHandler<WebAuthnCredential>({
     if (!challenge)
       throw createError({ statusCode: 400, message: 'Challenge expired' });
 
-    return challenge;
+    return challenge as string;
   },
 
   async allowCredentials(event: H3Event, userName: string) {
