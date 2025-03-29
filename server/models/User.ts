@@ -1,7 +1,7 @@
 import type { AuthenticatorTransportFuture } from '@simplewebauthn/server';
 import type { Model } from 'mongoose';
 import mongoose, { Schema, model } from 'mongoose';
-import { isEmail } from 'validator';
+import isEmail from 'validator/lib/isEmail';
 
 export interface WebAuthnCredential {
   id: string;
