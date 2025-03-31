@@ -3,6 +3,7 @@ import Users, {
   type WebAuthnUser,
 } from '~/server/models/User';
 import type { H3Event } from 'h3';
+import { webauthnValidator } from '~/utils/zod';
 
 export default defineWebAuthnRegisterEventHandler<WebAuthnUser>({
   // optional
@@ -28,16 +29,7 @@ export default defineWebAuthnRegisterEventHandler<WebAuthnUser>({
         message: 'Username not matching current session',
       });
 
-    const user = new Users({
-      email: body.userName,
-      username: body.displayName,
-    });
-    await user.validate();
-    // return User.findOne({
-    //   $or: [{ email: body.email }, { username: body.username }],
-    // });
-
-    return body;
+    return webauthnValidator.parse(body);
   },
 
   async onSuccess(
