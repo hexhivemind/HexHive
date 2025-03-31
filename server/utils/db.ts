@@ -7,7 +7,7 @@ export async function connectMongoose() {
   if (isConnected) return;
 
   try {
-    console.log('connecting to database');
+    console.log('Connecting to database');
     const isMock = process.env.NODE_ENV !== 'production';
 
     let mongoUri: string;
@@ -20,6 +20,7 @@ export async function connectMongoose() {
     }
 
     await mongoose.connect(mongoUri);
+    console.log('Connected to MongoDB');
     isConnected = true;
   } catch (err) {
     console.error('Error', err);
