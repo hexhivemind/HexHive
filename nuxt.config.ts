@@ -33,6 +33,8 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-auth-utils',
     '@vee-validate/nuxt',
+    '@nuxtjs/tailwindcss',
+    'shadcn-nuxt',
   ],
 
   nitro: {
@@ -49,6 +51,18 @@ export default defineNuxtConfig({
   robots: {
     blockAiBots: true,
     blockNonSeoBots: true,
+  },
+
+  shadcn: {
+    /**
+     * Prefix for all the imported component
+     */
+    prefix: '',
+    /**
+     * Directory that the component lives in.
+     * @default "./components/ui"
+     */
+    componentDir: './components/shadcn',
   },
 
   // See: https://nuxtseo.com/docs/sitemap/getting-started/installation
