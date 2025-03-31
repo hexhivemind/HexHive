@@ -19,7 +19,7 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2024-11-01',
 
-  css: ['~/assets/scss/fonts.scss'],
+  css: ['~/assets/scss/fonts.scss', '~/assets/css/tailwind.css'],
 
   devtools: { enabled: true },
 
