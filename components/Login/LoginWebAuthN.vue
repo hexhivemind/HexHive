@@ -1,30 +1,35 @@
-<script setup>
-  import { ref, watch } from 'vue';
-  import { useField, useForm } from 'vee-validate';
-  import { required, email } from '@vee-validate/rules';
+<script setup lang="ts">
+  import { toTypedSchema } from '@vee-validate/zod';
 
-  const { handleSubmit } = useForm();
-
-  const { value: emailField, errorMessage } = useField('email', [
-    required,
-    email,
-  ]);
-
-  const formValid = ref(false);
-
-  const checkValid = () => {
-    formValid.value = !errorMessage;
-  };
-
-  const submit = handleSubmit((values) => {
-    alert(`Form submitted with: ${JSON.stringify(values, null, 2)}`);
+  const { register, authenticate } = useWebAuthn({
+    registerEndpoint: '/api/webauthn/register', // Default
+    authenticateEndpoint: '/api/webauthn/authenticate', // Default
   });
+  const { fetch: fetchUserSession } = useUserSession();
+
+  const { handleSubmit, meta, errors } = useForm({
+    validationSchema: toTypedSchema(loginValidator('webauthn')),
+  });
+
+  const { value: email } = useField('email');
+
+  // This is registration, not login.
+  const submit = (mode: 'signup' | 'login') =>
+    handleSubmit(async (values) => {
+      // alert(`Form submitted with: ${JSON.stringify(values, null, 2)}`);
+      switch (mode) {
+        case 'signup':
+          await register({ userName: values.email }).then(fetchUserSession);
+          break;
+        case 'login':
+          await authenticate(values.email).then(fetchUserSession);
+          break;
+      }
+    })();
 
   // const switchToLogin = () => {
   //   alert('Switching to login page (implement routing logic here).');
   // };
-
-  watch(() => errorMessage, checkValid);
 </script>
 
 <template>
@@ -32,17 +37,24 @@
     <div class="content">
       <h2>Create an account</h2>
 
-      <form @submit.prevent="submit">
+      <form @submit.prevent="() => submit('signup')">
         <div class="form-group">
           <v-text-field
-            v-model="emailField"
-            :error-messages="errorMessage"
+            v-model="email"
+            :error-messages="errors.email"
             label="Email address"
             required
           />
         </div>
 
-        <v-btn type="submit" :disabled="formValid">Continue</v-btn>
+        <v-btn type="submit" :disabled="!meta.valid"> Sign-up </v-btn>
+        <v-btn
+          type="submit"
+          :disabled="!meta.valid"
+          @click="() => submit('login')"
+        >
+          Login
+        </v-btn>
 
         <!-- <div>
           Already have an account? <a href="#" @click="switchToLogin">Login</a>
