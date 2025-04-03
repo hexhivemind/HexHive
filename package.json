@@ -32,6 +32,7 @@
     "nuxt": "^3.16.2",
     "nuxt-auth-utils": "^0.5.18",
     "pinia": "^3.0.1",
+    "reka-ui": "^2.2.0",
     "shadcn-nuxt": "^2.0.0",
     "tailwind-merge": "^3.1.0",
     "tailwindcss": "^4.1.1",
@@ -75,7 +76,8 @@
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "esbuild",
-      "mongodb-memory-server"
+      "mongodb-memory-server",
+      "vue-demi"
     ]
   }
 }
