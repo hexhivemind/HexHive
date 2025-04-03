@@ -33,7 +33,7 @@
 </script>
 
 <template>
-  <div class="container">
+  <div class="login-container">
     <div class="content">
       <h2>Create an account</h2>
 
