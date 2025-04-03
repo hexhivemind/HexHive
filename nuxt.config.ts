@@ -35,7 +35,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-auth-utils',
     '@vee-validate/nuxt',
-    '@nuxtjs/tailwindcss',
     'shadcn-nuxt',
   ],
 
@@ -78,6 +77,6 @@ export default defineNuxtConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss() as never], // Type mismatch, but irrelevant I think?
   },
 });
