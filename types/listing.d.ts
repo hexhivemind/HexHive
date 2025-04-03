@@ -8,9 +8,9 @@ declare interface ListingData {
   rating?: number;
 }
 
-declare type SupportedBaseRoms = 'Fire Red' | 'Emerald'; // | 'Ruby'
-declare type SupportedBaseRomVersions = 'v1.0' | 'v1.1';
-declare type SupportedBaseRomRegions =
+declare type SupportedBaseRom = 'Fire Red' | 'Emerald'; // | 'Ruby'
+declare type SupportedBaseRomVersion = 'v1.0' | 'v1.1'; // TODO: Alias "squirrels"
+declare type SupportedBaseRomRegion =
   | 'English'
   | 'French'
   | 'German'
@@ -46,9 +46,9 @@ declare type SupportedBaseRomRegions =
 
 declare interface RomhackData extends ListingData {
   filename: string;
-  baseRom: SupportedBaseRoms;
-  baseRomVersion: SupportedBaseRomVersions;
-  baseRomRegion: SupportedBaseRomRegions;
+  baseRom: SupportedBaseRom;
+  baseRomVersion: SupportedBaseRomVersion;
+  baseRomRegion: SupportedBaseRomRegion;
   release: string; // User-defined version
   lastUpdated?: luxon.DateTime; // TODO: will come from db, won't be optional
 
@@ -63,6 +63,49 @@ declare interface RomhackData extends ListingData {
   changelog?: {
     entries: { [version: string]: string };
   };
+}
+
+// A "Hive" is like a collection/folder/repository, etc
+declare interface AssetHive extends ListingData {
+  fileSize: number;
+  fileCount: number;
+  fileList: string[];
+  targetedRoms: SupportedBaseRom[];
+}
+
+// Thoughts:
+// Sprites are broken into several categories, e.g:
+//
+// Overworld:
+//  - Pokemon (followers, overworld for land, surfing)
+//  - Trainers/NPCs (walking, running, biking, fishing, surfing, surf+fishing, vs seeker, bike+seeker)
+// Battle:
+//  - Trainer (back, front, variants of either)
+//  - Pokemon (front, back, shinies of both, animated if Emerald)
+//  - Attack particle effects
+//
+
+declare type SpriteType = 'Overworld' | 'Battle';
+
+declare interface SpritesData {
+  category: string; // Overworld (OW), Trainer, Battle Sprite, Pokemon, etc
+}
+
+/*
+ * Scripts
+ */
+declare interface ScriptsData {
+  // Only scripts care about v1.0 vs v1.1
+  targetedVersions: SupportedBaseRomVersion[];
+}
+
+/*
+ * SOUND
+ */
+declare type SoundCategory = 'Cry' | 'Jingle' | 'SFX' | 'Song';
+
+declare interface SoundData {
+  category: SoundCategory;
 }
 
 // Placeholder data for all types, to show that an item was deleted.
