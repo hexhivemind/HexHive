@@ -16,6 +16,7 @@
     <v-app-bar-title>HexHive</v-app-bar-title>
 
     <template #append>
+      <LoginModal />
       <v-btn icon="mdi-magnify" />
       <v-btn icon="mdi-dots-vertical" />
     </template>
