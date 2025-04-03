@@ -1,4 +1,8 @@
 <script setup lang="ts">
+  definePageMeta({
+    name: 'Login',
+  });
+
   const mode = ref('WebAuthN');
 </script>
 

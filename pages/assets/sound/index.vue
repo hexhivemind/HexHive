@@ -4,11 +4,11 @@
 
 <script lang="ts" setup>
   definePageMeta({
-    name: 'Music',
+    name: 'Sound',
     layout: 'listings',
     key: (route) => route.fullPath,
   });
 
   const title = useState('title');
-  title.value = 'Music';
+  title.value = 'Sound';
 </script>

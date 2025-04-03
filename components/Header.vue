@@ -84,7 +84,7 @@
   const routeIcons: Record<string, string> = {
     assets: 'mdi-multimedia',
     home: 'mdi-home',
-    music: 'mdi-music',
+    sound: 'mdi-music',
     romhacks: 'mdi-nintendo-game-boy',
     scripts: 'mdi-code-json',
     sprites: 'mdi-pokeball',

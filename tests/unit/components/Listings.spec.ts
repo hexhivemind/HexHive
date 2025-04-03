@@ -24,8 +24,8 @@ describe('Listings.vue', () => {
 
   it('displays breadcrumbs based on the route', async () => {
     const mockRoute = {
-      path: '/assets/music',
-      matched: [{ path: '/assets' }, { path: '/assets/music' }],
+      path: '/assets/sound',
+      matched: [{ path: '/assets' }, { path: '/assets/sound' }],
     };
 
     const wrapper = mount(Listings, {
