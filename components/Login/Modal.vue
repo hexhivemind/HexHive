@@ -4,7 +4,7 @@
       <v-btn v-if="loggedIn" v-bind="props" text="Login" />
       <template v-else>
         <!-- Logout or Dropdown User Menu including Logout -->
-        <UserMenu />
+        <LoginUserMenu />
       </template>
     </template>
 
@@ -17,8 +17,6 @@
 </template>
 
 <script lang="ts" setup>
-  import LoginWebAuthN from './LoginWebAuthN.vue';
-
   const { loggedIn } = useUserSession();
 </script>
 
