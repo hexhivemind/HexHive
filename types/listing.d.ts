@@ -85,10 +85,57 @@ declare interface AssetHive extends ListingData {
 //  - Attack particle effects
 //
 
-declare type SpriteType = 'Overworld' | 'Battle';
+type HumanMovement =
+  | 'Walk'
+  | 'Run'
+  | 'Bike'
+  | 'Swim'
+  | 'Surf'
+  | 'Fish'
+  | 'Dive'
+  | 'Vs Seeker'
+  | 'Bike Seeker'
+  | 'Surf Fish';
 
-declare interface SpritesData {
+type SpriteVariant = {
+  Overworld: {
+    Pokemon: { variant: 'Follower' | 'Land' | 'Surfing' };
+    NPC: { variant: HumanMovement };
+    Player: { variant: HumanMovement };
+  };
+  Battle: {
+    Trainer: { variant: 'Back' | 'Front' };
+    Pokemon: { variant: 'Front' | 'Back' };
+    Attack: { variant: undefined };
+  };
+};
+
+// Acceptable values for the `variant` field
+type SpriteVariantValue<V> =
+  | V
+  | V[]
+  | {
+      default?: V[];
+      shiny?: V[];
+      animated?: V[];
+      animatedShiny?: V[];
+    };
+
+// Discriminated union: every valid type/subtype combo with resolved variant typing
+type SpriteUnionType = {
+  [T in keyof SpriteVariant]: {
+    [S in keyof SpriteVariant[T]]: {
+      type: T;
+      subtype: S;
+      variant: SpriteVariantValue<SpriteVariant[T][S]['variant']>;
+    };
+  }[keyof SpriteVariant[T]];
+}[keyof SpriteVariant];
+
+// Final interface: spriteKind resolves correctly based on type + subtype
+declare interface SpritesData extends AssetHive {
   category: string; // Overworld (OW), Trainer, Battle Sprite, Pokemon, etc
+  spriteKind: SpriteUnionType;
 }
 
 /*
