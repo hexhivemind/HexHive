@@ -73,41 +73,120 @@ declare interface AssetHive extends ListingData {
   targetedRoms: SupportedBaseRom[];
 }
 
-// Thoughts:
-// Sprites are broken into several categories, e.g:
-//
-// Overworld:
-//  - Pokemon (followers, overworld for land, surfing)
-//  - Trainers/NPCs (walking, running, biking, fishing, surfing, surf+fishing, vs seeker, bike+seeker)
-// Battle:
-//  - Trainer (back, front, variants of either)
-//  - Pokemon (front, back, shinies of both, animated if Emerald)
-//  - Attack particle effects
-//
-
 type HumanMovement =
-  | 'Walk'
-  | 'Run'
-  | 'Bike'
-  | 'Swim'
-  | 'Surf'
-  | 'Fish'
+  | 'Biking'
   | 'Dive'
+  | 'Fishing'
+  | 'Fishing (Surfing)'
+  | 'Running'
+  | 'Surfing'
+  | 'Swimming'
   | 'Vs Seeker'
-  | 'Bike Seeker'
-  | 'Surf Fish';
+  | 'Vs Seeker (Biking)'
+  | 'Walking';
+// | string? or misc/other?
+
+// TODO: Name more later, or make it a string
+type EnvironmentVariant =
+  | 'Building'
+  | 'Cave'
+  | 'Forest'
+  | 'Grass'
+  | 'Gym/League'
+  | 'Indoors'
+  | 'Jungle'
+  | 'Lab'
+  | 'Link Room'
+  | 'Sky'
+  | 'Tundra'
+  | 'Underwater'
+  | 'Volcanic'
+  | 'Water (Surface)'
+  | string;
+
+type UserDefined = {
+  variant: string;
+};
 
 type SpriteVariant = {
+  Battle: {
+    Attack: { variant: undefined };
+    Background: {
+      variant: EnvironmentVariant;
+    };
+    Pokeball: { variant: string }; // TODO: Define list of Pokeballs, ending with | string
+    Pokemon: { variant: 'Back' | 'Front' };
+    Trainer: { variant: 'Back' | 'Front' };
+    Other: UserDefined;
+  };
+
+  Environment: {
+    // Interactable (such as HM Trees)
+    Object: { variant: 'HM' | 'Item' };
+
+    // Vignette that shows before certain POIs:
+    Preview: {
+      variant: EnvironmentVariant;
+    };
+
+    // Map tiles (ground, buildings, trees, etc)
+    Tiles: {
+      variant: EnvironmentVariant;
+    };
+
+    Other: UserDefined;
+  };
+
+  Menu: {
+    // Items always look the same in every use
+    Item: { variant: undefined };
+
+    // Do we track for Emote variants in Dialogue?
+    Mugshots: { variant: 'Battle' | 'Dialogue' };
+
+    // Unsure where these are used, or if they're the same sprite
+    // These should appear when starting a game (+ one for the rival)
+    // These also appear when looking at your Trainer Card, or the Hall of Fame
+    Player: { variant: 'New Game' | 'Trainer Card' };
+
+    // Party/Box sprite
+    // Is this variant even necessary?
+    Pokemon: { variant: 'Animated' | 'Static' };
+
+    Other: UserDefined;
+  };
+
   Overworld: {
-    Pokemon: { variant: 'Follower' | 'Land' | 'Surfing' };
     NPC: { variant: HumanMovement };
     Player: { variant: HumanMovement };
+    Pokemon: { variant: 'Follower' | 'Land' | 'Surfing' };
+    Other: UserDefined;
   };
-  Battle: {
-    Trainer: { variant: 'Back' | 'Front' };
-    Pokemon: { variant: 'Front' | 'Back' };
-    Attack: { variant: undefined };
+
+  UI: {
+    Bag: { variant: 'Female' | 'Male' };
+    Box: { variant: string };
+    Case: { variant: 'Berry' | 'PokeBlock' | 'TM' | string };
+    Custom: { variant: string }; // e.g. unown dex
+    Menu: {
+      variant:
+        | 'EV-IV'
+        | 'Moves'
+        | 'Learner'
+        | 'Party'
+        | 'PC'
+        | 'Shop'
+        | 'Stats'
+        | 'Style'
+        | string;
+    };
+    Pokedex: { variant: string };
+    PokeNav: { variant: string }; // Not supported in vanilla
+    'Town Map': { variant: 'Cosmetic' | 'Mainland' | 'Sevii' | string };
   };
+
+  // TODO: Do we want User-Defined categories, too?
+  //Other: UserDefined;
 };
 
 // Acceptable values for the `variant` field
@@ -115,10 +194,10 @@ type SpriteVariantValue<V> =
   | V
   | V[]
   | {
-      default?: V[];
-      shiny?: V[];
       animated?: V[];
       animatedShiny?: V[];
+      default?: V[];
+      shiny?: V[];
     };
 
 // Discriminated union: every valid type/subtype combo with resolved variant typing
@@ -134,8 +213,10 @@ type SpriteUnionType = {
 
 // Final interface: spriteKind resolves correctly based on type + subtype
 declare interface SpritesData extends AssetHive {
-  category: string; // Overworld (OW), Trainer, Battle Sprite, Pokemon, etc
-  spriteKind: SpriteUnionType;
+  category:
+    | SpriteUnionType
+    | SpriteUnionType[]
+    | { [key: string]: SpriteUnionType };
 }
 
 /*
