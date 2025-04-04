@@ -1,10 +1,10 @@
 declare interface ListingData {
   _id?: string; // Set by database, will be private, internal
-  id: string;
+  id: string; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
   title: string;
   description: string;
   author: string;
-  slug?: string;
+  slug?: string; // User set id for route navigation, unique.
   rating?: number;
 }
 
@@ -232,7 +232,7 @@ declare interface ScriptsData {
  */
 declare type SoundCategory = 'Cry' | 'Jingle' | 'SFX' | 'Song';
 
-declare interface SoundData {
+declare interface SoundData extends AssetHive {
   category: SoundCategory;
 }
 
