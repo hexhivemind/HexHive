@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { toTypedSchema } from '@vee-validate/zod';
+  import { loginValidator } from '~/shared/zod';
 
   const { register, authenticate } = useWebAuthn({
     registerEndpoint: '/api/webauthn/register', // Default

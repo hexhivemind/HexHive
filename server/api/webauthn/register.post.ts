@@ -3,7 +3,7 @@ import Users, {
   type WebAuthnUser,
 } from '~/server/models/User';
 import type { H3Event } from 'h3';
-import { webauthnValidator } from '~/utils/zod';
+import { webauthnValidator } from '~/shared/zod';
 
 export default defineWebAuthnRegisterEventHandler<WebAuthnUser>({
   // optional
