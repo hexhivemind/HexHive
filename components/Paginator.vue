@@ -148,31 +148,6 @@
     style: undefined,
   });
 
-  // const props = withDefaults(defineProps<VPagination['$props']>(), {
-  //   ariaLabel: '$vuetify.pagination.ariaLabel.root',
-  //   border: false,
-  //   currentPageAriaLabel: '$vuetify.pagination.ariaLabel.currentPage',
-  //   density: 'default',
-  //   disabled: false,
-  //   ellipsis: '...',
-  //   firstAriaLabel: '$vuetify.pagination.ariaLabel.first',
-  //   firstIcon: '$first',
-  //   lastAriaLabel: '$vuetify.pagination.ariaLabel.last',
-  //   lastIcon: '$last',
-  //   length: 1,
-  //   nextAriaLabel: '$vuetify.pagination.ariaLabel.next',
-  //   nextIcon: '$next',
-  //   pageAriaLabel: '$vuetify.pagination.ariaLabel.page',
-  //   prevIcon: '$prev',
-  //   previousAriaLabel: '$vuetify.pagination.ariaLabel.previous',
-  //   showFirstLastPage: false,
-  //   size: 'default',
-  //   start: 1,
-  //   tag: 'nav',
-  //   tile: false,
-  //   variant: 'text',
-  // });
-
   const page = defineModel<number>({ default: 1 });
 
   type PaginationEmits = 'first' | 'last' | 'next' | 'prev';
