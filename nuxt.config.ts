@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     'nuxt-auth-utils',
     '@vee-validate/nuxt',
     'shadcn-nuxt',
+    './modules/runtime-types.codegen.ts',
   ],
 
   nitro: {
