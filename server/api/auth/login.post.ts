@@ -1,8 +1,10 @@
 import Users from '~/server/models/User';
 
 export default defineEventHandler(async (event) => {
-  const { email, password } = await readBody(event);
-  const user = await Users.findOne({ email });
+  const { identity, password } = await readBody(event);
+  const user = await Users.findOne({
+    $or: [{ email: identity }, { username: identity }],
+  });
   if (!user || !(await verifyPassword(password, user.password))) {
     throw createError({ statusCode: 401, message: 'Invalid credentials' });
   }
