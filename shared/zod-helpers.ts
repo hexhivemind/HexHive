@@ -1,5 +1,12 @@
-import { z } from 'zod';
-import { runtimeTypes } from '~/types/runtimeTypes.generated';
+export const email = z
+  .string()
+  .min(1, { message: 'Email is required' })
+  .email({ message: 'Must be a valid email' });
+
+export const username = z.string().min(3, 'Username is required');
+
+// TODO: Decide minimum password length.
+export const password = z.string().min(3, { message: 'Password is too short' });
 
 export const emailOrUsername = z
   .string()

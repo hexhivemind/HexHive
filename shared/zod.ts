@@ -1,32 +1,31 @@
-import { z } from 'zod';
 import {
   baseRom,
   baseRomRegion,
   baseRomVersion,
+  email,
   emailOrUsername,
+  password,
   SpriteEntrySchema,
-} from './zod-helpers';
-import { runtimeTypes } from '~/types/runtimeTypes.generated';
-
-const email = z
-  .string()
-  .min(1, { message: 'Email is required' })
-  .email({ message: 'Must be a valid email' });
-
-const username = z.string().optional();
-
-const password = z.string().min(3, { message: 'Password is too short' });
-
-const passwordSchema = z.object({
-  identity: emailOrUsername,
   username,
+} from './zod-helpers';
+
+/* -------Front-end-----------*/
+export const passwordSchema = z.object({
+  identity: emailOrUsername,
   password,
 });
-const webauthnSchema = z.object({ email, username });
+export const webauthnSchema = z.object({ identity: emailOrUsername });
 
+/* --------Back-end-----------*/
+// Used for signup.
 export const webauthnValidator = z.object({
   userName: email,
   displayName: username,
+});
+
+export const passwordValidator = passwordSchema.extend({
+  identity: email,
+  username,
 });
 
 export function loginValidator(mode: 'password'): typeof passwordSchema;
@@ -137,12 +136,3 @@ export const ScriptsDataSchema = AssetHiveSchema.extend({
 export const SoundData = AssetHiveSchema.extend({
   category: z.enum(runtimeTypes.SoundCategory),
 });
-
-/*
-ChatGPT to do later:
-Narrow type/subtype to known values
-
-Allow only certain variant formats for specific subtype combos
-
-Or build .refine() logic (e.g. “if type is 'Battle', subtype must be one of...”)
-*/
