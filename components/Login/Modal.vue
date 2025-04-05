@@ -13,8 +13,8 @@
     </template>
 
     <template #default="{ isActive }">
-      <v-card>
-        <LoginWebAuthN v-if="isActive" />
+      <v-card class="w-fit place-self-center">
+        <LoginForm v-if="isActive" />
       </v-card>
     </template>
   </v-dialog>
