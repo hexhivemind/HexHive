@@ -30,7 +30,10 @@ export default defineWebAuthnAuthenticateEventHandler<WebAuthnCredential>({
   },
 
   async allowCredentials(event: H3Event, userName: string) {
-    const user = await Users.findOne({ email: userName });
+    // const user = await Users.findOne({ email: userName });
+    const user = await Users.findOne({
+      $or: [{ email: userName }, { username: userName }],
+    });
 
     if (!user || !user.credentials?.length)
       throw createError({
