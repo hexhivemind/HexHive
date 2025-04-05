@@ -25,6 +25,24 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
+  imports: {
+    dirs: ['~/shared/zod'],
+    presets: [
+      {
+        from: 'zod',
+        imports: [{ name: 'z' }],
+      },
+      {
+        from: '@vee-validate/zod',
+        imports: [{ name: 'toTypedSchema' }],
+      },
+      {
+        from: '~/types/runtimeTypes.generated',
+        imports: [{ name: 'runtimeTypes' }],
+      },
+    ],
+  },
+
   modules: [
     '@nuxt/eslint',
     'vuetify-nuxt-module',
@@ -42,6 +60,19 @@ export default defineNuxtConfig({
   nitro: {
     experimental: {
       websocket: true,
+    },
+    imports: {
+      dirs: ['~/shared/zod'],
+      presets: [
+        {
+          from: 'zod',
+          imports: [{ name: 'z' }],
+        },
+        {
+          from: '~/types/runtimeTypes.generated',
+          imports: [{ name: 'runtimeTypes' }],
+        },
+      ],
     },
   },
 
@@ -64,7 +95,7 @@ export default defineNuxtConfig({
      * Directory that the component lives in.
      * @default "./components/ui"
      */
-    componentDir: './components/shadcn',
+    componentDir: './components/ui',
   },
 
   // See: https://nuxtseo.com/docs/sitemap/getting-started/installation
