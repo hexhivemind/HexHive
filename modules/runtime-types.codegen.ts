@@ -1,4 +1,12 @@
-import { type Type, Project } from 'ts-morph';
+import {
+  type StringLiteral,
+  type TypeNode,
+  type LiteralTypeNode,
+  type Type,
+  Project,
+  SyntaxKind,
+} from 'ts-morph';
+
 import path from 'path';
 import fs from 'fs';
 import { defineNuxtModule } from '@nuxt/kit';
@@ -23,8 +31,34 @@ async function generateRuntimeTypes(rootDir: string) {
   const isLiteralUnion = (type: Type): boolean =>
     type.isUnion() && type.getUnionTypes().every((t) => t.isStringLiteral());
 
+  const isExtractableLiteralUnionNode = (node: TypeNode): boolean =>
+    node.getKind() === SyntaxKind.UnionType &&
+    node
+      .asKindOrThrow(SyntaxKind.UnionType)
+      .getTypeNodes()
+      .some(
+        (n) =>
+          n.getKind() === SyntaxKind.LiteralType &&
+          (n as LiteralTypeNode).getLiteral().getKind() ===
+            SyntaxKind.StringLiteral,
+      );
+
   const extractUnionLiterals = (type: Type): string[] =>
     type.getUnionTypes().map((t) => t.getLiteralValue() as string);
+
+  const extractStringLiteralsFromNode = (node: TypeNode): string[] =>
+    node
+      .asKindOrThrow(SyntaxKind.UnionType)
+      .getTypeNodes()
+      .filter(
+        (n) =>
+          n.getKind() === SyntaxKind.LiteralType &&
+          (n as LiteralTypeNode).getLiteral().getKind() ===
+            SyntaxKind.StringLiteral,
+      )
+      .map((n) =>
+        ((n as LiteralTypeNode).getLiteral() as StringLiteral).getLiteralText(),
+      );
 
   const extractVariantType = (type: Type) => {
     if (type.isUndefined()) return undefined;
@@ -64,11 +98,16 @@ async function generateRuntimeTypes(rootDir: string) {
     sourceFile.getTypeAliases().forEach((alias) => {
       const name = alias.getName();
       const type = alias.getType();
+      const typeNode = alias.getTypeNodeOrThrow();
 
       if (name === 'SpriteVariant') {
         runtimeTypes[name] = processSpriteVariantType(type);
       } else if (isLiteralUnion(type)) {
         runtimeTypes[name] = extractUnionLiterals(type);
+        // } else if (isExtractableLiteralUnion(type)) {
+        //   runtimeTypes[name] = extractExtractableUnionLiterals(type);
+      } else if (isExtractableLiteralUnionNode(typeNode)) {
+        runtimeTypes[name] = extractStringLiteralsFromNode(typeNode);
       }
     });
 
@@ -83,6 +122,7 @@ async function generateRuntimeTypes(rootDir: string) {
           'AssetHive',
           'SpritesData',
           'SoundData',
+          'ScriptsData',
         ].includes(name)
       )
         return;
