@@ -25,15 +25,19 @@
 
   const menu = [
     {
+      label: 'Profile',
+      action: undefined, // Navigate to Profile ?
+    },
+    {
+      label: 'My Data Hives',
+      action: undefined, // User's assets/hacks
+    },
+    {
       label: 'Account Settings',
       action: undefined, // Navigate to Account Settings
       // action: () => navigateTo({
       //   path: '/account'
       // })
-    },
-    {
-      label: 'Profile',
-      action: undefined, // Navigate to Profile ?
     },
     {
       label: 'Logout',
