@@ -114,10 +114,10 @@ type HumanMovement =
 
 type SpriteVariant = {
   Battle: {
-    Attack: { variant: undefined };
     Background: {
       variant: EnvironmentVariant;
     };
+    Move: { variant: undefined };
     Other: UserDefined;
     Pokeball: { variant: string }; // TODO: Define list of Pokeballs, ending with | string
     Pokemon: { variant: 'Back' | 'Front' };
@@ -257,11 +257,11 @@ declare type ScriptCategory =
 
 declare type ScriptFeature =
   | 'Ability'
-  | 'Attack'
   | 'Cutscene'
   | 'Engine'
   | 'Gift'
   | 'Map'
+  | 'Move'
   | 'Miscellaneous'
   | 'NPC'
   | 'Shop'
@@ -289,7 +289,12 @@ declare interface ScriptsData {
 /*
  * SOUND
  */
-declare type SoundCategory = 'Attack' | 'Cry' | 'Jingle' | 'SFX' | 'Song';
+declare type SoundCategory =
+  | 'Cry'
+  | 'Jingle'
+  | 'Move (Attack)'
+  | 'SFX'
+  | 'Song';
 
 declare interface SoundData extends AssetHive {
   category: SoundCategory;
