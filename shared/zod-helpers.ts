@@ -3,10 +3,29 @@ export const email = z
   .min(1, { message: 'Email is required' })
   .email({ message: 'Must be a valid email' });
 
-export const username = z.string().min(3, 'Username is required');
+export const username = z
+  .string()
+  .min(3, 'Username is required')
+  .regex(/^[^\s]+$/, { message: 'Username cannot contain spaces' })
+  .regex(/^[^@]+$/, { message: "Username cannot contain '@'" })
+  .regex(/^[a-zA-Z0-9_\-+]+$/, {
+    message:
+      'Username can only contain letters, numbers, underscores, dashes, and pluses',
+  });
 
-// TODO: Decide minimum password length.
-export const password = z.string().min(8, { message: 'Password is too short' });
+export const password = z
+  .string()
+  .min(8, { message: 'Password is too short' })
+  .regex(/[a-z]/, {
+    message: 'Password must contain at least one lowercase letter',
+  })
+  .regex(/[A-Z]/, {
+    message: 'Password must contain at least one uppercase letter',
+  })
+  .regex(/[0-9]/, { message: 'Password must contain at least one number' })
+  .regex(/[^a-zA-Z0-9]/, {
+    message: 'Password must contain at least one special character',
+  });
 
 export const emailOrUsername = z
   .string()
