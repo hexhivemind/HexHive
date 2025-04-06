@@ -114,14 +114,14 @@ type HumanMovement =
 
 type SpriteVariant = {
   Battle: {
+    Attack: { variant: undefined };
     Background: {
       variant: EnvironmentVariant;
     };
-    Move: { variant: undefined };
     Other: UserDefined;
-    Pokeball: { variant: string }; // TODO: Define list of Pokeballs, ending with | string
+    Pokeball: { variant: string };
     Pokemon: { variant: 'Back' | 'Front' };
-    Trainer: { variant: 'Back' | 'Front' };
+    Trainer: { variant: 'Back' | 'Front' }; // Back should include pokeball throwing animation
   };
 
   Environment: {
@@ -190,11 +190,14 @@ type SpriteVariant = {
     Custom: { variant: string }; // e.g. unown dex
     Menu: {
       variant:
+        | 'Attacks'
+        | 'Certificate'
         | 'EV-IV'
-        | 'Moves'
+        | 'Hall of Fame'
         | 'Learner'
+        | 'Mail'
         | 'Party'
-        | 'PC'
+        | 'PC Box'
         | 'Shop'
         | 'Stats'
         | 'Style'
@@ -202,7 +205,7 @@ type SpriteVariant = {
     };
     Pokedex: { variant: string };
     PokeNav: { variant: string }; // Not supported in vanilla
-    'Town Map': { variant: 'Cosmetic' | 'Mainland' | 'Sevii' | string };
+    'Town Map': { variant: 'Borders' | 'Mainland' | 'Sevii' | string };
   };
 
   // TODO: Do we want User-Defined categories, too?
@@ -246,7 +249,42 @@ declare interface SpritesData extends AssetHive {
 /*
  * Scripts
  */
+
 declare type ScriptCategory =
+  | 'Data Scraping' // e.g. pull data for PokemonShowdown, Excel, etc
+  | 'Engine Upgrade' // e.g. Improved Battle AI
+  | 'Feature'
+  | 'Rombase' // e.g. Leon's Rombase, a Johto starter pack, etc
+  | string;
+
+// Can this be dependent on ScriptCategory = ['Feature' | string] ?
+declare type ScriptFeature =
+  | 'Ability'
+  | 'Attack'
+  | 'Cutscene'
+  | 'Engine'
+  | 'Gift'
+  | 'Map Event'
+  | 'Miscellaneous'
+  | 'NPC'
+  | 'Shop'
+  | 'Trainer'
+  | 'Tutor'
+  | string;
+
+declare type ScriptPrerequisite =
+  | '32MB'
+  | 'CFRU'
+  | 'CFRU-Expansion' // By Shiny-Miner
+  | 'DPE'
+  | 'HUBOL'
+  | 'JPAN'
+  | 'Leon'
+  | 'Physical/Special Split (PSS)'
+  | 'Shinyzer'
+  | string;
+
+declare type ScriptTool =
   | 'AdvanceMap'
   | 'C-Injection'
   | 'HexManiacAdvance'
@@ -255,46 +293,17 @@ declare type ScriptCategory =
   | 'Python'
   | string;
 
-declare type ScriptFeature =
-  | 'Ability'
-  | 'Cutscene'
-  | 'Engine'
-  | 'Gift'
-  | 'Map'
-  | 'Move'
-  | 'Miscellaneous'
-  | 'NPC'
-  | 'Shop'
-  | 'Tutor'
-  | string;
-
-declare type ScriptPrerequisite =
-  | '32MB'
-  | 'CFRU'
-  | 'CFRU-EX' // By Shiny-Miner
-  | 'DPE'
-  | 'HUBOL'
-  | 'JPAN'
-  | 'Leon'
-  | 'Shinyzer'
-  | string;
-
 declare interface ScriptsData {
-  categories: ScriptsCategory[];
-  features: ScriptsFeature[];
+  features: ScriptFeature[];
   prerequisites?: ScriptPrerequisite[];
   targetedVersions: SupportedBaseRomVersion[]; // Only scripts care about v1.0 vs v1.1
+  tools: ScriptTool[];
 }
 
 /*
  * SOUND
  */
-declare type SoundCategory =
-  | 'Cry'
-  | 'Jingle'
-  | 'Move (Attack)'
-  | 'SFX'
-  | 'Song';
+declare type SoundCategory = 'Attack' | 'Cry' | 'Jingle' | 'SFX' | 'Song';
 
 declare interface SoundData extends AssetHive {
   category: SoundCategory;
