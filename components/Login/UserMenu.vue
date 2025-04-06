@@ -26,7 +26,10 @@
   const menu = [
     {
       label: 'Profile',
-      action: undefined, // Navigate to Profile ?
+      action: () =>
+        navigateTo({
+          path: `/profile/${user.value?.username}`,
+        }),
     },
     {
       label: 'My Data Hives',
