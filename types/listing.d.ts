@@ -50,13 +50,67 @@ declare type SupportedBaseRomVersion = 'v1.0' | 'v1.1'; // TODO: Alias "squirrel
 //  - Spain v1, v1.1
 //  - US/EUR v1, v1.1
 
+type RomhackState =
+  | 'Abandoned'
+  | 'Actively Updated'
+  | 'Alpha'
+  | 'Beta'
+  | 'Buggy'
+  | 'Concept'
+  | 'Demo'
+  | 'Finished'
+  | 'Playable (Completable)'
+  | 'Playable (WIP)'
+  | 'Under Development';
+
+type RomhackCategory =
+  | 'Balanced'
+  | 'Battle Overhaul' // e.g. Crown
+  | 'Bugfix'
+  | 'Competitive'
+  | 'Completeable Dex' // e.g. "386" hacks
+  | 'Custom Types' // e.g. Sound Type, Wood Type, etc
+  | 'Demake' // e.g. Light Platinum
+  | 'Demo'
+  | 'Difficulty'
+  | 'Expanded Dex'
+  | 'Fakemons'
+  | 'Game Jam'
+  | 'Gen 1 mechanics' // Old battle engine quirks
+  | 'Gen 2 mechanics' // Old battle engine quirks
+  | 'Gen 3 mechanics' // Vanilla battle mechanics
+  | 'Gen 4 mechanics' // e.g. Physical/Special Split (PSS)
+  | 'Gen 5 mechanics'
+  | 'Gen 6 mechanics' // e.g. Mega Evolutions
+  | 'Gen 7 mechanics' // e.g. Z-Moves
+  | 'Gen 8 mechanics' // e.g. Dynamax/Gigantamax
+  | 'Gen 9 mechanics' // e.g. Terastalization
+  | 'Graphics'
+  | 'Humor' // e.g. Celia's Stupid Romhack, Clover, etc
+  | 'MAGM' // Anythroyd's Make a Great Map semi-annual competition
+  | 'Moderniziation' // Ranges between CFRU and improvements for old hacks like FRO
+  | 'Nuzlocke Mode' // Built-in Nuzlocke mechanics
+  | 'Puzzle'
+  | 'Region Conversion' // e.g. Liquid Crystal
+  | 'QoL'
+  | 'Story'
+  | 'Type Changes' // e.g. Fairy Type
+  | 'Typechart Changes' // e.g. Water is now weak to Poison
+  | 'Unbalanced'
+  | 'Unique Mechanics' // e.g. Emerald Rogue, The Pit, etc
+  | 'Unofficial Continuation' // e.g. Hacks of Drayano titles, etc
+  | 'Vanilla+'
+  | string;
+
 declare interface RomhackData extends ListingData {
   // Required:
   baseRom: SupportedBaseRom;
   baseRomRegion: SupportedBaseRomRegion;
   baseRomVersion: SupportedBaseRomVersion;
+  categories: RomhackCategory[];
   filename: string;
   release: string; // User-defined version
+  states: RomhackState[];
 
   // Optional:
   boxart?: string[];

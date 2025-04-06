@@ -9,12 +9,20 @@
 
   const data: RomhackData = {
     author: 'Jordank',
+    categories: [
+      'Bugfix',
+      'Competitive',
+      'Difficulty',
+      'Modernization',
+      'Vanilla+',
+    ],
     description: "A continuation hack of Drayano's Fire Red Omega",
     id: route.params.id as string,
     filename: 'FRO++.gba',
     permissions: ['Credit'],
     release: 'v4.9',
     releaseDate: DateTime.local(2024, 12), //'December 2024',
+    states: ['Actively Updated', 'Playable (Completable)', 'Under Development'],
     title: 'Fire Red Omega++',
 
     // 1636 Pokemon Fire Red (U)(Squirrels)
