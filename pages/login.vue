@@ -1,5 +1,6 @@
 <script setup lang="ts">
   definePageMeta({
+    isNavigable: false,
     name: 'Login',
   });
 

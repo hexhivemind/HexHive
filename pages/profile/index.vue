@@ -4,9 +4,10 @@
 
 <script lang="ts" setup>
   definePageMeta({
-    name: 'Profile',
-    // layout: '',
+    isNavigable: false,
     key: (route) => route.fullPath,
+    // layout: '',
+    name: 'Profile',
   });
 
   const title = useState('title');

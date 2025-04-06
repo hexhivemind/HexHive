@@ -121,9 +121,7 @@
 
   const routes = router.getRoutes();
   const routeMap = new Map<string, RouteRecordNormalized>(
-    routes
-      .filter((r) => !['Login', 'Profile'].includes(r.name as string))
-      .map((r) => [r.path, r]),
+    routes.filter((r) => r.meta.isNavigable !== false).map((r) => [r.path, r]),
   );
 
   interface NavItem {
