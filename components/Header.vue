@@ -171,6 +171,10 @@
   onMounted(() => {
     nextTick(() => {
       // Optionally, search items for any groups and add them all to opened below.
+      // opened.value = items.reduce((groups, item) => {
+      //   if (item.children) groups.push(item.title?.toString() || '');})
+      //   return groups;
+      // }, [] as string[])
       opened.value = ['Assets'];
     });
   });
