@@ -8,6 +8,10 @@
   });
   const { fetch: fetchUserSession } = useUserSession();
 
+  const emit = defineEmits<{
+    (e: 'submit'): void;
+  }>();
+
   const submit = async (values: unknown) => {
     if (authType.value === 'webauthn') {
       const { identity, username } = values as {
@@ -46,7 +50,7 @@
         console.error('Auth error', error.value?.data?.message || error.value);
       }
     }
-    // TODO: Navigate to home or previous page.
+    emit('submit');
   };
 
   const identity = ref<string>('');

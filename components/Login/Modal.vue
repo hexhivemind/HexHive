@@ -14,7 +14,7 @@
 
     <template #default="{ isActive }">
       <v-card class="w-fit place-self-center">
-        <LoginForm v-if="isActive" />
+        <LoginForm v-if="isActive" @submit="isActive.value = false" />
       </v-card>
     </template>
   </v-dialog>

@@ -2,8 +2,14 @@
   definePageMeta({
     name: 'Login',
   });
+
+  const handleSubmit = () => {
+    navigateTo({
+      path: '/',
+    });
+  };
 </script>
 
 <template>
-  <LoginForm />
+  <LoginForm @submit="handleSubmit" />
 </template>
