@@ -6,7 +6,7 @@ export const email = z
 export const username = z.string().min(3, 'Username is required');
 
 // TODO: Decide minimum password length.
-export const password = z.string().min(3, { message: 'Password is too short' });
+export const password = z.string().min(8, { message: 'Password is too short' });
 
 export const emailOrUsername = z
   .string()
