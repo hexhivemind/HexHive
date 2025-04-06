@@ -19,23 +19,7 @@ export default defineWebAuthnRegisterEventHandler<WebAuthnUser>({
     > &
       UserSession;
 
-    // Step 2: Validate session user still exists
-    if (session?.user?.id) {
-      const validSessionUser = await Users.findById(session.user.id);
-
-      if (!validSessionUser) {
-        console.warn(
-          '[auth] Session user no longer exists in DB — clearing session',
-        );
-        await clearUserSession(event);
-        throw createError({
-          statusCode: 401,
-          message: 'Session is invalid. Please log in again.',
-        });
-      }
-    }
-
-    // Step 3: Use validated input for DB check
+    // Step 2: Use validated input for DB check
     const existingUser = await Users.findOne({
       $or: [{ email: parsed.userName }, { username: parsed.displayName }],
     });
