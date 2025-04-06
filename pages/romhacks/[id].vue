@@ -12,7 +12,7 @@
     description: "A continuation hack of Drayano's Fire Red Omega",
     id: route.params.id as string,
     filename: 'FRO++.gba',
-    permissions: 'Credit',
+    permissions: ['Credit'],
     release: 'v4.9',
     releaseDate: DateTime.local(2024, 12), //'December 2024',
     title: 'Fire Red Omega++',

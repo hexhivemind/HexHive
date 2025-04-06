@@ -1,15 +1,11 @@
-declare type AssetPermissions =
-  | 'Credit'
-  | 'Free'
-  | 'No-Donations'
-  | 'No-Profit';
+declare type AssetPermission = 'Credit' | 'Free' | 'No-Donations' | 'No-Profit';
 
 declare interface ListingData {
   // Required:
   author: string;
   description: string;
   id: string; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
-  permissions: AssetPermissions;
+  permissions: AssetPermission[];
   title: string;
 
   // Optional:
@@ -242,7 +238,7 @@ declare type ScriptsCategory =
   | 'Python'
   | string;
 
-declare type ScriptsFeatures =
+declare type ScriptsFeature =
   | 'Ability'
   | 'Attack'
   | 'Engine'
@@ -254,7 +250,7 @@ declare type ScriptsFeatures =
   | 'Tutor'
   | string;
 
-declare type ScriptPrerequisites =
+declare type ScriptPrerequisite =
   | '32MB'
   | 'CFRU'
   | 'CFRU-EX' // By Shiny-Miner
@@ -267,8 +263,8 @@ declare type ScriptPrerequisites =
 
 declare interface ScriptsData {
   categories: ScriptsCategory[];
-  features: ScriptsFeatures[];
-  prerequisites?: ScriptPrerequisites[];
+  features: ScriptsFeature[];
+  prerequisites?: ScriptPrerequisite[];
   targetedVersions: SupportedBaseRomVersion[]; // Only scripts care about v1.0 vs v1.1
 }
 
