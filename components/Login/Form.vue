@@ -12,50 +12,78 @@
     (e: 'submit'): void;
   }>();
 
-  const submit = async (values: unknown) => {
-    if (authType.value === 'webauthn') {
-      const { identity, username } = values as {
-        identity: string;
-        username?: string;
-      };
-      if (authMode.value === 'signup')
-        await register({ userName: identity, displayName: username }).then(
-          fetchUserSession,
-        );
-      else await authenticate(identity).then(fetchUserSession);
-    } else {
-      // Note: identity not renamed to email because of extra back-end
-      // validation, to verify data integrity after submit.
-      const { identity, username, password } = values as {
-        identity: string;
-        username?: string;
-        password: string;
-      };
-      const endpoint =
-        authMode.value === 'signup' ? '/api/auth/register' : '/api/auth/login';
-
-      const body =
-        authMode.value === 'signup'
-          ? { identity, username, password }
-          : { identity, password };
-
-      const { error } = await useFetch(endpoint, {
-        method: 'POST',
-        body,
-      });
-
-      if (!error.value) {
-        await fetchUserSession();
-      } else {
-        console.error('Auth error', error.value?.data?.message || error.value);
-      }
-    }
-    emit('submit');
-  };
-
   const identity = ref<string>('');
   const username = ref<string>('');
   const password = ref<string>('');
+
+  const isPending = ref(false);
+  const errorMessage = ref('');
+
+  const submit = async (values: unknown) => {
+    // Minimum loading time after submit. Zero to disable, 400 recommended.
+    const MIN_DELAY = 2000;
+    const start = Date.now();
+    isPending.value = true;
+    errorMessage.value = '';
+
+    try {
+      if (authType.value === 'webauthn') {
+        const { identity, username } = values as {
+          identity: string;
+          username?: string;
+        };
+        if (authMode.value === 'signup')
+          await register({ userName: identity, displayName: username }).then(
+            fetchUserSession,
+          );
+        else await authenticate(identity).then(fetchUserSession);
+      } else {
+        // Note: identity not renamed to email because of extra back-end
+        // validation, to verify data integrity after submit.
+        const { identity, username, password } = values as {
+          identity: string;
+          username?: string;
+          password: string;
+        };
+        const endpoint =
+          authMode.value === 'signup'
+            ? '/api/auth/register'
+            : '/api/auth/login';
+
+        const body =
+          authMode.value === 'signup'
+            ? { identity, username, password }
+            : { identity, password };
+
+        const { error } = await useFetch(endpoint, {
+          method: 'POST',
+          body,
+        });
+
+        if (error.value) throw error.value;
+
+        await fetchUserSession();
+      }
+      emit('submit');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const elapsed = Date.now() - start;
+      const remaining = Math.max(MIN_DELAY - elapsed, 0);
+
+      setTimeout(
+        () =>
+          (errorMessage.value =
+            error?.data?.message || error?.message || 'Authentication Failed'),
+        remaining,
+      );
+      console.error('[auth]', errorMessage.value);
+    } finally {
+      const elapsed = Date.now() - start;
+      const remaining = Math.max(MIN_DELAY - elapsed, 0);
+
+      setTimeout(() => (isPending.value = false), remaining);
+    }
+  };
 </script>
 
 <template>
@@ -86,6 +114,35 @@
           <v-btn value="webauthn">Passkey</v-btn>
         </v-btn-toggle>
       </div>
+
+      <!-- Loading Overlay -->
+      <v-fade-transition>
+        <v-overlay
+          v-model="isPending"
+          contained
+          class="z-10 flex items-center justify-center size-full backdrop-blur bg-black/20"
+          scrim
+        >
+          <v-progress-circular
+            class="drop-shadow-[0_0_8px_rgba(0,245,255,0.6)]"
+            indeterminate
+            color="secondary"
+            :size="96"
+            :width="10"
+          />
+        </v-overlay>
+      </v-fade-transition>
+
+      <!-- Error Message -->
+      <v-alert
+        v-if="errorMessage"
+        type="error"
+        variant="tonal"
+        density="compact"
+        class="mb-4"
+      >
+        {{ errorMessage }}
+      </v-alert>
 
       <v-expand-transition>
         <LoginFormPasswordLogin
@@ -156,5 +213,6 @@
     padding: 1.25rem;
     border: 1px solid #ddd;
     border-radius: 0.5rem;
+    position: relative;
   }
 </style>
