@@ -25,6 +25,14 @@ const RomhacksSchema = new Schema<RomhackData>({
     enum: runtimeTypes.SupportedBaseRomRegion,
     index: true,
   },
+  categories: {
+    type: [String],
+    required: true,
+  },
+  states: {
+    type: [String],
+    required: true,
+  },
   release: { type: String, required: true },
   lastUpdated: { type: Date, default: Date.now() },
 

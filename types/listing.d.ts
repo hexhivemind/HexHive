@@ -61,7 +61,8 @@ type RomhackState =
   | 'Finished'
   | 'Playable (Completable)'
   | 'Playable (WIP)'
-  | 'Under Development';
+  | 'Under Development'
+  | string;
 
 type RomhackCategory =
   | 'Balanced'
