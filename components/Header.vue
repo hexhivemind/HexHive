@@ -168,5 +168,5 @@
     .map(createNav)
     .sort((a, b) => sort(a.title!.toString(), b.title!.toString()));
 
-  const opened = ref([] as string[]);
+  const opened = ref(['Assets'] as string[]);
 </script>
