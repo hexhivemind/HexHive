@@ -222,9 +222,43 @@ declare interface SpritesData extends AssetHive {
 /*
  * Scripts
  */
+declare type ScriptsCategory =
+  | 'AdvanceMap'
+  | 'C-Injection'
+  | 'HexManiacAdvance'
+  | 'HMA Script'
+  | 'ModEXE'
+  | 'Python'
+  | string;
+
+declare type ScriptsFeatures =
+  | 'Ability'
+  | 'Attack'
+  | 'Engine'
+  | 'Gift'
+  | 'Map'
+  | 'Miscellaneous'
+  | 'NPC'
+  | 'Shop'
+  | 'Tutor'
+  | string;
+
+declare type ScriptPrerequisites =
+  | '32MB'
+  | 'CFRU'
+  | 'CFRU-EX' // By Shiny-Miner
+  | 'DPE'
+  | 'HUBOL'
+  | 'JPAN'
+  | 'Leon'
+  | 'Shinyzer'
+  | string;
+
 declare interface ScriptsData {
-  // Only scripts care about v1.0 vs v1.1
-  targetedVersions: SupportedBaseRomVersion[];
+  targetedVersions: SupportedBaseRomVersion[]; // Only scripts care about v1.0 vs v1.1
+  categories: ScriptsCategory[];
+  features: ScriptsFeatures[];
+  prerequisites?: ScriptPrerequisites[];
 }
 
 /*
