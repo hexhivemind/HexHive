@@ -1,4 +1,4 @@
-/* eslint-disable sort-keys */
+// /* eslint-disable sort-keys */
 // @ts-check
 import withNuxt from './.nuxt/eslint.config.mjs';
 import prettier from '@vue/eslint-config-prettier';
@@ -32,7 +32,7 @@ export default withNuxt(
 
   {
     rules: {
-      'no-console': 'warn',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
       //'sort-keys': ['warn', 'asc', { caseSensitive: false, natural: true }],
     },
   },
