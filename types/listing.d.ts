@@ -292,7 +292,7 @@ declare interface ScriptsData {
 /*
  * SOUND
  */
-declare type SoundCategory = 'Cry' | 'Jingle' | 'SFX' | 'Song';
+declare type SoundCategory = 'Attack' | 'Cry' | 'Jingle' | 'SFX' | 'Song';
 
 declare interface SoundData extends AssetHive {
   category: SoundCategory;
@@ -300,8 +300,11 @@ declare interface SoundData extends AssetHive {
 
 // Placeholder data for all types, to show that an item was deleted.
 declare interface DeletedEntry {
+  // Required:
   deleted: boolean;
   _id: string;
+
+  // Optional:
   reason?: string; // Optional for now, but later server will provide a reason.
 }
 
