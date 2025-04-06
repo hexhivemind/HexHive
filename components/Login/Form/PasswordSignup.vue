@@ -23,7 +23,6 @@
   const p = defineModel<string>('password', { default: '' });
 
   const showPassword = ref(false);
-  const showConfirm = ref(false);
 
   const { value: identity } = useField('identity', undefined, {
     syncVModel: 'identity',
@@ -82,11 +81,11 @@
       v-model="confirmPassword"
       :error-messages="errors.confirmPassword"
       label="Confirm Password"
-      :type="showConfirm ? 'text' : 'password'"
+      :type="showPassword ? 'text' : 'password'"
       class="mb-4"
       required
-      :append-inner-icon="showConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-      @click:append-inner="showConfirm = !showConfirm"
+      :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+      @click:append-inner="showPassword = !showPassword"
     />
 
     <div class="flex justify-center">
