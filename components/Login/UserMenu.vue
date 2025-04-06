@@ -2,6 +2,10 @@
   <v-menu>
     <template #activator="{ props }">
       <v-btn v-bind="props">
+        <template #prepend>
+          <!-- TODO: User Profile Picture -->
+          <v-avatar image="/favicon.ico"></v-avatar>
+        </template>
         {{ user!.username }}
       </v-btn>
     </template>
