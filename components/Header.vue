@@ -166,5 +166,12 @@
     .map(createNav)
     .sort((a, b) => sort(a.title!.toString(), b.title!.toString()));
 
-  const opened = ref(['Assets'] as string[]);
+  const opened = ref<string[]>([]);
+
+  onMounted(() => {
+    nextTick(() => {
+      // Optionally, search items for any groups and add them all to opened below.
+      opened.value = ['Assets'];
+    });
+  });
 </script>
