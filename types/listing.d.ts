@@ -1,15 +1,24 @@
+declare type AssetPermissions =
+  | 'Credit'
+  | 'Free'
+  | 'No-Donations'
+  | 'No-Profit';
+
 declare interface ListingData {
-  _id?: string; // Set by database, will be private, internal
-  id: string; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
-  title: string;
-  description: string;
+  // Required:
   author: string;
-  slug?: string; // User set id for route navigation, unique.
+  description: string;
+  id: string; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
+  permissions: AssetPermissions;
+  title: string;
+
+  // Optional:
+  _id?: string; // Set by database, will be private, internal
   rating?: number;
+  slug?: string; // User set id for route navigation, unique.
 }
 
-declare type SupportedBaseRom = 'Fire Red' | 'Emerald'; // | 'Ruby'
-declare type SupportedBaseRomVersion = 'v1.0' | 'v1.1'; // TODO: Alias "squirrels"
+declare type SupportedBaseRom = 'Emerald' | 'Fire Red'; // | 'Ruby'
 declare type SupportedBaseRomRegion =
   | 'English'
   | 'French'
@@ -17,74 +26,64 @@ declare type SupportedBaseRomRegion =
   | 'Italian'
   | 'Japanese'
   | 'Spanish';
+declare type SupportedBaseRomVersion = 'v1.0' | 'v1.1'; // TODO: Alias "squirrels"
 
 // Per NO-INTRO (removed debug, box), these are known revisions
 // Realistically, almost none of these will be used, but oh well
 // - Emerald
-//  - US/EUR
 //  - France
 //  - Germany
 //  - Italy
 //  - Japan
 //  - Spain
+//  - US/EUR
 
 // - Fire Red / Leaf Green
-//  - US/EUR v1, v1.1
 //  - France
 //  - Germany
 //  - Italy
 //  - Japan v1, v1.1
 //  - Spain
+//  - US/EUR v1, v1.1
 
 // - Ruby/Sapphire
-//  - US/EUR v1, v1.1
 //  - France v1, v1.1
 //  - Germany v1, v1.1
 //  - Italy v1, v1.1
 //  - Japan v1, v1.1
 //  - Spain v1, v1.1
+//  - US/EUR v1, v1.1
 
 declare interface RomhackData extends ListingData {
-  filename: string;
+  // Required:
   baseRom: SupportedBaseRom;
-  baseRomVersion: SupportedBaseRomVersion;
   baseRomRegion: SupportedBaseRomRegion;
+  baseRomVersion: SupportedBaseRomVersion;
+  filename: string;
   release: string; // User-defined version
-  lastUpdated?: luxon.DateTime; // TODO: will come from db, won't be optional
 
-  // TODO: Features, completion status, binary/decomp, etc
-  releaseDate?: luxon.DateTime;
+  // Optional:
   boxart?: string[];
-  screenshots?: string[];
-  trailer?: string[];
-  tags?: string[]; // User-defined tag cloud
-  flags?: string[]; // Internal/Moderator applied, flags like mature content
-
   changelog?: {
     entries: { [version: string]: string };
   };
+  flags?: string[]; // Internal/Moderator applied, flags like mature content
+  lastUpdated?: luxon.DateTime; // TODO: will come from db, won't be optional
+  releaseDate?: luxon.DateTime;
+  screenshots?: string[];
+  tags?: string[]; // User-defined tag cloud
+  trailer?: string[];
+  // TODO: Features, completion status, binary/decomp, etc
 }
 
 // A "Hive" is like a collection/folder/repository, etc
 declare interface AssetHive extends ListingData {
-  fileSize: number;
+  // Required:
   fileCount: number;
   fileList: string[];
+  fileSize: number;
   targetedRoms: SupportedBaseRom[];
 }
-
-type HumanMovement =
-  | 'Biking'
-  | 'Dive'
-  | 'Fishing'
-  | 'Fishing (Surfing)'
-  | 'Running'
-  | 'Surfing'
-  | 'Swimming'
-  | 'Vs Seeker'
-  | 'Vs Seeker (Biking)'
-  | 'Walking';
-// | string? or misc/other?
 
 // TODO: Name more later, or make it a string
 type EnvironmentVariant =
@@ -104,9 +103,18 @@ type EnvironmentVariant =
   | 'Water (Surface)'
   | string;
 
-type UserDefined = {
-  variant: string;
-};
+type HumanMovement =
+  | 'Biking'
+  | 'Dive'
+  | 'Fishing'
+  | 'Fishing (Surfing)'
+  | 'Running'
+  | 'Surfing'
+  | 'Swimming'
+  | 'Vs Seeker'
+  | 'Vs Seeker (Biking)'
+  | 'Walking';
+// | string? or misc/other?
 
 type SpriteVariant = {
   Battle: {
@@ -114,15 +122,16 @@ type SpriteVariant = {
     Background: {
       variant: EnvironmentVariant;
     };
+    Other: UserDefined;
     Pokeball: { variant: string }; // TODO: Define list of Pokeballs, ending with | string
     Pokemon: { variant: 'Back' | 'Front' };
     Trainer: { variant: 'Back' | 'Front' };
-    Other: UserDefined;
   };
 
   Environment: {
     // Interactable (such as HM Trees)
     Object: { variant: 'HM' | 'Item' };
+    Other: UserDefined;
 
     // Vignette that shows before certain POIs:
     Preview: {
@@ -133,8 +142,6 @@ type SpriteVariant = {
     Tiles: {
       variant: EnvironmentVariant;
     };
-
-    Other: UserDefined;
   };
 
   Menu: {
@@ -144,6 +151,8 @@ type SpriteVariant = {
     // Do we track for Emote variants in Dialogue?
     Mugshots: { variant: 'Battle' | 'Dialogue' };
 
+    Other: UserDefined;
+
     // Unsure where these are used, or if they're the same sprite
     // These should appear when starting a game (+ one for the rival)
     // These also appear when looking at your Trainer Card, or the Hall of Fame
@@ -152,15 +161,13 @@ type SpriteVariant = {
     // Party/Box sprite
     // Is this variant even necessary?
     Pokemon: { variant: 'Animated' | 'Static' };
-
-    Other: UserDefined;
   };
 
   Overworld: {
     NPC: { variant: HumanMovement };
+    Other: UserDefined;
     Player: { variant: HumanMovement };
     Pokemon: { variant: 'Follower' | 'Land' | 'Surfing' };
-    Other: UserDefined;
   };
 
   UI: {
@@ -200,6 +207,10 @@ type SpriteVariantValue<V> =
       shiny?: V[];
     };
 
+type UserDefined = {
+  variant: string;
+};
+
 // Discriminated union: every valid type/subtype combo with resolved variant typing
 type SpriteUnionType = {
   [T in keyof SpriteVariant]: {
@@ -227,7 +238,7 @@ declare type ScriptsCategory =
   | 'C-Injection'
   | 'HexManiacAdvance'
   | 'HMA Script'
-  | 'ModEXE'
+  | 'ModExe'
   | 'Python'
   | string;
 
@@ -255,11 +266,28 @@ declare type ScriptPrerequisites =
   | string;
 
 declare interface ScriptsData {
-  targetedVersions: SupportedBaseRomVersion[]; // Only scripts care about v1.0 vs v1.1
   categories: ScriptsCategory[];
   features: ScriptsFeatures[];
   prerequisites?: ScriptPrerequisites[];
+  targetedVersions: SupportedBaseRomVersion[]; // Only scripts care about v1.0 vs v1.1
 }
+
+// declare interface ListingData {
+//   _id?: string; // Set by database, will be private, internal
+//   id: string; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
+//   title: string;
+//   description: string;
+//   author: string;
+//   slug?: string; // User set id for route navigation, unique.
+//   rating?: number;
+// }
+
+// declare interface AssetHive extends ListingData {
+//   fileSize: number;
+//   fileCount: number;
+//   fileList: string[];
+//   targetedRoms: SupportedBaseRom[];
+// }
 
 /*
  * SOUND
@@ -272,8 +300,8 @@ declare interface SoundData extends AssetHive {
 
 // Placeholder data for all types, to show that an item was deleted.
 declare interface DeletedEntry {
-  _id: string;
   deleted: boolean;
+  _id: string;
   reason?: string; // Optional for now, but later server will provide a reason.
 }
 
