@@ -140,6 +140,23 @@ type SpriteVariant = {
     };
   };
 
+  GameIntro: {
+    Background: { variant: 'Cutscene' | 'Title Screen' | string };
+    Particles: { variant: 'Cutscene' | 'Title Screen' | string };
+    'Publisher Splash Screens': {
+      variant: 'Copyright' | 'Gamefreak Logo' | string;
+    };
+    Sprite: { variant: 'Cutscene' | 'Title Screen' | string };
+    Text: {
+      variant:
+        | 'Copyright Footer'
+        | 'Pokemon Logo'
+        | 'Press Start'
+        | 'ROM Title'
+        | string;
+    };
+  };
+
   Menu: {
     // Items always look the same in every use
     Item: { variant: undefined };
@@ -229,7 +246,7 @@ declare interface SpritesData extends AssetHive {
 /*
  * Scripts
  */
-declare type ScriptsCategory =
+declare type ScriptCategory =
   | 'AdvanceMap'
   | 'C-Injection'
   | 'HexManiacAdvance'
@@ -238,9 +255,10 @@ declare type ScriptsCategory =
   | 'Python'
   | string;
 
-declare type ScriptsFeature =
+declare type ScriptFeature =
   | 'Ability'
   | 'Attack'
+  | 'Cutscene'
   | 'Engine'
   | 'Gift'
   | 'Map'
