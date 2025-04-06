@@ -1,7 +1,6 @@
 import type { AuthenticatorTransportFuture } from '@simplewebauthn/server';
 import type { Model } from 'mongoose';
 import mongoose, { Schema, model } from 'mongoose';
-import isEmail from 'validator/lib/isEmail';
 
 export interface WebAuthnCredential {
   id: string;
@@ -37,13 +36,13 @@ const UserSchema = new Schema<UserDocument>({
     unique: true,
     required: true,
   },
+  avatar: String,
   email: {
     type: String,
     trim: true,
     lowercase: true,
     unique: true,
-    required: [true, 'Email address is required'],
-    validate: [isEmail, 'Please fill a valid email address.'],
+    required: true,
   },
   password: {
     type: String,
