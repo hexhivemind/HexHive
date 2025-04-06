@@ -28,18 +28,6 @@ export const passwordValidator = passwordSchema.extend({
   username,
 });
 
-export function loginValidator(mode: 'password'): typeof passwordSchema;
-export function loginValidator(mode: 'webauthn'): typeof webauthnSchema;
-
-export function loginValidator(mode: 'password' | 'webauthn') {
-  switch (mode) {
-    case 'password':
-      return passwordSchema;
-    case 'webauthn':
-      return webauthnSchema;
-  }
-}
-
 // Possible thing for later: Use two different validators for one input.
 /*
 const identity = z
