@@ -32,14 +32,14 @@ export const emailOrUsername = z
   .min(1, { message: 'Email or username is required' })
   .superRefine((val, ctx) => {
     if (val.includes('@')) {
-      const result = z.string().email().safeParse(val);
+      const result = email.safeParse(val);
       if (!result.success)
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'Invalid email format',
         });
     } else {
-      const result = z.string().min(3).safeParse(val);
+      const result = username.safeParse(val);
       if (!result.success)
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -60,7 +60,7 @@ export const SpriteEntrySchema = z
       .union([
         z.string(),
         z.array(z.string()),
-        z.record(z.string(), z.array(z.string())),
+        z.record(z.string(), z.union([z.string(), z.array(z.string())])),
       ])
       .optional(),
   })
@@ -98,12 +98,13 @@ export const SpriteEntrySchema = z
     const variantDef = subtypeData?.variant;
 
     // Case: variant should NOT be present
-    if (variantDef === undefined && variant !== undefined) {
-      ctx.addIssue({
-        path: ['variant'],
-        code: z.ZodIssueCode.custom,
-        message: `No variant expected for type "${type}" and subtype "${subtype}", but one was provided`,
-      });
+    if (variantDef === undefined) {
+      if (variant !== undefined)
+        ctx.addIssue({
+          path: ['variant'],
+          code: z.ZodIssueCode.custom,
+          message: `No variant expected for type "${type}" and subtype "${subtype}", but one was provided.`,
+        });
       return;
     }
 
