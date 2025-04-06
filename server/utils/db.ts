@@ -7,6 +7,7 @@ export async function connectMongoose() {
   if (isConnected) return;
 
   try {
+    // eslint-disable-next-line no-console
     console.log('Connecting to database');
     const isMock = process.env.NODE_ENV !== 'production';
 
@@ -20,6 +21,7 @@ export async function connectMongoose() {
     }
 
     await mongoose.connect(mongoUri);
+    // eslint-disable-next-line no-console
     console.log('Connected to MongoDB');
     isConnected = true;
   } catch (err) {

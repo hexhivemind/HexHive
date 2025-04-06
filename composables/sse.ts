@@ -21,13 +21,11 @@ function connect() {
         if (cb) cb(payload);
       }
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error('[SSE] Failed to parse message', err);
     }
   };
 
   source.onerror = (err) => {
-    // eslint-disable-next-line no-console
     console.error('[SSE] Connection error:', err);
     cleanup();
     attemptReconnect();
