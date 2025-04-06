@@ -4,6 +4,12 @@ import { runtimeTypes } from '~/types/runtimeTypes.generated';
 export const BaseListings: SchemaDefinition<ListingData> = {
   author: { type: String, required: true, index: true },
   description: { type: String, required: true },
+  permissions: {
+    type: [String],
+
+    enum: runtimeTypes.AssetPermission,
+    required: true,
+  },
   rating: Number,
   slug: { type: String },
   title: { type: String, required: true, unique: true },
