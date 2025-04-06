@@ -59,7 +59,7 @@
 </script>
 
 <template>
-  <div class="login-container w-[25vw]">
+  <div class="login-container">
     <div class="content">
       <h2 class="text-xl font-semibold mb-4">
         {{
@@ -146,47 +146,12 @@
   </div>
 </template>
 
-<!-- <template>
-  <div class="login-container">
-    <div class="content">
-      <h2>Create an account</h2>
-
-      <form @submit.prevent="() => submit('signup')">
-        <div class="form-group">
-          <v-text-field
-            v-model="email"
-            :error-messages="errors.email"
-            label="Email address"
-            required
-          />
-        </div>
-
-        <v-btn type="submit" :disabled="!meta.valid"> Sign-up </v-btn>
-        <v-btn
-          type="submit"
-          :disabled="!meta.valid"
-          @click="() => submit('login')"
-        >
-          Login
-        </v-btn>
-
-        <!- <div>
-          Already have an account? <a href="#" @click="switchToLogin">Login</a>
-        </div> ->
-      </form>
-
-      <v-divider class="divider border-opacity-25" color="white">
-        OR
-      </v-divider>
-
-      <div class="oauth-container">
-        <p>oauth here</p>
-      </div>
-    </div>
-  </div>
-</template> -->
-
 <style scoped lang="scss">
+  .login-container {
+    width: 90vw;
+    max-width: 30rem;
+  }
+
   .content {
     padding: 1.25rem;
     border: 1px solid #ddd;
