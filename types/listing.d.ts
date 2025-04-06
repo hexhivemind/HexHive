@@ -272,23 +272,6 @@ declare interface ScriptsData {
   targetedVersions: SupportedBaseRomVersion[]; // Only scripts care about v1.0 vs v1.1
 }
 
-// declare interface ListingData {
-//   _id?: string; // Set by database, will be private, internal
-//   id: string; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
-//   title: string;
-//   description: string;
-//   author: string;
-//   slug?: string; // User set id for route navigation, unique.
-//   rating?: number;
-// }
-
-// declare interface AssetHive extends ListingData {
-//   fileSize: number;
-//   fileCount: number;
-//   fileList: string[];
-//   targetedRoms: SupportedBaseRom[];
-// }
-
 /*
  * SOUND
  */
