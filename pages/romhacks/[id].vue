@@ -8,13 +8,14 @@
   const route = useRoute();
 
   const data: RomhackData = {
-    id: route.params.id as string,
-    title: 'Fire Red Omega++',
-    description: "A continuation hack of Drayano's Fire Red Omega",
     author: 'Jordank',
+    description: "A continuation hack of Drayano's Fire Red Omega",
+    id: route.params.id as string,
     filename: 'FRO++.gba',
+    permissions: 'Credit',
     release: 'v4.9',
     releaseDate: DateTime.local(2024, 12), //'December 2024',
+    title: 'Fire Red Omega++',
 
     // 1636 Pokemon Fire Red (U)(Squirrels)
     baseRom: 'Fire Red',
