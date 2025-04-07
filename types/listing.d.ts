@@ -4,7 +4,7 @@ declare interface ListingData {
   // Required:
   author: string;
   description: string;
-  id: string; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
+  id: number; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
   permissions: AssetPermission[];
   title: string;
 

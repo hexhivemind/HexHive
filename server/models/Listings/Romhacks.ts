@@ -1,6 +1,6 @@
 import mongoose, { Schema, model, type Model } from 'mongoose';
 
-import { BaseListings } from './Shared';
+import { applyAutoIncrement, BaseListings } from './Shared';
 import { runtimeTypes } from '~/types/runtimeTypes.generated';
 
 const RomhacksSchema = new Schema<RomhackData>({
@@ -28,10 +28,12 @@ const RomhacksSchema = new Schema<RomhackData>({
   categories: {
     type: [String],
     required: true,
+    index: true,
   },
   states: {
     type: [String],
     required: true,
+    index: true,
   },
   release: { type: String, required: true },
   lastUpdated: { type: Date, default: Date.now() },
@@ -59,6 +61,8 @@ RomhacksSchema.index(
     partialFilterExpression: { slug: { $exists: true, $type: 'string' } },
   },
 );
+
+applyAutoIncrement(RomhacksSchema, 'Romhack');
 
 const Romhacks: Model<RomhackData> =
   mongoose.models.Romhacks || model<RomhackData>('Romhacks', RomhacksSchema);
