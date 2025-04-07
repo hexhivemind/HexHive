@@ -71,10 +71,31 @@ export default defineWebAuthnRegisterEventHandler<WebAuthnUser>({
         { upsert: true, new: true },
       );
 
-      dbUser.credentials!.push({
-        transports: [],
-        ...credential,
+      // Check for credential collision with another user
+      const credentialInUse = await Users.findOne({
+        'credentials.id': credential.id,
+        _id: { $ne: dbUser._id },
       });
+
+      if (credentialInUse) {
+        throw createError({
+          statusCode: 409,
+          message:
+            'There was a problem registering this device. Please try again.',
+          data: { retry: true },
+        });
+      }
+
+      const alreadyHasCredential = dbUser.credentials!.some(
+        (c) => c.id === credential.id,
+      );
+
+      if (!alreadyHasCredential) {
+        dbUser.credentials!.push({
+          transports: [],
+          ...credential,
+        });
+      }
 
       await dbUser.save();
 

@@ -32,11 +32,26 @@
           identity: string;
           username?: string;
         };
-        if (authMode.value === 'signup')
+
+        const doWebAuthnSignup = async () => {
           await register({ userName: identity, displayName: username }).then(
             fetchUserSession,
           );
-        else await authenticate(identity).then(fetchUserSession);
+        };
+
+        if (authMode.value === 'signup') {
+          try {
+            await doWebAuthnSignup();
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
+            if (err?.data?.retry) {
+              console.warn(
+                '[auth] We ran into a problem registering your device. Retrying once...',
+              );
+              await doWebAuthnSignup();
+            } else throw err;
+          }
+        } else await authenticate(identity).then(fetchUserSession);
       } else {
         // Note: identity not renamed to email because of extra back-end
         // validation, to verify data integrity after submit.
