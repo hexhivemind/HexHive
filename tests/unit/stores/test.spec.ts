@@ -1,7 +1,10 @@
-import { describe, expect, test } from 'vitest';
+import { createPinia, setActivePinia } from 'pinia';
+import { describe, expect, it } from 'vitest';
 
-describe('it tests', () => {
-  test('first test', () => {
-    expect(1 + 1).toBe(2);
+describe('test store', () => {
+  it('can be instantiated', () => {
+    setActivePinia(createPinia());
+    const store = useTestStore();
+    expect(store).toBeDefined();
   });
 });
