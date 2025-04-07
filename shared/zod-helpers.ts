@@ -31,20 +31,14 @@ export const emailOrUsername = z
   .string()
   .min(1, { message: 'Email or username is required' })
   .superRefine((val, ctx) => {
-    if (val.includes('@')) {
-      const result = email.safeParse(val);
-      if (!result.success)
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'Invalid email format',
-        });
-    } else {
-      const result = username.safeParse(val);
-      if (!result.success)
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: result.error.issues[0].message,
-        });
+    const schema = val.includes('@') ? email : username;
+    const result = schema.safeParse(val);
+
+    if (!result.success) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: result.error.issues[0].message,
+      });
     }
   });
 
