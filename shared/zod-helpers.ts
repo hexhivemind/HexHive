@@ -8,9 +8,9 @@ export const username = z
   .min(3, 'Username is required')
   .regex(/^[^\s]+$/, { message: 'Username cannot contain spaces' })
   .regex(/^[^@]+$/, { message: "Username cannot contain '@'" })
-  .regex(/^[a-zA-Z0-9_\-+]+$/, {
+  .regex(/^[a-zA-Z0-9._\-+]+$/, {
     message:
-      'Username can only contain letters, numbers, underscores, dashes, and pluses',
+      'Username can only contain letters, numbers, underscores, dashes, dots, and pluses',
   });
 
 export const password = z
@@ -29,7 +29,7 @@ export const password = z
 
 export const emailOrUsername = z
   .string()
-  .min(1, { message: 'Email or username is required' })
+  .min(3, { message: 'Email or username is required' })
   .superRefine((val, ctx) => {
     const schema = val.includes('@') ? email : username;
     const result = schema.safeParse(val);
