@@ -59,7 +59,7 @@ export function createListingStore<T extends ListingData>(
 
     interval = setInterval(() => {
       // Only fetch on the romhacks listing.
-      if (route.name === 'Romhacks') refreshData();
+      if (route.name === options.routeName) refreshData();
     }, refreshWindow);
   }
 
@@ -76,7 +76,7 @@ export function createListingStore<T extends ListingData>(
     }
 
     if (updateMode.value !== 'manual') {
-      subscribe(`${options.namespace}:added`, ((payload: T) => {
+      subscribe(`added`, ((payload: T) => {
         lastFetched.value = Date.now();
 
         if (updateMode.value === 'notify') {
@@ -89,7 +89,7 @@ export function createListingStore<T extends ListingData>(
         }
       }) as SseCallback<T>);
 
-      subscribe(`${options.namespace}:deleted`, ((payload: DeletedEntry) => {
+      subscribe(`deleted`, ((payload: DeletedEntry) => {
         lastFetched.value = Date.now();
 
         if (updateMode.value === 'manual') return;
@@ -102,7 +102,7 @@ export function createListingStore<T extends ListingData>(
         queued.value = queued.value.filter((item) => item._id !== payload._id);
       }) as SseCallback<T>);
 
-      subscribe(`${options.namespace}:updated`, ((_payload: T) => {
+      subscribe(`updated`, ((_payload: T) => {
         // TODO: Also accept this event on /route/:id
         if (updateMode.value !== 'manual' && route.name === options.routeName) {
           // Update payload.

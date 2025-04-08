@@ -16,10 +16,18 @@ function connect() {
     try {
       const { event, payload } = JSON.parse(rawEvent.data);
 
-      for (const [, eventMap] of registry) {
-        const cb = eventMap.get(event);
-        if (cb) cb(payload);
+      const [namespace, evt] = event.includes(':')
+        ? event.split(':')
+        : [null, null];
+
+      if (!namespace || !evt) {
+        console.error('[SSE] Invalid event format:', event);
+        return;
       }
+
+      const cb = registry.get(namespace)?.get(evt);
+      if (cb) cb(payload);
+      else console.warn(`[SSE] No callback found for event: ${event}`);
     } catch (err) {
       console.error('[SSE] Failed to parse message', err);
     }
