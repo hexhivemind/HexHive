@@ -67,12 +67,15 @@ handleSubmit((values) => {
 */
 
 const ListingDataSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  description: z.string(),
   author: z.string(),
-  slug: z.string().optional(),
+  description: z.string(),
+  id: z.string().optional(),
+  permissions: z.array(z.enum(runtimeTypes.AssetPermission)),
+  title: z.string(),
+
+  _id: z.string().optional(),
   rating: z.number().optional(),
+  slug: z.string().optional(),
 });
 
 const AssetHiveSchema = ListingDataSchema.extend({
@@ -89,23 +92,26 @@ export const SpriteCategorySchema = z.union([
 ]);
 
 export const RomhackDataSchema = ListingDataSchema.extend({
-  filename: z.string(),
   baseRom,
   baseRomVersion,
   baseRomRegion,
+  categories: z.array(z.string()),
+  filename: z.string(),
   release: z.string(),
-  lastUpdated: z.date().optional(),
-  releaseDate: z.date().optional(),
+  states: z.array(z.string()),
+
   boxArt: z.array(z.string()).optional(),
-  screenshots: z.array(z.string()).optional(),
-  trailer: z.array(z.string()).optional(),
-  tags: z.array(z.string()).optional(),
-  flags: z.array(z.string()).optional(),
   changelog: z
     .object({
       entries: z.map(z.string(), z.string()),
     })
     .optional(),
+  flags: z.array(z.string()).optional(),
+  lastUpdated: z.date().optional(),
+  releaseDate: z.date().optional(),
+  screenshots: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
+  trailer: z.array(z.string()).optional(),
 });
 
 export const SpritesDataSchema = AssetHiveSchema.extend({
