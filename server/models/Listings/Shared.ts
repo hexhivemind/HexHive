@@ -26,7 +26,7 @@ export const BaseListings: SchemaDefinition<ListingData> = {
   },
   rating: Number,
   slug: { type: String },
-  title: { type: String, required: true, unique: true },
+  title: { type: String, required: true, unique: true, index: true },
 };
 
 export const AssetHives: SchemaDefinition<AssetHive> = {
