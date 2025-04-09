@@ -75,7 +75,10 @@ const ListingDataSchema = z.object({
 
   _id: z.string().optional(),
   rating: z.number().optional(),
-  slug: z.string().optional(),
+  slug: z
+    .string()
+    .regex(/^(?!\d+$).+$/, 'Slug cannot be only numbers')
+    .optional(),
 });
 
 const AssetHiveSchema = ListingDataSchema.extend({
