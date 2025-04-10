@@ -117,11 +117,11 @@ export const RomhackDataSchema = ListingDataSchema.extend({
   trailer: z.array(z.string()).optional(),
 });
 
-export const SpritesDataSchema = AssetHiveSchema.extend({
+export const SpriteDataSchema = AssetHiveSchema.extend({
   category: SpriteCategorySchema,
 });
 
-export const ScriptsDataSchema = AssetHiveSchema.extend({
+export const ScriptDataSchema = AssetHiveSchema.extend({
   targetVersions: z
     .array(baseRomVersion)
     .min(1, 'At least one version must be selected')
@@ -130,6 +130,6 @@ export const ScriptsDataSchema = AssetHiveSchema.extend({
     }),
 });
 
-export const SoundData = AssetHiveSchema.extend({
+export const SoundDataSchema = AssetHiveSchema.extend({
   category: z.enum(runtimeTypes.SoundCategory),
 });
