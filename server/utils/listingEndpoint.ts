@@ -11,6 +11,13 @@ export type ListingEndpoint =
 
 export type EndpointType = 'Romhack' | 'Sprite' | 'Sound' | 'Script' | 'Asset';
 
+const idVariantsQuery = <T extends ListingData>(id: unknown) =>
+  [
+    { slug: id },
+    !isNaN(Number(id)) ? { id: Number(id) } : null,
+    isValidObjectId(id) ? { _id: id } : null,
+  ].filter(Boolean) as FilterQuery<T>[];
+
 export async function createListingEndpoint<
   T extends ListingData,
   S extends ZodObject<ZodRawShape>,
@@ -121,11 +128,7 @@ async function fetchOne<
 
   const data = await model
     .findOne({
-      $or: [
-        { slug: id },
-        !isNaN(Number(id)) ? { id: Number(id) } : null,
-        isValidObjectId(id) ? { _id: id } : null,
-      ].filter(Boolean) as FilterQuery<T>[],
+      $or: idVariantsQuery<T>(id),
     })
     .lean<T>()
     .exec();
@@ -250,11 +253,7 @@ async function updateListing<
   const updated = await model
     .findOneAndUpdate(
       {
-        $or: [
-          { slug: id },
-          !isNaN(Number(id)) ? { id: Number(id) } : null,
-          isValidObjectId(id) ? { _id: id } : null,
-        ].filter(Boolean) as FilterQuery<T>[],
+        $or: idVariantsQuery<T>(id),
       },
       body,
       { new: true },
@@ -280,11 +279,7 @@ async function deleteListing<
 
   await model
     .findOneAndDelete({
-      $or: [
-        { slug: id },
-        !isNaN(Number(id)) ? { id: Number(id) } : null,
-        isValidObjectId(id) ? { _id: id } : null,
-      ].filter(Boolean) as FilterQuery<T>[],
+      $or: idVariantsQuery<T>(id),
     })
     .exec();
 
