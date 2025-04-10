@@ -348,7 +348,7 @@ declare type ScriptTool =
   | 'Python'
   | string;
 
-declare interface ScriptsData {
+declare interface ScriptsData extends AssetHive {
   features: ScriptFeature[];
   prerequisites?: ScriptPrerequisite[];
   targetedVersions: SupportedBaseRomVersion[]; // Only scripts care about v1.0 vs v1.1
