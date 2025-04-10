@@ -19,7 +19,7 @@ export async function createListingEndpoint<
   model: Model<T>,
   route: ListingEndpoint,
   type: EndpointType,
-  schema: S,
+  schema?: S,
 ) {
   switch (route) {
     case 'fetchAll':
@@ -43,18 +43,46 @@ export async function createListingEndpoint<
 async function fetchAll<
   T extends ListingData,
   S extends ZodObject<ZodRawShape>,
->(event: H3Event, model: Model<T>, _type: EndpointType, _schema: S) {
+>(event: H3Event, model: Model<T>, _type: EndpointType, _schema?: S) {
   await connectMongoose();
 
-  // TODO: Add search query support
   const query = getQuery(event);
+  const search = (query.search as string)?.trim() || null;
   const page = Math.max(parseInt(query.page as string) || 1, 1); // Ensure page is a positive integer
   const limit = Math.min(
     Math.max(parseInt(query.limit as string) || 0, 0),
     100, // Max limit of 100 items per page
   ); // Ensure limit is a positive integer, or 0 = no limit
 
-  const findQuery = model.find().sort({ releaseDate: -1 });
+  const searchConditions: FilterQuery<T>[] = [];
+
+  if (search) {
+    const dataSchema = model.schema;
+
+    const directIndexes = Object.entries(dataSchema.paths)
+      .filter(([_, path]) => path.options?.index === true)
+      .map(([field]) => field);
+
+    const compoundIndexes = dataSchema
+      .indexes()
+      .map(([fields]) => Object.keys(fields))
+      .flat();
+
+    const indexableFields = Array.from(
+      new Set([...directIndexes, ...compoundIndexes]),
+    );
+
+    if (indexableFields.length > 0) {
+      for (const field of indexableFields)
+        searchConditions.push({
+          [field]: { $regex: search, $options: 'i' },
+        } as FilterQuery<T>);
+    }
+  }
+
+  const searchQuery = searchConditions.length ? { $or: searchConditions } : {};
+
+  const findQuery = model.find(searchQuery).sort({ releaseDate: -1 });
 
   // If limit is greater than 0, apply pagination
   if (limit > 0) {
@@ -64,7 +92,8 @@ async function fetchAll<
 
   const [data, totalItems] = await Promise.all([
     findQuery.lean<T[]>().exec(),
-    model.countDocuments().exec(),
+    // If searching, only count matched results
+    model.countDocuments(searchQuery).exec(),
   ]);
 
   return {
@@ -86,7 +115,7 @@ async function fetchAll<
 async function fetchOne<
   T extends ListingData,
   S extends ZodObject<ZodRawShape>,
->(event: H3Event, model: Model<T>, type: EndpointType, _schema: S) {
+>(event: H3Event, model: Model<T>, type: EndpointType, _schema?: S) {
   await connectMongoose();
   const id = event.context.params?.id;
 
@@ -113,7 +142,15 @@ async function fetchOne<
 async function createListing<
   T extends ListingData,
   S extends ZodObject<ZodRawShape>,
->(event: H3Event, model: Model<T>, type: EndpointType, schema: S) {
+>(event: H3Event, model: Model<T>, type: EndpointType, schema?: S) {
+  if (!schema) {
+    throw createError({
+      statusCode: 500,
+      statusMessage:
+        'Validation is required to create listings, but was not provided.',
+    });
+  }
+
   await connectMongoose();
 
   const body = schema
@@ -169,7 +206,15 @@ async function createListing<
 async function updateListing<
   T extends ListingData,
   S extends ZodObject<ZodRawShape>,
->(event: H3Event, model: Model<T>, type: EndpointType, schema: S) {
+>(event: H3Event, model: Model<T>, type: EndpointType, schema?: S) {
+  if (!schema) {
+    throw createError({
+      statusCode: 500,
+      statusMessage:
+        'Validation is required to update listings, but was not provided.',
+    });
+  }
+
   await connectMongoose();
   const id = event.context.params?.id;
   const body = schema.partial().parse(await readBody(event));
@@ -229,7 +274,7 @@ async function updateListing<
 async function deleteListing<
   T extends ListingData,
   S extends ZodObject<ZodRawShape>,
->(event: H3Event, model: Model<T>, _type: EndpointType, _schema: S) {
+>(event: H3Event, model: Model<T>, _type: EndpointType, _schema?: S) {
   await connectMongoose();
   const id = event.context.params?.id;
 
