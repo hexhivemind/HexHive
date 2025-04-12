@@ -24,6 +24,7 @@ export default defineVitestConfig({
         'layouts/**',
         '*.config.*',
         '**/*.generated.*',
+        'modules/runtime-types.codegen.ts',
         'shared/zod.ts',
         'shared/zod-typeguards.ts',
         ...coverageConfigDefaults.exclude,
