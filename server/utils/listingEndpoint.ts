@@ -1,6 +1,10 @@
 import { type FilterQuery, isValidObjectId, type Model } from 'mongoose';
 import type { H3Event } from 'h3';
 import type { ZodObject, ZodRawShape } from 'zod';
+import formidable, { type Fields, type Files, type File } from 'formidable';
+import path from 'path';
+import { stat, mkdir, readFile, copyFile } from 'fs/promises';
+import crypto from 'crypto';
 
 export type ListingEndpoint =
   | 'fetchAll'
@@ -149,24 +153,104 @@ async function createListing<
   if (!schema) {
     throw createError({
       statusCode: 500,
-      statusMessage:
-        'Validation is required to create listings, but was not provided.',
+      statusMessage: `Validation is required to create ${type}s, but was not provided.`,
     });
   }
 
   await connectMongoose();
 
-  const body = schema
-    .omit({ id: true, _id: true })
-    .parse(await readBody(event));
+  // Parse multipart form
+  const form = formidable({ multiples: false });
 
-  const existing = await model.findOne({
-    $or: [{ title: body.title }, body.slug ? { slug: body.slug } : null].filter(
-      Boolean,
-    ) as FilterQuery<T>[],
+  const { fields, files } = await new Promise<{
+    fields: Fields;
+    files: Files;
+  }>((resolve, reject) => {
+    form.parse(event.node.req, (err, fields, files) => {
+      if (err) reject(err);
+      else resolve({ fields, files });
+    });
   });
 
+  let metadata: ListingData;
+
+  try {
+    metadata = JSON.parse(fields.metadata?.[0] || '{}');
+  } catch {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Invalid metadata format',
+    });
+  }
+
+  const file = files.file as File | undefined;
+
+  if (file) {
+    const uploadDir = path.join(
+      process.env.UPLOAD_PATH || '/public/uploads',
+      type.toLowerCase(),
+    );
+
+    try {
+      await stat(uploadDir);
+    } catch {
+      await mkdir(uploadDir, { recursive: true });
+    }
+
+    // Generate a unique filename
+    const ext = path.extname(file.originalFilename || '');
+    const uniqueSuffix = `${Date.now()}-${crypto.randomBytes(6).toString('hex')}`;
+    const filename = `${metadata.slug || 'upload'}-${uniqueSuffix}${ext}`;
+    const filepath = path.join(uploadDir, filename);
+
+    // Save file to disk
+    await copyFile(file.filepath, filepath);
+    await stat(filepath); // Ensure the file was copied successfully
+
+    // Inject base metadata
+    // metadata.fileSize = file.size || 0;
+    // metadata.author = user.id || 'unknown'; // TODO: Get user ID from session
+    if (type === 'Romhack') {
+      const romhack = metadata as RomhackData;
+      romhack.filename = filename;
+      romhack.originalFilename = file.originalFilename || filename;
+
+      // Romhacks: Add file hash
+      const fileBuffer = await readFile(filepath);
+      const fileHash = crypto
+        .createHash('sha256')
+        .update(fileBuffer)
+        .digest('hex');
+      romhack.fileHash = fileHash;
+    }
+  }
+
+  const body = schema.omit({ id: true, _id: true }).parse(metadata);
+
+  const existing = (await model.findOne({
+    $or: [
+      type === 'Romhack' ? { fileHash: body.fileHash } : null,
+      { title: body.title },
+
+      body.slug ? { slug: body.slug } : null,
+      !isNaN(Number(body.id)) ? { id: Number(body.id) } : null,
+      isValidObjectId(body._id) ? { _id: body._id } : null, // _id shouldn't exist on creation, but check anyway.
+    ].filter(Boolean) as FilterQuery<T>[],
+  })) as T | undefined;
+
   if (existing) {
+    if (
+      (type === 'Romhack' &&
+        (existing as unknown as RomhackData).fileHash === body.fileHash) ||
+      existing.id === body.id ||
+      existing._id?.toString() === body._id
+    ) {
+      throw createError({
+        statusCode: 409,
+        statusMessage: `This ${type} already exists.`,
+      });
+    }
+
     if (existing.title === body.title) {
       throw createError({
         statusCode: 409,
@@ -182,22 +266,6 @@ async function createListing<
         statusMessage: `A ${type} with this slug already exists.`,
       });
     }
-  }
-
-  // Check for duplicates based on slug, id, or _id
-  const exists = await model.exists({
-    $or: [
-      body.slug ? { slug: body.slug } : null,
-      !isNaN(Number(body.id)) ? { id: Number(body.id) } : null,
-      isValidObjectId(body._id) ? { _id: body._id } : null, // _id shouldn't exist on creation, but check anyway.
-    ].filter(Boolean) as FilterQuery<T>[],
-  });
-
-  if (exists) {
-    throw createError({
-      statusCode: 409,
-      statusMessage: `This ${type} already exists.`,
-    });
   }
 
   // Insert new listing

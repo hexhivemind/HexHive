@@ -6,7 +6,6 @@ import { runtimeTypes } from '~/types/runtimeTypes.generated';
 const RomhacksSchema = new Schema<RomhackData>({
   ...BaseListings,
 
-  filename: { type: String, required: true },
   baseRom: {
     type: String,
     required: true,
@@ -52,6 +51,10 @@ const RomhacksSchema = new Schema<RomhackData>({
       default: {},
     },
   },
+
+  fileHash: { type: String, required: true, unique: true, index: true },
+  filename: { type: String, required: true },
+  originalFilename: { type: String, required: true },
 });
 
 RomhacksSchema.index(
