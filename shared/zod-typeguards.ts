@@ -1,4 +1,4 @@
-import { SpriteCategorySchema, SpritesDataSchema } from './zod';
+import { SpriteCategorySchema, SpriteDataSchema } from './zod';
 
 export const isValidCategory = (
   data: unknown,
@@ -10,4 +10,4 @@ export const isValidCategory = (
 };
 
 export const isValidSpritesData = (data: unknown): data is SpritesData =>
-  SpritesDataSchema.safeParse(data).success;
+  SpriteDataSchema.safeParse(data).success;
