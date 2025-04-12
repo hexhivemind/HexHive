@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
     if (err instanceof ZodError) {
       throw createError({
         statusCode: 400,
-        message: err.errors[0]?.message || 'Invalid input',
+        message: err.message || 'Invalid input',
       });
     }
 

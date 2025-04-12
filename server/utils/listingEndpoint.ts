@@ -225,11 +225,13 @@ async function createListing<
     }
   }
 
-  const body = schema.omit({ id: true, _id: true }).parse(metadata);
+  const body = schema.omit({ id: true, _id: true }).parse(metadata) as T;
 
   const existing = (await model.findOne({
     $or: [
-      type === 'Romhack' ? { fileHash: body.fileHash } : null,
+      type === 'Romhack'
+        ? { fileHash: (body as unknown as RomhackData).fileHash }
+        : null,
       { title: body.title },
 
       body.slug ? { slug: body.slug } : null,
@@ -241,7 +243,8 @@ async function createListing<
   if (existing) {
     if (
       (type === 'Romhack' &&
-        (existing as unknown as RomhackData).fileHash === body.fileHash) ||
+        (existing as unknown as RomhackData).fileHash ===
+          (body as unknown as RomhackData).fileHash) ||
       existing.id === body.id ||
       existing._id?.toString() === body._id
     ) {

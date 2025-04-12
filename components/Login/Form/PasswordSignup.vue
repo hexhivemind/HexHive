@@ -9,7 +9,7 @@
         })
         .refine((data) => data.password === data.confirmPassword, {
           path: ['confirmPassword'],
-          message: "Password doesn't match",
+          error: "Password doesn't match",
         }),
     ),
   });

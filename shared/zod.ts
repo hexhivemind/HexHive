@@ -74,7 +74,7 @@ const ListingDataSchema = z.object({
   rating: z.number().optional(),
   slug: z
     .string()
-    .regex(/^(?!\d+$).+$/, 'Slug cannot be only numbers')
+    .regex(/^(?!\d+$).+$/, { error: 'Slug cannot be only numbers' })
     .optional(),
 
   // Added by back-end, not user input
@@ -143,7 +143,7 @@ export const ScriptDataSchema = AssetHiveSchema.extend({
     .array(baseRomVersion)
     .min(1, 'At least one version must be selected')
     .refine((arr) => new Set(arr).size === arr.length, {
-      message: 'Each version can only be selected once',
+      error: 'Each version can only be selected once',
     }),
 });
 
