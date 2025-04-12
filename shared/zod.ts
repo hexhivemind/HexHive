@@ -67,25 +67,36 @@ handleSubmit((values) => {
 */
 
 const ListingDataSchema = z.object({
-  author: z.string(),
   description: z.string(),
-  id: z.string().optional(),
   permissions: z.array(z.enum(runtimeTypes.AssetPermission)),
   title: z.string(),
 
-  _id: z.string().optional(),
   rating: z.number().optional(),
   slug: z
     .string()
     .regex(/^(?!\d+$).+$/, 'Slug cannot be only numbers')
     .optional(),
+
+  // Added by back-end, not user input
+  id: z.number().optional(),
+  author: z.string().optional(),
+  _id: z.string().optional(),
 });
 
 const AssetHiveSchema = ListingDataSchema.extend({
   fileSize: z.number(),
   fileCount: z.number(),
-  fileList: z.array(z.string()),
   targetedRoms: z.array(z.string()), // You could pull from a const array if desired
+
+  // Set by back-end, not user input
+  fileList: z.array(
+    z
+      .object({
+        filename: z.string(),
+        originalFilename: z.string(),
+      })
+      .optional(),
+  ),
 });
 
 export const SpriteCategorySchema = z.union([
@@ -99,7 +110,6 @@ export const RomhackDataSchema = ListingDataSchema.extend({
   baseRomVersion,
   baseRomRegion,
   categories: z.array(z.string()),
-  filename: z.string(),
   release: z.string(),
   states: z.array(z.string()),
 
@@ -109,12 +119,19 @@ export const RomhackDataSchema = ListingDataSchema.extend({
       entries: z.map(z.string(), z.string()),
     })
     .optional(),
-  flags: z.array(z.string()).optional(),
-  lastUpdated: z.date().optional(),
-  releaseDate: z.date().optional(),
   screenshots: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
   trailer: z.array(z.string()).optional(),
+
+  // Internal/Moderator applied, flags like mature content
+  flags: z.array(z.string()).optional(),
+
+  // Added by back-end, not user input
+  filename: z.string().optional(),
+  originalFilename: z.string().optional(),
+  fileHash: z.string().optional(),
+  lastUpdated: z.date().optional(),
+  releaseDate: z.date().optional(), // TODO: User Set original release date?
 });
 
 export const SpriteDataSchema = AssetHiveSchema.extend({

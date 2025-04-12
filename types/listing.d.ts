@@ -2,9 +2,7 @@ declare type AssetPermission = 'Credit' | 'Free' | 'No-Donations' | 'No-Profit';
 
 declare interface ListingData {
   // Required:
-  author: string;
   description: string;
-  id: number; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
   permissions: AssetPermission[];
   title: string;
 
@@ -12,6 +10,10 @@ declare interface ListingData {
   _id?: string; // Set by database, will be private, internal
   rating?: number;
   slug?: string; // User set id for route navigation, unique.
+
+  // Server/Database managed:
+  id: number; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
+  author: string; // User ID of the author (Possibly multiple later for shared ownership)
 }
 
 declare type SupportedBaseRom = 'Emerald' | 'Fire Red'; // | 'Ruby'
@@ -109,7 +111,6 @@ declare interface RomhackData extends ListingData {
   baseRomRegion: SupportedBaseRomRegion;
   baseRomVersion: SupportedBaseRomVersion;
   categories: RomhackCategory[];
-  filename: string;
   release: string; // User-defined version
   states: RomhackState[];
 
@@ -125,13 +126,18 @@ declare interface RomhackData extends ListingData {
   tags?: string[]; // User-defined tag cloud
   trailer?: string[];
   // TODO: Features, completion status, binary/decomp, etc
+
+  // Server assigned
+  fileHash?: string;
+  filename: string; // Server name for file
+  originalFilename: string; // Original name of the file (for download)
 }
 
 // A "Hive" is like a collection/folder/repository, etc
 declare interface AssetHive extends ListingData {
   // Required:
   fileCount: number;
-  fileList: string[];
+  fileList: { filename: string; originalFilename: string }[];
   fileSize: number;
   targetedRoms: SupportedBaseRom[];
 }
