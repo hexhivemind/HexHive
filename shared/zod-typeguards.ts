@@ -1,4 +1,5 @@
-import { SpriteCategorySchema, SpriteDataSchema } from './zod';
+import { SpriteDataSchema } from './zod';
+import { SpriteCategorySchema } from './zod-helpers';
 
 export const isValidCategory = (
   data: unknown,

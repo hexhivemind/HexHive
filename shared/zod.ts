@@ -1,3 +1,4 @@
+import type { ZodType } from 'zod';
 import {
   baseRom,
   baseRomRegion,
@@ -5,7 +6,8 @@ import {
   email,
   emailOrUsername,
   password,
-  SpriteEntrySchema,
+  SpriteFileMapSchema,
+  SpriteCategorySchema,
   username,
 } from './zod-helpers';
 
@@ -78,32 +80,26 @@ const ListingDataSchema = z.object({
     .optional(),
 
   // Added by back-end, not user input
-  id: z.number().optional(),
+  id: z.int().optional(),
   author: z.string().optional(),
   _id: z.string().optional(),
-});
+  downloads: z.int().optional(),
+}) satisfies ZodType<ListingData>;
 
 const AssetHiveSchema = ListingDataSchema.extend({
-  fileSize: z.number(),
-  fileCount: z.number(),
-  targetedRoms: z.array(z.string()), // You could pull from a const array if desired
+  fileSize: z.int(),
+  fileCount: z.int(),
+  targetedRoms: z.array(z.enum(runtimeTypes.SupportedBaseRom)), // You could pull from a const array if desired
 
   // Set by back-end, not user input
-  fileList: z.array(
-    z
-      .object({
-        filename: z.string(),
-        originalFilename: z.string(),
-      })
-      .optional(),
+  files: z.array(
+    z.object({
+      filename: z.string(),
+      originalFilename: z.string(),
+      size: z.int(),
+    }),
   ),
-});
-
-export const SpriteCategorySchema = z.union([
-  SpriteEntrySchema,
-  z.array(SpriteEntrySchema),
-  z.record(z.string(), SpriteEntrySchema),
-]);
+}) satisfies ZodType<AssetHive>;
 
 export const RomhackDataSchema = ListingDataSchema.extend({
   baseRom,
@@ -116,7 +112,7 @@ export const RomhackDataSchema = ListingDataSchema.extend({
   boxArt: z.array(z.string()).optional(),
   changelog: z
     .object({
-      entries: z.map(z.string(), z.string()),
+      entries: z.record(z.string(), z.string()),
     })
     .optional(),
   screenshots: z.array(z.string()).optional(),
@@ -130,23 +126,30 @@ export const RomhackDataSchema = ListingDataSchema.extend({
   filename: z.string().optional(),
   originalFilename: z.string().optional(),
   fileHash: z.string().optional(),
-  lastUpdated: z.date().optional(),
-  releaseDate: z.date().optional(), // TODO: User Set original release date?
-});
+  lastUpdated: z.custom<luxon.DateTime>().optional(), // TODO: Add validators for this
+  releaseDate: z.custom<luxon.DateTime>().optional(), // TODO: User Set original release date?
+}) satisfies ZodType<RomhackData>;
 
 export const SpriteDataSchema = AssetHiveSchema.extend({
   category: SpriteCategorySchema,
-});
+  fileMap: SpriteFileMapSchema,
+}) satisfies ZodType<SpritesData>;
 
 export const ScriptDataSchema = AssetHiveSchema.extend({
-  targetVersions: z
-    .array(baseRomVersion)
+  category: z
+    .array(z.string())
+    .min(1, 'At least one category must be selected'),
+  features: z.array(z.string()).min(1, 'At least one feature must be selected'),
+  prerequisites: z.array(z.string()).optional(),
+  targetedVersions: z
+    .array(z.enum(runtimeTypes.SupportedBaseRomVersion))
     .min(1, 'At least one version must be selected')
     .refine((arr) => new Set(arr).size === arr.length, {
       error: 'Each version can only be selected once',
     }),
-});
+  tools: z.array(z.string()).min(1, 'At least one tool must be selected'),
+}) satisfies ZodType<ScriptsData>;
 
 export const SoundDataSchema = AssetHiveSchema.extend({
   category: z.enum(runtimeTypes.SoundCategory),
-});
+}) satisfies ZodType<SoundData>;
