@@ -1,7 +1,7 @@
 import { type FilterQuery, isValidObjectId, type Model } from 'mongoose';
 import type { H3Event } from 'h3';
 import type { ZodObject, ZodRawShape } from 'zod';
-import formidable, { type Fields, type Files, type File } from 'formidable';
+import formidable, { type Fields, type Files } from 'formidable';
 import path from 'path';
 import { stat, mkdir, readFile, copyFile } from 'fs/promises';
 import crypto from 'crypto';
@@ -160,7 +160,7 @@ async function createListing<
   await connectMongoose();
 
   // Parse multipart form
-  const form = formidable({ multiples: false });
+  const form = formidable({ multiples: true });
 
   const { fields, files } = await new Promise<{
     fields: Fields;
@@ -183,45 +183,92 @@ async function createListing<
     });
   }
 
-  const file = files.file as File | undefined;
+  const fileArray = files.file ?? [];
 
-  if (file) {
-    const uploadDir = path.join(
-      process.env.UPLOAD_PATH || '/public/uploads',
-      type.toLowerCase(),
-    );
+  if (!fileArray.length)
+    throw createError({
+      statusCode: 400,
+      statusMessage: `No file(s) uploaded for this ${type} listing.`,
+    });
 
-    try {
-      await stat(uploadDir);
-    } catch {
-      await mkdir(uploadDir, { recursive: true });
+  const uploadBase = path.join(
+    process.env.UPLOAD_PATH || '/public/uploads',
+    type.toLowerCase(),
+  );
+
+  // Will be used for a folder name if multiple files, else file name.
+  const folderName = `${metadata.slug || 'upload'}-${Date.now()}-${crypto.randomBytes(6).toString('hex')}`;
+  const saveDir =
+    fileArray.length > 1 ? path.join(uploadBase, folderName) : uploadBase;
+
+  await mkdir(saveDir, { recursive: true });
+
+  const savedFiles: {
+    filename: string;
+    originalFilename: string;
+    size: number;
+  }[] = [];
+
+  for (const file of fileArray) {
+    const ext = path.extname(file.originalFilename || '');
+    const uniqueName =
+      fileArray.length > 1
+        ? `${Date.now()}-${crypto.randomBytes(6).toString('hex')}${ext}`
+        : `${folderName}${ext}`;
+
+    const destination = path.join(saveDir, uniqueName);
+
+    await copyFile(file.filepath, destination);
+    await stat(destination); // Ensure the file was copied successfully
+
+    savedFiles.push({
+      filename: uniqueName,
+      originalFilename: file.originalFilename || uniqueName,
+      size: file.size || 0,
+    });
+  }
+
+  // Content-only specific metadata:
+  if (type === 'Sprite') {
+    const sprite = metadata as SpritesData & {
+      spriteAssignments?: SpritesData['fileMap'];
+    };
+    const assignments = sprite.spriteAssignments;
+    const fileMap: { [filename: string]: SpriteFileMapping } = {};
+
+    for (const file of savedFiles) {
+      const original = file.originalFilename;
+      if (!original || !assignments?.[original]) continue; // Mapping is optional, or partial mappings, or choose to do mapping later or not at all.
+      fileMap[file.filename] = assignments[original];
     }
 
-    // Generate a unique filename
-    const ext = path.extname(file.originalFilename || '');
-    const uniqueSuffix = `${Date.now()}-${crypto.randomBytes(6).toString('hex')}`;
-    const filename = `${metadata.slug || 'upload'}-${uniqueSuffix}${ext}`;
-    const filepath = path.join(uploadDir, filename);
+    sprite.fileMap = fileMap;
+    delete sprite.spriteAssignments; // Remove the original mapping, if it exists.
+  }
 
-    // Save file to disk
-    await copyFile(file.filepath, filepath);
-    await stat(filepath); // Ensure the file was copied successfully
-
-    // Inject base metadata
-    // metadata.fileSize = file.size || 0;
-    // metadata.author = user.id || 'unknown'; // TODO: Get user ID from session
-    if (type === 'Romhack') {
-      const romhack = metadata as RomhackData;
-      romhack.filename = filename;
-      romhack.originalFilename = file.originalFilename || filename;
-
-      // Romhacks: Add file hash
-      const fileBuffer = await readFile(filepath);
+  // Content Specific Metadata:
+  switch (type) {
+    case 'Romhack': {
+      const [f] = savedFiles; // Romhack will only have one entry anyway.
+      const fileBuffer = await readFile(path.join(saveDir, f.filename));
       const fileHash = crypto
         .createHash('sha256')
         .update(fileBuffer)
         .digest('hex');
+
+      const romhack = metadata as RomhackData;
+
+      romhack.filename = f.filename;
+      romhack.originalFilename = f.originalFilename;
       romhack.fileHash = fileHash;
+      break;
+    }
+
+    default: {
+      const asset = metadata as AssetHive;
+      asset.fileCount = fileArray.length;
+      asset.files = savedFiles;
+      asset.fileSize = savedFiles.reduce((acc, file) => acc + file.size, 0);
     }
   }
 
