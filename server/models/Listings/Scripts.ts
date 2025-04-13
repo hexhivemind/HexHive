@@ -5,6 +5,11 @@ import { runtimeTypes } from '~/types/runtimeTypes.generated';
 const ScriptsSchema = new Schema<ScriptsData>({
   ...AssetHives,
 
+  category: {
+    type: [String],
+    required: true,
+    index: true,
+  },
   features: {
     type: [String],
     require: true,

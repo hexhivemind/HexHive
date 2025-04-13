@@ -27,13 +27,24 @@ export const BaseListings: SchemaDefinition<ListingData> = {
   rating: Number,
   slug: { type: String },
   title: { type: String, required: true, unique: true, index: true },
+  downloads: { type: Number, default: 0 },
 };
 
 export const AssetHives: SchemaDefinition<AssetHive> = {
   ...BaseListings,
 
   fileCount: { type: Number, required: true },
-  fileList: { type: [String], default: [], required: true },
+  files: {
+    type: [
+      {
+        filename: { type: String, required: true },
+        originalFilename: { type: String, required: true },
+        size: { type: Number, required: true },
+      },
+    ],
+    default: [],
+    required: true,
+  },
   fileSize: { type: Number, required: true },
   targetedRoms: {
     type: [String],
