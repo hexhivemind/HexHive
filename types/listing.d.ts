@@ -7,13 +7,14 @@ declare interface ListingData {
   title: string;
 
   // Optional:
-  _id?: string; // Set by database, will be private, internal
   rating?: number;
   slug?: string; // User set id for route navigation, unique.
 
   // Server/Database managed:
-  id: number; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
-  author: string; // User ID of the author (Possibly multiple later for shared ownership)
+  _id?: string; // Set by database, will be private, internal
+  id?: number; // Optional? Auto-incrementing unique id used for route navigation if slug not set?
+  author?: string; // User ID of the author (Possibly multiple later for shared ownership)
+  downloads?: number; // Number of downloads (for listing)
 }
 
 declare type SupportedBaseRom = 'Emerald' | 'Fire Red'; // | 'Ruby'
@@ -127,18 +128,18 @@ declare interface RomhackData extends ListingData {
   trailer?: string[];
   // TODO: Features, completion status, binary/decomp, etc
 
-  // Server assigned
+  // Server assigned (Always present after upload, but not before)
   fileHash?: string;
-  filename: string; // Server name for file
-  originalFilename: string; // Original name of the file (for download)
+  filename?: string; // Server name for file
+  originalFilename?: string; // Original name of the file (for download)
 }
 
 // A "Hive" is like a collection/folder/repository, etc
 declare interface AssetHive extends ListingData {
   // Required:
   fileCount: number;
-  fileList: { filename: string; originalFilename: string }[];
-  fileSize: number;
+  files: { filename: string; originalFilename: string; size: number }[];
+  fileSize: number; // Collective file size?
   targetedRoms: SupportedBaseRom[];
 }
 
@@ -273,15 +274,18 @@ type SpriteVariant = {
   //Other: UserDefined;
 };
 
+declare type spriteMapCategory =
+  | 'animated'
+  | 'animatedShiny'
+  | 'default'
+  | 'shiny';
+
 // Acceptable values for the `variant` field
 type SpriteVariantValue<V> =
   | V
   | V[]
   | {
-      animated?: V[];
-      animatedShiny?: V[];
-      default?: V[];
-      shiny?: V[];
+      [key in spriteMapCategory]?: V[];
     };
 
 type UserDefined = {
@@ -294,7 +298,24 @@ type SpriteUnionType = {
     [S in keyof SpriteVariant[T]]: {
       type: T;
       subtype: S;
-      variant: SpriteVariantValue<SpriteVariant[T][S]['variant']>;
+      variant?: SpriteVariant[T][S]['variant'] extends undefined
+        ? undefined
+        : SpriteVariantValue<SpriteVariant[T][S]['variant']>;
+    };
+  }[keyof SpriteVariant[T]];
+}[keyof SpriteVariant];
+
+declare type SpriteFileMapping = {
+  [T in keyof SpriteVariant]: {
+    [S in keyof SpriteVariant[T]]: {
+      type: T;
+      subtype: S;
+      // Variant or [key, variant] (e.g. ['shiny', 'front'] or ['animatedShiny', 'back'])
+      variant?: SpriteVariant[T][S]['variant'] extends undefined
+        ? undefined
+        :
+            | SpriteVariant[T][S]['variant']
+            | [spriteMapCategory, SpriteVariant[T][S]['variant']];
     };
   }[keyof SpriteVariant[T]];
 }[keyof SpriteVariant];
@@ -305,6 +326,7 @@ declare interface SpritesData extends AssetHive {
     | SpriteUnionType
     | SpriteUnionType[]
     | { [key: string]: SpriteUnionType };
+  fileMap?: { [filename: string]: SpriteFileMapping }; // Instead of Record<string, ...> to declare what the key represents
 }
 
 /*
@@ -355,6 +377,7 @@ declare type ScriptTool =
   | string;
 
 declare interface ScriptsData extends AssetHive {
+  category: ScriptCategory[];
   features: ScriptFeature[];
   prerequisites?: ScriptPrerequisite[];
   targetedVersions: SupportedBaseRomVersion[]; // Only scripts care about v1.0 vs v1.1
