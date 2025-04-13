@@ -25,6 +25,7 @@
     "@vee-validate/rules": "^4.15.0",
     "@vueuse/core": "^13.1.0",
     "@vueuse/nuxt": "^13.1.0",
+    "@zod/core": "^0.4.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "formidable": "^3.5.2",
