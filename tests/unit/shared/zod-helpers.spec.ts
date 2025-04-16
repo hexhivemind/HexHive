@@ -5,6 +5,7 @@ import {
   password,
   emailOrUsername,
   SpriteEntrySchema,
+  SpriteFileMapEntrySchema,
 } from '~/shared/zod-helpers';
 
 describe('Zod Primitives', () => {
@@ -239,6 +240,64 @@ describe('SpriteEntrySchema', () => {
     if (!result.success) {
       expect(result.error.issues[0].message).toBe(
         `Invalid sprite type: "${invalidData.type}".`,
+      );
+    }
+  });
+});
+
+describe('SpriteFileMapEntrySchema', () => {
+  it('passes when variant is correct', () => {
+    const validData = {
+      type: 'Battle',
+      subtype: 'Pokemon',
+      variant: 'Back' as string | string[],
+    };
+    expect(SpriteFileMapEntrySchema.safeParse(validData).success).toBe(true);
+    validData.variant = ['shiny', validData.variant as string];
+    expect(SpriteFileMapEntrySchema.safeParse(validData).success).toBe(true);
+  });
+
+  it('fails when type is incorrect', () => {
+    const invalidData = {
+      type: 'InvalidType',
+      subtype: 'Pokemon',
+      variant: 'Back',
+    };
+    const result = SpriteFileMapEntrySchema.safeParse(invalidData);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues[0].message).toBe(
+        `Invalid sprite type: "${invalidData.type}".`,
+      );
+    }
+  });
+
+  it('fails when variant is invalid for type and subtype', () => {
+    const invalidData = {
+      type: 'Battle',
+      subtype: 'Pokemon',
+      variant: 'InvalidVariant',
+    };
+    const result = SpriteFileMapEntrySchema.safeParse(invalidData);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues[0].message).toBe(
+        `Invalid variant value "${invalidData.variant}" for type "${invalidData.type}" and subtype "${invalidData.subtype}".`,
+      );
+    }
+  });
+
+  it('fails when variant key is invalid', () => {
+    const invalidData = {
+      type: 'Battle',
+      subtype: 'Pokemon',
+      variant: ['Invalid', 'Back'],
+    };
+    const result = SpriteFileMapEntrySchema.safeParse(invalidData);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues[0].message).toBe(
+        `Invalid variant key: "${invalidData.variant[0]}".`,
       );
     }
   });
