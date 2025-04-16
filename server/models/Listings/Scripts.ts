@@ -2,7 +2,7 @@ import mongoose, { Schema, model, type Model } from 'mongoose';
 import { applyAutoIncrement, AssetHives } from './Shared';
 import { runtimeTypes } from '~/types/runtimeTypes.generated';
 
-const ScriptsSchema = new Schema<ScriptsData>({
+const ScriptsSchema = new Schema<ScriptData>({
   ...AssetHives,
 
   category: {
@@ -43,7 +43,7 @@ ScriptsSchema.index(
 
 applyAutoIncrement(ScriptsSchema, 'Scripts');
 
-const Scripts: Model<ScriptsData> =
-  mongoose.models.Scripts || model<ScriptsData>('Scripts', ScriptsSchema);
+const Scripts: Model<ScriptData> =
+  mongoose.models.Scripts || model<ScriptData>('Scripts', ScriptsSchema);
 
 export default Scripts;

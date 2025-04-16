@@ -133,7 +133,7 @@ export const RomhackDataSchema = ListingDataSchema.extend({
 export const SpriteDataSchema = AssetHiveSchema.extend({
   category: SpriteCategorySchema,
   fileMap: SpriteFileMapSchema,
-}) satisfies ZodType<SpritesData>;
+}) satisfies ZodType<SpriteData>;
 
 export const ScriptDataSchema = AssetHiveSchema.extend({
   category: z
@@ -148,7 +148,7 @@ export const ScriptDataSchema = AssetHiveSchema.extend({
       error: 'Each version can only be selected once',
     }),
   tools: z.array(z.string()).min(1, 'At least one tool must be selected'),
-}) satisfies ZodType<ScriptsData>;
+}) satisfies ZodType<ScriptData>;
 
 export const SoundDataSchema = AssetHiveSchema.extend({
   category: z.enum(runtimeTypes.SoundCategory),

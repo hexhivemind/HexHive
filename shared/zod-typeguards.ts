@@ -3,8 +3,8 @@ import { SpriteCategorySchema } from './zod-helpers';
 
 export const isValidCategory = (
   data: unknown,
-): data is SpritesData['category'] =>
+): data is SpriteData['category'] =>
   SpriteCategorySchema.safeParse(data).success;
 
-export const isValidSpritesData = (data: unknown): data is SpritesData =>
+export const isValidSpriteData = (data: unknown): data is SpriteData =>
   SpriteDataSchema.safeParse(data).success;

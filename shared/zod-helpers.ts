@@ -174,7 +174,7 @@ export const SpriteCategorySchema = z.union([
   SpriteEntrySchema,
   z.array(SpriteEntrySchema),
   z.record(z.string(), SpriteEntrySchema),
-]) satisfies ZodType<SpritesData['category']>;
+]) satisfies ZodType<SpriteData['category']>;
 
 export const SpriteFileMapEntrySchema = z
   .object({
@@ -184,7 +184,7 @@ export const SpriteFileMapEntrySchema = z
       .union(
         [
           z.string(),
-          z.tuple([z.enum(runtimeTypes.spriteMapCategory), z.string()]),
+          z.tuple([z.enum(runtimeTypes.SpriteMapCategory), z.string()]),
         ],
         {
           error: (iss) => {
@@ -218,7 +218,7 @@ export const SpriteFileMapEntrySchema = z
       else if (Array.isArray(variant)) {
         const [_key, val] = variant;
         // Seems to be caught by the schema itself, keeping in case it becomes useful later.
-        // if (!runtimeTypes.spriteMapCategory.includes(key)) {
+        // if (!runtimeTypes.SpriteMapCategory.includes(key)) {
         //   issues.push({
         //     code: 'custom',
         //     message: `Invalid variant key "${key}" for type "${type}" and subtype "${subtype}" with variant ${val}.`,
@@ -234,4 +234,4 @@ export const SpriteFileMapEntrySchema = z
 
 export const SpriteFileMapSchema = z
   .record(z.string(), SpriteFileMapEntrySchema)
-  .optional() as ZodType<SpritesData['fileMap']>;
+  .optional() as ZodType<SpriteData['fileMap']>;

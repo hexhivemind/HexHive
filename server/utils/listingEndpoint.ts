@@ -230,8 +230,8 @@ async function createListing<
 
   // Content-only specific metadata:
   if (type === 'Sprite') {
-    const sprite = metadata as SpritesData & {
-      spriteAssignments?: SpritesData['fileMap'];
+    const sprite = metadata as SpriteData & {
+      spriteAssignments?: SpriteData['fileMap'];
     };
     const assignments = sprite.spriteAssignments;
     const fileMap: { [filename: string]: SpriteFileMapping } = {};

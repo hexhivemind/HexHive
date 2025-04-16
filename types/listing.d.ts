@@ -274,7 +274,7 @@ type SpriteVariant = {
   //Other: UserDefined;
 };
 
-declare type spriteMapCategory =
+declare type SpriteMapCategory =
   | 'animated'
   | 'animatedShiny'
   | 'default'
@@ -285,7 +285,7 @@ type SpriteVariantValue<V> =
   | V
   | V[]
   | {
-      [key in spriteMapCategory]?: V[];
+      [key in SpriteMapCategory]?: V[];
     };
 
 type UserDefined = {
@@ -315,13 +315,13 @@ declare type SpriteFileMapping = {
         ? undefined
         :
             | SpriteVariant[T][S]['variant']
-            | [spriteMapCategory, SpriteVariant[T][S]['variant']];
+            | [SpriteMapCategory, SpriteVariant[T][S]['variant']];
     };
   }[keyof SpriteVariant[T]];
 }[keyof SpriteVariant];
 
 // Final interface: spriteKind resolves correctly based on type + subtype
-declare interface SpritesData extends AssetHive {
+declare interface SpriteData extends AssetHive {
   category:
     | SpriteUnionType
     | SpriteUnionType[]
@@ -376,7 +376,7 @@ declare type ScriptTool =
   | 'Python'
   | string;
 
-declare interface ScriptsData extends AssetHive {
+declare interface ScriptData extends AssetHive {
   category: ScriptCategory[];
   features: ScriptFeature[];
   prerequisites?: ScriptPrerequisite[];

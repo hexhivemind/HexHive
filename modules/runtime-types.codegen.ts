@@ -120,9 +120,9 @@ async function generateRuntimeTypes(rootDir: string) {
           'ListingData',
           'RomhackData',
           'AssetHive',
-          'SpritesData',
+          'SpriteData',
           'SoundData',
-          'ScriptsData',
+          'ScriptData',
         ].includes(name)
       )
         return;

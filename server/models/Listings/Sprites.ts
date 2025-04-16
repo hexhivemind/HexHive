@@ -2,7 +2,7 @@ import mongoose, { Schema, model, type Model } from 'mongoose';
 
 import { applyAutoIncrement, AssetHives } from './Shared';
 
-const SpritesSchema = new Schema<SpritesData>({
+const SpritesSchema = new Schema<SpriteData>({
   ...AssetHives,
 
   category: { type: Schema.Types.Mixed, required: true },
@@ -22,7 +22,7 @@ const SpritesSchema = new Schema<SpritesData>({
 
 applyAutoIncrement(SpritesSchema, 'Sprites');
 
-const Sprites: Model<SpritesData> =
-  mongoose.models.Sprites || model<SpritesData>('Sprites', SpritesSchema);
+const Sprites: Model<SpriteData> =
+  mongoose.models.Sprites || model<SpriteData>('Sprites', SpritesSchema);
 
 export default Sprites;
