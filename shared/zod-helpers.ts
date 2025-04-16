@@ -114,18 +114,19 @@ function validateSpriteVariant(
   // Case: free-form allowed (no value validation needed)
   if (variantDef === 'string') return { shouldContinue: false };
 
+  // Not currently possible in our data model, but keeping for future-proofing
   // Case: Variant can only be one possible value
-  if (typeof variantDef === 'string') {
-    if (typeof variant !== 'string' || variant !== variantDef) {
-      issues.push({
-        code: 'custom',
-        message: `Invalid variant value "${variant}" for type "${type}" and subtype "${subtype}".`,
-        input: variant,
-        path: ['variant'],
-      });
-    }
-    return { shouldContinue: false };
-  }
+  // if (typeof variantDef === 'string') {
+  //   if (typeof variant !== 'string' || variant !== variantDef) {
+  //     issues.push({
+  //       code: 'custom',
+  //       message: `Invalid variant value "${variant}" for type "${type}" and subtype "${subtype}".`,
+  //       input: variant,
+  //       path: ['variant'],
+  //     });
+  //   }
+  //   return { shouldContinue: false };
+  // }
 
   return { shouldContinue: true, variantDef };
 }
@@ -180,10 +181,18 @@ export const SpriteFileMapEntrySchema = z
     type: z.string(),
     subtype: z.string(),
     variant: z
-      .union([
-        z.string().optional(),
-        z.tuple([z.enum(runtimeTypes.spriteMapCategory), z.string()]),
-      ])
+      .union(
+        [
+          z.string(),
+          z.tuple([z.enum(runtimeTypes.spriteMapCategory), z.string()]),
+        ],
+        {
+          error: (iss) => {
+            if (Array.isArray(iss.input))
+              return `Invalid variant key: "${iss.input[0]}".`;
+          },
+        },
+      )
       .optional(),
   })
   .check(({ value, issues }) => {
@@ -207,16 +216,17 @@ export const SpriteFileMapEntrySchema = z
 
       if (typeof variant === 'string') validate(variant);
       else if (Array.isArray(variant)) {
-        const [key, val] = variant;
-        if (!runtimeTypes.spriteMapCategory.includes(key)) {
-          issues.push({
-            code: 'custom',
-            message: `Invalid variant key "${key}" for type "${type}" and subtype "${subtype}" with variant ${val}.`,
-            input: variant,
-            path: ['variant'],
-          });
-          return;
-        }
+        const [_key, val] = variant;
+        // Seems to be caught by the schema itself, keeping in case it becomes useful later.
+        // if (!runtimeTypes.spriteMapCategory.includes(key)) {
+        //   issues.push({
+        //     code: 'custom',
+        //     message: `Invalid variant key "${key}" for type "${type}" and subtype "${subtype}" with variant ${val}.`,
+        //     input: variant,
+        //     path: ['variant'],
+        //   });
+        //   return;
+        // }
         validate(val);
       }
     }
