@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@atproto/api':
-        specifier: ^0.15.0
-        version: 0.15.0
+        specifier: ^0.15.2
+        version: 0.15.2
       '@atproto/oauth-client-node':
-        specifier: ^0.2.15
-        version: 0.2.15
+        specifier: ^0.2.16
+        version: 0.2.16
       '@mdi/font':
         specifier: ^7.4.47
         version: 7.4.47
@@ -51,8 +51,8 @@ importers:
         specifier: ^13.1.0
         version: 13.1.0(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@22.13.9)(db0@0.3.1)(eslint@9.24.0(jiti@2.4.2))(ioredis@5.6.0)(lightningcss@1.29.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.39.0)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vite@6.2.4(@types/node@22.13.9)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(vue-tsc@2.2.8(typescript@5.8.3))(yaml@2.7.0))(vue@3.5.13(typescript@5.8.3))
       '@zod/core':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.7.1
+        version: 0.7.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -63,8 +63,8 @@ importers:
         specifier: ^3.5.2
         version: 3.5.2
       lucide-vue-next:
-        specifier: ^0.488.0
-        version: 0.488.0(vue@3.5.13(typescript@5.8.3))
+        specifier: ^0.493.0
+        version: 0.493.0(vue@3.5.13(typescript@5.8.3))
       luxon:
         specifier: ^3.6.1
         version: 3.6.1
@@ -76,16 +76,19 @@ importers:
         version: 3.16.2(@parcel/watcher@2.5.1)(@types/node@22.13.9)(db0@0.3.1)(eslint@9.24.0(jiti@2.4.2))(ioredis@5.6.0)(lightningcss@1.29.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.39.0)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vite@6.2.4(@types/node@22.13.9)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(vue-tsc@2.2.8(typescript@5.8.3))(yaml@2.7.0)
       nuxt-auth-utils:
         specifier: ^0.5.20
-        version: 0.5.20(@atproto/api@0.15.0)(@atproto/oauth-client-node@0.2.15)(@simplewebauthn/browser@13.1.0)(@simplewebauthn/server@13.1.1)(magicast@0.3.5)
+        version: 0.5.20(@atproto/api@0.15.2)(@atproto/oauth-client-node@0.2.16)(@simplewebauthn/browser@13.1.0)(@simplewebauthn/server@13.1.1)(magicast@0.3.5)
       pinia:
         specifier: ^3.0.2
         version: 3.0.2(typescript@5.8.3)(vue@3.5.13(typescript@5.8.3))
+      playwright-core:
+        specifier: ^1.52.0
+        version: 1.52.0
       reka-ui:
         specifier: ^2.2.0
         version: 2.2.0(typescript@5.8.3)(vue@3.5.13(typescript@5.8.3))
       shadcn-nuxt:
-        specifier: ^2.0.1
-        version: 2.0.1(magicast@0.3.5)
+        specifier: ^2.1.0
+        version: 2.1.0(magicast@0.3.5)
       tailwind-merge:
         specifier: ^3.2.0
         version: 3.2.0
@@ -105,15 +108,15 @@ importers:
         specifier: ^0.18.6
         version: 0.18.6(magicast@0.3.5)(typescript@5.8.3)(vite@6.2.4(@types/node@22.13.9)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.3))
       zod:
-        specifier: ^4.0.0-beta.20250417T043022
-        version: 4.0.0-beta.20250417T043022
+        specifier: 4.0.0-beta.20250418T073619
+        version: 4.0.0-beta.20250418T073619
     devDependencies:
       '@nuxt/eslint':
         specifier: ^1.3.0
         version: 1.3.0(@vue/compiler-sfc@3.5.13)(eslint@9.24.0(jiti@2.4.2))(magicast@0.3.5)(typescript@5.8.3)(vite@6.2.4(@types/node@22.13.9)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
       '@nuxt/test-utils':
         specifier: ^3.17.2
-        version: 3.17.2(@types/node@22.13.9)(@vitest/ui@3.1.1)(@vue/test-utils@2.4.6)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.51.1)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vitest@3.1.1)(yaml@2.7.0)
+        version: 3.17.2(@types/node@22.13.9)(@vitest/ui@3.1.1)(@vue/test-utils@2.4.6)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.52.0)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vitest@3.1.1)(yaml@2.7.0)
       '@pinia/testing':
         specifier: ^1.0.1
         version: 1.0.1(pinia@3.0.2(typescript@5.8.3)(vue@3.5.13(typescript@5.8.3)))
@@ -128,7 +131,7 @@ importers:
         version: 3.6.2
       '@vee-validate/zod':
         specifier: ^4.15.0
-        version: 4.15.0(vue@3.5.13(typescript@5.8.3))(zod@4.0.0-beta.20250417T043022)
+        version: 4.15.0(vue@3.5.13(typescript@5.8.3))(zod@4.0.0-beta.20250418T073619)
       '@vitest/coverage-v8':
         specifier: ^3.1.1
         version: 3.1.1(vitest@3.1.1)
@@ -159,9 +162,6 @@ importers:
       mongodb-memory-server:
         specifier: ^10.1.4
         version: 10.1.4
-      playwright-core:
-        specifier: ^1.51.1
-        version: 1.51.1
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -218,8 +218,8 @@ packages:
     resolution: {integrity: sha512-60vepv88RwcJtSHrD6MjIL6Ta3SOYbgfnkHb+ppAVK+o9mXprRtulx7VlRl3lN3bbvysAfCS7WMVfhUYemB0IQ==}
     engines: {node: '>= 16'}
 
-  '@atproto-labs/did-resolver@0.1.11':
-    resolution: {integrity: sha512-qXNzIX2GPQnxT1gl35nv/8ErDdc4Fj/+RlJE7oyE7JGkFAPUyuY03TvKJ79SmWFsWE8wyTXEpLuphr9Da1Vhkw==}
+  '@atproto-labs/did-resolver@0.1.12':
+    resolution: {integrity: sha512-criWN7o21C5TFsauB+bGTlkqqerOU6gT2TbxdQVgZUWqNcfazUmUjT4gJAY02i+O4d3QmZa27fv9CcaRKWkSug==}
 
   '@atproto-labs/fetch-node@0.1.8':
     resolution: {integrity: sha512-OOTIhZNPEDDm7kaYU8iYRgzM+D5n3mP2iiBSyKuLakKTaZBL5WwYlUsJVsqX26SnUXtGEroOJEVJ6f66OcG80w==}
@@ -228,27 +228,27 @@ packages:
   '@atproto-labs/fetch@0.2.2':
     resolution: {integrity: sha512-QyafkedbFeVaN20DYUpnY2hcArYxjdThPXbYMqOSoZhcvkrUqaw4xDND4wZB5TBD9cq2yqe9V6mcw9P4XQKQuQ==}
 
-  '@atproto-labs/handle-resolver-node@0.1.14':
-    resolution: {integrity: sha512-+kOf+xENdxUNrrLoIcp/L4ommIa1SHnwfHIWbxumXnacfurjMOnZhfXeiNsEguaAxDNYpqDNpKsFBtcgjffXvQ==}
+  '@atproto-labs/handle-resolver-node@0.1.15':
+    resolution: {integrity: sha512-krl9KqfCCrGID35VAAHKBIiXOxe3gYxAtOJLYpZc5cOPFwnvPlAdhTYZLIc1dJRKDayi8gh6Q4XZRDv7i8dryg==}
     engines: {node: '>=18.7.0'}
 
-  '@atproto-labs/handle-resolver@0.1.7':
-    resolution: {integrity: sha512-nb4uAOgRVMp2NGVTJnor4ohqySbd1KyB5VzQLaRjMaPwH60Al057eTqiKRbeH/xD7hOBPNj1m0YjgxzvyAnWkg==}
+  '@atproto-labs/handle-resolver@0.1.8':
+    resolution: {integrity: sha512-Y0ckccoCGDo/3g4thPkgp9QcORmc+qqEaCBCYCZYtfLIQp4775u22wd+4fyEyJP4DqoReKacninkICgRGfs3dQ==}
 
-  '@atproto-labs/identity-resolver@0.1.15':
-    resolution: {integrity: sha512-3ABob5iUDoFL85I8/pJE4wncz3148fADoxNVAdksyACxxjpH1GNhSYNyIpRpdMCJ/kjj69DM9rggumTHqnD/Xg==}
+  '@atproto-labs/identity-resolver@0.1.16':
+    resolution: {integrity: sha512-pFrtKT49cYBhCDd2U1t/CcUBiMmQzaNQxh8oSkDUlGs/K3P8rJFTAGAMm8UjokfGEKwF4hX9oo7O8Kn+GkyExw==}
 
   '@atproto-labs/pipe@0.1.0':
     resolution: {integrity: sha512-ghOqHFyJlQVFPESzlVHjKroP0tPzbmG5Jms0dNI9yLDEfL8xp4OFPWLX4f6T8mRq69wWs4nIDM3sSsFbFqLa1w==}
 
-  '@atproto-labs/simple-store-memory@0.1.2':
-    resolution: {integrity: sha512-q6wawjKKXuhUzr2MnkSlgr6zU6VimYkL8eNvLQvkroLnIDyMkoCKO4+EJ885ZD8lGwBo4pX9Lhrg9JJ+ncJI8g==}
+  '@atproto-labs/simple-store-memory@0.1.3':
+    resolution: {integrity: sha512-jkitT9+AtU+0b28DoN92iURLaCt/q/q4yX8q6V+9LSwYlUTqKoj/5NFKvF7x6EBuG+gpUdlcycbH7e60gjOhRQ==}
 
-  '@atproto-labs/simple-store@0.1.2':
-    resolution: {integrity: sha512-9vTNvyPPBs44tKVFht16wGlilW8u4wpEtKwLkWbuNEh3h9TTQ8zjVhEoGZh/v73G4Otr9JUOSIq+/5+8OZD2mQ==}
+  '@atproto-labs/simple-store@0.2.0':
+    resolution: {integrity: sha512-0bRbAlI8Ayh03wRwncAMEAyUKtZ+AuTS1jgPrfym1WVOAOiottI/ZmgccqLl6w5MbxVcClNQF7WYGKvGwGoIhA==}
 
-  '@atproto/api@0.15.0':
-    resolution: {integrity: sha512-haSVLbSEqFd+h/VpRcamyzGn+36/lEfDZ7AqUKVA2Qq6ijfUWdzO7RUyOWQ4BiYgqTIrZN1ljnNUhSJxqlIUBQ==}
+  '@atproto/api@0.15.2':
+    resolution: {integrity: sha512-lkpuYfBjhDbkzI5Hp1/gtmQVKCEAZC0LjeZvSHgGcV43RuBM5jXFjU9F42+39HpTmkQUYQ5tg/4DWCfN93d5nw==}
 
   '@atproto/common-web@0.4.1':
     resolution: {integrity: sha512-Ghh+djHYMAUCktLKwr2IuGgtjcwSWGudp+K7+N7KBA9pDDloOXUEY8Agjc5SHSo9B1QIEFkegClU5n+apn2e0w==}
@@ -268,15 +268,15 @@ packages:
   '@atproto/lexicon@0.4.10':
     resolution: {integrity: sha512-uDbP20vetBgtXPuxoyRcvOGBt2gNe1dFc9yYKcb6jWmXfseHiGTnIlORJOLBXIT2Pz15Eap4fLxAu6zFAykD5A==}
 
-  '@atproto/oauth-client-node@0.2.15':
-    resolution: {integrity: sha512-4a+YBD1+X3sUmkWQkZdSkNVSA2IzIR/Nh98PZqYH1UZiksbyMzd56hjTKpUPS43Cccy/MXHCTb0BfMDILUTwnA==}
+  '@atproto/oauth-client-node@0.2.16':
+    resolution: {integrity: sha512-KHbDd2tv0FS3uVyCAX/yUnxpiM0fcO44GzR8pglZ+c8l2ErdwEx/in9Ji5sg1GlIr6vY244ffSMR7SotUtXtXw==}
     engines: {node: '>=18.7.0'}
 
-  '@atproto/oauth-client@0.3.14':
-    resolution: {integrity: sha512-EO+Qe/r3wc7/BJHvJZr30f+IjpcMtacqFhwQWNVGGwPs9zYElR6jzjVU/irAkGht0n076wJ2wyp9jBJiIIVfMA==}
+  '@atproto/oauth-client@0.3.15':
+    resolution: {integrity: sha512-kBv+sk2P5nqGjVSxF26ZswsGKbCfWmxCRpd90TRlNtxo29ZJrYxWySTZrnReXjMellMrTqJEUuTBIasGrXk5Jg==}
 
-  '@atproto/oauth-types@0.2.5':
-    resolution: {integrity: sha512-CnRNb4iLbhCv+5LaRtCSaoOg2QcQGqaatpFZbEzim/aCXenETdadrBCJo3+YyvZDHzYSy02nRVxWSm4T9e+lYw==}
+  '@atproto/oauth-types@0.2.6':
+    resolution: {integrity: sha512-6rUmV7T1YKCgVYLLjm+FGv+dYC8S0+0AHji/azVGDEhTsiadSrlC0H9Pgxix1y89zI1FIf0piBqecBcPewdrJg==}
 
   '@atproto/syntax@0.4.0':
     resolution: {integrity: sha512-b9y5ceHS8YKOfP3mdKmwAx5yVj9294UN7FG2XzP6V5aKUdFazEYRnR9m5n5ZQFKa3GNvz7de9guZCJ/sUTcOAA==}
@@ -2001,8 +2001,8 @@ packages:
     peerDependencies:
       vue: ^3.5.0
 
-  '@zod/core@0.6.2':
-    resolution: {integrity: sha512-KdH7bT0BRG1CvJ1LWH8oyNnkvLpjVZ5qVGpRu7Vq8WsFTKRDWfdr3rFfBYh8atZJSWDgD0ibhOyff1AyRvG1DA==}
+  '@zod/core@0.7.1':
+    resolution: {integrity: sha512-5mV2cmDlJyKNlRGinyg2Lgn4m3CvNItWW8BcolrEvekfQP/y+2G1udVFnRBGJt4QqSHVADGyzxm3bBffPGGf+g==}
 
   abbrev@2.0.0:
     resolution: {integrity: sha512-6/mh1E2u2YgEsCHdY0Yx5oW+61gZU+1vXaoiHHrpKeuRNNgFvS+/jrwHiQhB5apAf5oB7UB7E19ol2R2LKH8hQ==}
@@ -3443,8 +3443,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-vue-next@0.488.0:
-    resolution: {integrity: sha512-Za02FzR1r+XN2oxOQerH7HvZwLJz27qPfzbauYzphtewy1g59Bm2DraVS5Sb9iHcIe3Pqf8cTVufvpwqAKlsew==}
+  lucide-vue-next@0.493.0:
+    resolution: {integrity: sha512-spDR2UmFNwZ4ZK3Q7FoA6SMw0FdP4TAgLL+rHQlb2sjAdbbGSCy1/jMOIUwhgO0ySaAH8FCKLmxRnEJou7NJkw==}
     peerDependencies:
       vue: '>=3.0.1'
 
@@ -3928,8 +3928,8 @@ packages:
   pkg-types@2.1.0:
     resolution: {integrity: sha512-wmJwA+8ihJixSoHKxZJRBQG1oY8Yr9pGLzRmSsNms0iNWyHHAlZCa7mmKiFR10YPZuz/2k169JiS/inOjBCZ2A==}
 
-  playwright-core@1.51.1:
-    resolution: {integrity: sha512-/crRMj8+j/Nq5s8QcvegseuyeZPxpQCZb6HNk3Sos3BlZyAknRjoyJPFWkpNn8v0+P3WiwqFF8P+zQo4eqiNuw==}
+  playwright-core@1.52.0:
+    resolution: {integrity: sha512-l2osTgLXSMeuLZOML9qYODUQoPPnUsKsb5/P6LJ2e6uPKXUdPK5WYhN4z03G+YNbWmGDY4YENauNu4ZKczreHg==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4343,8 +4343,8 @@ packages:
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
 
-  shadcn-nuxt@2.0.1:
-    resolution: {integrity: sha512-V/dGlCig45B+v+peC0iYm8lcqjnjcKgJA42lmxRujPDK7CSNIjMTnM8+dHY8pvsC8KE52gw7uStmu4TfebQ18w==}
+  shadcn-nuxt@2.1.0:
+    resolution: {integrity: sha512-Pm9gYOgyReVaj2SeBAvHCo6lcJ2J+bUFWOlCfa3ml8xJd54uHtige4wdG0kJifutabCIKPu6Y+Ik+l94VR3GXQ==}
 
   shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
@@ -5159,8 +5159,8 @@ packages:
   zod@3.24.2:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
-  zod@4.0.0-beta.20250417T043022:
-    resolution: {integrity: sha512-zjfYudLXPgHvRdCWzy/iJqhB6suE8tBqnGubbFHSkMvcknI4iexEP53QCO13FoC/EIALseuZReVykCY8yd/skA==}
+  zod@4.0.0-beta.20250418T073619:
+    resolution: {integrity: sha512-IdLjh8m+/vaSdPbRbQHGV8ei6EgFhCIhaPNwkFlv/KoCG2dMRmysmgXO7oHWKMxk3RVoQhtMANFP2H6d5MMflg==}
 
 snapshots:
 
@@ -5187,12 +5187,12 @@ snapshots:
       '@types/json-schema': 7.0.15
       js-yaml: 4.1.0
 
-  '@atproto-labs/did-resolver@0.1.11':
+  '@atproto-labs/did-resolver@0.1.12':
     dependencies:
       '@atproto-labs/fetch': 0.2.2
       '@atproto-labs/pipe': 0.1.0
-      '@atproto-labs/simple-store': 0.1.2
-      '@atproto-labs/simple-store-memory': 0.1.2
+      '@atproto-labs/simple-store': 0.2.0
+      '@atproto-labs/simple-store-memory': 0.1.3
       '@atproto/did': 0.1.5
       zod: 3.24.2
 
@@ -5208,35 +5208,35 @@ snapshots:
     dependencies:
       '@atproto-labs/pipe': 0.1.0
 
-  '@atproto-labs/handle-resolver-node@0.1.14':
+  '@atproto-labs/handle-resolver-node@0.1.15':
     dependencies:
       '@atproto-labs/fetch-node': 0.1.8
-      '@atproto-labs/handle-resolver': 0.1.7
+      '@atproto-labs/handle-resolver': 0.1.8
       '@atproto/did': 0.1.5
 
-  '@atproto-labs/handle-resolver@0.1.7':
+  '@atproto-labs/handle-resolver@0.1.8':
     dependencies:
-      '@atproto-labs/simple-store': 0.1.2
-      '@atproto-labs/simple-store-memory': 0.1.2
+      '@atproto-labs/simple-store': 0.2.0
+      '@atproto-labs/simple-store-memory': 0.1.3
       '@atproto/did': 0.1.5
       zod: 3.24.2
 
-  '@atproto-labs/identity-resolver@0.1.15':
+  '@atproto-labs/identity-resolver@0.1.16':
     dependencies:
-      '@atproto-labs/did-resolver': 0.1.11
-      '@atproto-labs/handle-resolver': 0.1.7
+      '@atproto-labs/did-resolver': 0.1.12
+      '@atproto-labs/handle-resolver': 0.1.8
       '@atproto/syntax': 0.4.0
 
   '@atproto-labs/pipe@0.1.0': {}
 
-  '@atproto-labs/simple-store-memory@0.1.2':
+  '@atproto-labs/simple-store-memory@0.1.3':
     dependencies:
-      '@atproto-labs/simple-store': 0.1.2
+      '@atproto-labs/simple-store': 0.2.0
       lru-cache: 10.4.3
 
-  '@atproto-labs/simple-store@0.1.2': {}
+  '@atproto-labs/simple-store@0.2.0': {}
 
-  '@atproto/api@0.15.0':
+  '@atproto/api@0.15.2':
     dependencies:
       '@atproto/common-web': 0.4.1
       '@atproto/lexicon': 0.4.10
@@ -5282,34 +5282,34 @@ snapshots:
       multiformats: 9.9.0
       zod: 3.24.2
 
-  '@atproto/oauth-client-node@0.2.15':
+  '@atproto/oauth-client-node@0.2.16':
     dependencies:
-      '@atproto-labs/did-resolver': 0.1.11
-      '@atproto-labs/handle-resolver-node': 0.1.14
-      '@atproto-labs/simple-store': 0.1.2
+      '@atproto-labs/did-resolver': 0.1.12
+      '@atproto-labs/handle-resolver-node': 0.1.15
+      '@atproto-labs/simple-store': 0.2.0
       '@atproto/did': 0.1.5
       '@atproto/jwk': 0.1.5
       '@atproto/jwk-jose': 0.1.6
       '@atproto/jwk-webcrypto': 0.1.6
-      '@atproto/oauth-client': 0.3.14
-      '@atproto/oauth-types': 0.2.5
+      '@atproto/oauth-client': 0.3.15
+      '@atproto/oauth-types': 0.2.6
 
-  '@atproto/oauth-client@0.3.14':
+  '@atproto/oauth-client@0.3.15':
     dependencies:
-      '@atproto-labs/did-resolver': 0.1.11
+      '@atproto-labs/did-resolver': 0.1.12
       '@atproto-labs/fetch': 0.2.2
-      '@atproto-labs/handle-resolver': 0.1.7
-      '@atproto-labs/identity-resolver': 0.1.15
-      '@atproto-labs/simple-store': 0.1.2
-      '@atproto-labs/simple-store-memory': 0.1.2
+      '@atproto-labs/handle-resolver': 0.1.8
+      '@atproto-labs/identity-resolver': 0.1.16
+      '@atproto-labs/simple-store': 0.2.0
+      '@atproto-labs/simple-store-memory': 0.1.3
       '@atproto/did': 0.1.5
       '@atproto/jwk': 0.1.5
-      '@atproto/oauth-types': 0.2.5
+      '@atproto/oauth-types': 0.2.6
       '@atproto/xrpc': 0.6.12
       multiformats: 9.9.0
       zod: 3.24.2
 
-  '@atproto/oauth-types@0.2.5':
+  '@atproto/oauth-types@0.2.6':
     dependencies:
       '@atproto/jwk': 0.1.5
       zod: 3.24.2
@@ -6103,7 +6103,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@nuxt/test-utils@3.17.2(@types/node@22.13.9)(@vitest/ui@3.1.1)(@vue/test-utils@2.4.6)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.51.1)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vitest@3.1.1)(yaml@2.7.0)':
+  '@nuxt/test-utils@3.17.2(@types/node@22.13.9)(@vitest/ui@3.1.1)(@vue/test-utils@2.4.6)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.52.0)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vitest@3.1.1)(yaml@2.7.0)':
     dependencies:
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
       '@nuxt/schema': 3.16.2
@@ -6129,13 +6129,13 @@ snapshots:
       ufo: 1.5.4
       unplugin: 2.2.2
       vite: 6.2.4(@types/node@22.13.9)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
-      vitest-environment-nuxt: 1.0.1(@types/node@22.13.9)(@vitest/ui@3.1.1)(@vue/test-utils@2.4.6)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.51.1)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vitest@3.1.1)(yaml@2.7.0)
+      vitest-environment-nuxt: 1.0.1(@types/node@22.13.9)(@vitest/ui@3.1.1)(@vue/test-utils@2.4.6)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.52.0)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vitest@3.1.1)(yaml@2.7.0)
       vue: 3.5.13(typescript@5.8.3)
     optionalDependencies:
       '@vitest/ui': 3.1.1(vitest@3.1.1)
       '@vue/test-utils': 2.4.6
       happy-dom: 17.4.4
-      playwright-core: 1.51.1
+      playwright-core: 1.52.0
       vitest: 3.1.1(@types/node@22.13.9)(@vitest/ui@3.1.1)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
     transitivePeerDependencies:
       - '@types/node'
@@ -6951,11 +6951,11 @@ snapshots:
     transitivePeerDependencies:
       - vue
 
-  '@vee-validate/zod@4.15.0(vue@3.5.13(typescript@5.8.3))(zod@4.0.0-beta.20250417T043022)':
+  '@vee-validate/zod@4.15.0(vue@3.5.13(typescript@5.8.3))(zod@4.0.0-beta.20250418T073619)':
     dependencies:
       type-fest: 4.37.0
       vee-validate: 4.15.0(vue@3.5.13(typescript@5.8.3))
-      zod: 4.0.0-beta.20250417T043022
+      zod: 4.0.0-beta.20250418T073619
     transitivePeerDependencies:
       - vue
 
@@ -7292,7 +7292,7 @@ snapshots:
     dependencies:
       vue: 3.5.13(typescript@5.8.3)
 
-  '@zod/core@0.6.2': {}
+  '@zod/core@0.7.1': {}
 
   abbrev@2.0.0: {}
 
@@ -8730,7 +8730,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-vue-next@0.488.0(vue@3.5.13(typescript@5.8.3)):
+  lucide-vue-next@0.493.0(vue@3.5.13(typescript@5.8.3)):
     dependencies:
       vue: 3.5.13(typescript@5.8.3)
 
@@ -9066,7 +9066,7 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  nuxt-auth-utils@0.5.20(@atproto/api@0.15.0)(@atproto/oauth-client-node@0.2.15)(@simplewebauthn/browser@13.1.0)(@simplewebauthn/server@13.1.1)(magicast@0.3.5):
+  nuxt-auth-utils@0.5.20(@atproto/api@0.15.2)(@atproto/oauth-client-node@0.2.16)(@simplewebauthn/browser@13.1.0)(@simplewebauthn/server@13.1.1)(magicast@0.3.5):
     dependencies:
       '@adonisjs/hash': 9.0.5
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
@@ -9080,8 +9080,8 @@ snapshots:
       scule: 1.3.0
       uncrypto: 0.1.3
     optionalDependencies:
-      '@atproto/api': 0.15.0
-      '@atproto/oauth-client-node': 0.2.15
+      '@atproto/api': 0.15.2
+      '@atproto/oauth-client-node': 0.2.16
       '@simplewebauthn/browser': 13.1.0
       '@simplewebauthn/server': 13.1.1
     transitivePeerDependencies:
@@ -9426,7 +9426,7 @@ snapshots:
       exsolve: 1.0.4
       pathe: 2.0.3
 
-  playwright-core@1.51.1: {}
+  playwright-core@1.52.0: {}
 
   pluralize@8.0.0: {}
 
@@ -9855,7 +9855,7 @@ snapshots:
 
   setprototypeof@1.2.0: {}
 
-  shadcn-nuxt@2.0.1(magicast@0.3.5):
+  shadcn-nuxt@2.1.0(magicast@0.3.5):
     dependencies:
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
       '@oxc-parser/wasm': 0.50.0
@@ -10442,9 +10442,9 @@ snapshots:
       tsx: 4.19.3
       yaml: 2.7.0
 
-  vitest-environment-nuxt@1.0.1(@types/node@22.13.9)(@vitest/ui@3.1.1)(@vue/test-utils@2.4.6)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.51.1)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vitest@3.1.1)(yaml@2.7.0):
+  vitest-environment-nuxt@1.0.1(@types/node@22.13.9)(@vitest/ui@3.1.1)(@vue/test-utils@2.4.6)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.52.0)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vitest@3.1.1)(yaml@2.7.0):
     dependencies:
-      '@nuxt/test-utils': 3.17.2(@types/node@22.13.9)(@vitest/ui@3.1.1)(@vue/test-utils@2.4.6)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.51.1)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vitest@3.1.1)(yaml@2.7.0)
+      '@nuxt/test-utils': 3.17.2(@types/node@22.13.9)(@vitest/ui@3.1.1)(@vue/test-utils@2.4.6)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.52.0)(sass@1.86.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vitest@3.1.1)(yaml@2.7.0)
     transitivePeerDependencies:
       - '@cucumber/cucumber'
       - '@jest/globals'
@@ -10686,6 +10686,6 @@ snapshots:
 
   zod@3.24.2: {}
 
-  zod@4.0.0-beta.20250417T043022:
+  zod@4.0.0-beta.20250418T073619:
     dependencies:
-      '@zod/core': 0.6.2
+      '@zod/core': 0.7.1
