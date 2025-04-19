@@ -20,8 +20,8 @@
       <template v-else>
         <v-col v-for="(n, i) in data" :key="i" cols="4">
           <template v-if="!isDeleted(n)">
-          <!-- TODO: Add artwork to cards based on type and data -->
-          <v-card height="200" :to="`${route.path}/${n.id}`" />
+            <!-- TODO: Add artwork to cards based on type and data -->
+            <v-card height="200" :to="`${route.path}/${n.id}`" />
           </template>
           <template v-else>
             <!-- TODO: Decide how to properly display deleted entries -->
@@ -33,7 +33,8 @@
   </v-container>
 
   <v-card variant="plain">
-    <v-pagination show-first-last-page :length="10" :total-visible="5" />
+    <!-- <v-pagination show-first-last-page :length="10" :total-visible="5" /> -->
+    <Paginator show-first-last-page :length="10" :total-visible="5" />
   </v-card>
 </template>
 
