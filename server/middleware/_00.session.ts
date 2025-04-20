@@ -1,10 +1,7 @@
 import Users from '~/server/models/User';
 
 export default defineEventHandler(async (event) => {
-  const session = (await getUserSession(event)) as Awaited<
-    ReturnType<typeof getUserSession>
-  > &
-    UserSession;
+  const session = await getUserSession(event);
 
   // OPTIONAL: allow unathenticated access to specific routes
   // if (event.path.startsWith('/api/public')) return;
@@ -12,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const userId = session?.user?.id || null;
   if (!userId) return;
 
-  connectMongoose();
+  await connectMongoose();
 
   const user = await Users.findById(userId);
 
@@ -20,6 +17,7 @@ export default defineEventHandler(async (event) => {
     await clearUserSession(event);
     throw createError({
       statusCode: 401,
+      statusMessage: 'Unauthorized',
       message: 'Session invalid or user no longer exists. Please log in again.',
     });
   }
