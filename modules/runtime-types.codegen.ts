@@ -137,9 +137,9 @@ async function generateRuntimeTypes(rootDir: string) {
   });
 
   const output = `// AUTO-GENERATED FILE — DO NOT EDIT
-// Generated from: ${typeFiles.join(', ')}
-export const runtimeTypes = ${JSON.stringify(runtimeTypes, null, 2)} as const
-  `;
+                  // Generated from: ${typeFiles.join(', ')}
+                  export const runtimeTypes = ${JSON.stringify(runtimeTypes, null, 2)} as const
+                  `;
 
   const outputPath = path.resolve(
     __dirname,
