@@ -10,6 +10,7 @@ import {
 import path from 'path';
 import fs from 'fs';
 import { defineNuxtModule } from '@nuxt/kit';
+import { format, resolveConfig } from 'prettier';
 
 // Shared generator function.
 async function generateRuntimeTypes(rootDir: string) {
@@ -144,7 +145,14 @@ export const runtimeTypes = ${JSON.stringify(runtimeTypes, null, 2)} as const
     __dirname,
     '../types/runtimeTypes.generated.ts',
   );
-  fs.writeFileSync(outputPath, output);
+
+  const config = await resolveConfig(outputPath);
+  const formattedOutput = await format(output, {
+    ...config,
+    parser: 'typescript',
+  });
+
+  fs.writeFileSync(outputPath, formattedOutput);
   // eslint-disable-next-line no-console
   console.log(`[runtime-types-codegen] Generated: ${outputPath}`);
 }
