@@ -84,6 +84,6 @@ export default defineWebAuthnAuthenticateEventHandler<WebAuthnCredential>({
         authMethod: 'webauthn',
       },
       loggedInAt: Date.now(),
-    } as UserSession);
+    });
   },
 });

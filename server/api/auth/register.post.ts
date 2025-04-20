@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
         authMethod: 'password',
       },
       loggedInAt: Date.now(),
-    } as UserSession);
+    });
 
     return { success: true };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

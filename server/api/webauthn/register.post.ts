@@ -14,10 +14,7 @@ export default defineWebAuthnRegisterEventHandler<WebAuthnUser>({
     const parsed = webauthnValidator.parse(body);
 
     const isDev = process.env.NODE_ENV !== 'production';
-    const session = (await getUserSession(event)) as Awaited<
-      ReturnType<typeof getUserSession>
-    > &
-      UserSession;
+    const session = await getUserSession(event);
 
     // Step 2: Use validated input for DB check
     const existingUser = await Users.findOne({
@@ -107,7 +104,7 @@ export default defineWebAuthnRegisterEventHandler<WebAuthnUser>({
           authMethod: 'webauthn',
         },
         loggedInAt: Date.now(),
-      } as UserSession);
+      });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       throw createError({

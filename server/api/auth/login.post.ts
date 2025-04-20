@@ -17,5 +17,5 @@ export default defineEventHandler(async (event) => {
       authMethod: 'password',
     },
     loggedInAt: Date.now(),
-  } as UserSession);
+  });
 });
