@@ -358,12 +358,12 @@ declare type ScriptFeature =
 declare type ScriptPrerequisite =
   | '32MB'
   | 'CFRU'
-  | 'CFRU-Expansion' // By Shiny-Miner
   | 'DPE'
   | 'HUBOL'
   | 'JPAN'
   | 'Leon'
   | 'Physical/Special Split (PSS)'
+  | 'SCADE' // UCDEP?
   | 'Shinyzer'
   | string;
 
