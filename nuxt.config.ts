@@ -29,8 +29,12 @@ export default defineNuxtConfig({
     dirs: ['~/shared/zod'],
     presets: [
       {
-        from: 'zod',
+        from: 'zod/v4',
         imports: [{ name: 'z' }],
+      },
+      {
+        from: 'zod',
+        imports: [{ name: 'z', as: 'z3' }],
       },
       {
         from: '@vee-validate/zod',
@@ -65,7 +69,7 @@ export default defineNuxtConfig({
       dirs: ['~/shared/zod'],
       presets: [
         {
-          from: 'zod',
+          from: 'zod/v4',
           imports: [{ name: 'z' }],
         },
         {

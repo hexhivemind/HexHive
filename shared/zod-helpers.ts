@@ -1,5 +1,5 @@
-import type { ZodType } from 'zod';
-import type { $ZodRawIssue } from '@zod/core';
+import type { ZodType } from 'zod/v4';
+import type { $ZodRawIssue } from 'zod/v4/core';
 
 export const email = z.email({ error: 'Must be a valid email' });
 
