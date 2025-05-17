@@ -11,8 +11,8 @@
             src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
           />
 
-          <span>{{ username }}</span>
-          <span>{{ joinDate }}</span>
+          <span>{{ user.username }}</span>
+          <span>{{ user.joinDate }}</span>
         </v-card>
       </v-col>
 
@@ -40,5 +40,5 @@
   const userStore = useUserStore();
   const { user } = storeToRefs(userStore);
 
-  const username = route.params['username'];
+  const _username = route.params['username'];
 </script>
