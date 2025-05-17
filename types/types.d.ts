@@ -3,11 +3,30 @@ type Permissions = {
   [permission: string]: boolean;
 };
 
+declare type Pronouns = 'He/Him' | 'She/Her' | 'They/Them' | string;
+
+declare type Socials =
+  | 'Bluesky'
+  | 'DeviantArt'
+  | 'Discord'
+  | 'Github'
+  | 'Ko-fi'
+  | 'Linktr.ee'
+  | 'Pokecommunity'
+  | 'Revolt'
+  | 'Twitter'
+  | 'WhackAHack';
+
 declare interface User {
-  username: string;
   avatar: string;
   email: string;
+  displayName?: string;
+  joinDate?: Date;
+  lastActiveDate?: Date;
   password: string;
-  role: 'user' | 'moderator' | 'admin';
   permissions: Permissions;
+  pronouns: Pronouns;
+  role: 'user' | 'moderator' | 'admin';
+  socials: { [social in Socials]?: string } & { [other: string]: string };
+  username: string;
 }
