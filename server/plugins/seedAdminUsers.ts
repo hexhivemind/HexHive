@@ -1,10 +1,10 @@
-import User from '~/server/models/User';
+import Users from '~/server/models/User';
 
 export default defineNitroPlugin(async () => {
   await connectMongoose();
 
   // Only seed if no admin user exists at all
-  const adminCount = await User.countDocuments({ role: 'admin' });
+  const adminCount = await Users.countDocuments({ role: 'admin' });
 
   if (adminCount > 0) {
     // eslint-disable-next-line no-console
@@ -28,7 +28,7 @@ export default defineNitroPlugin(async () => {
     .filter(Boolean);
 
   if (admins.length > 0) {
-    await User.insertMany(admins);
+    await Users.insertMany(admins);
     // eslint-disable-next-line no-console
     console.log(`[seed] Created ${admins.length} admin user(s).`);
     // eslint-disable-next-line no-console
