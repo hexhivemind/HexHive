@@ -1,6 +1,6 @@
 import { type FilterQuery, isValidObjectId, type Model } from 'mongoose';
 import type { H3Event } from 'h3';
-import type { ZodObject, ZodRawShape } from 'zod';
+import type { ZodObject, ZodRawShape } from 'zod/v4';
 import formidable, { type Fields, type Files } from 'formidable';
 import path from 'path';
 import { stat, mkdir, readFile, copyFile } from 'fs/promises';
