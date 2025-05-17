@@ -91,9 +91,9 @@
 <script setup lang="ts">
   import { RomhackDataSchema } from '~/shared/zod';
 
-  const { handleSubmit, meta, errors } = useForm({
-    validationSchema: toTypedSchema(RomhackDataSchema),
-  });
+  // const { handleSubmit, meta, errors } = useForm({
+  //   validationSchema: toTypedSchema(RomhackDataSchema),
+  // });
 
   const { title, description, permissions, slug } = useListingForm();
 
@@ -119,7 +119,55 @@
   const { value: mature } = useField<boolean>('mature');
 
   // TODO: Handle Submit
-  const submit = () => handleSubmit(async (_values) => {});
+  // const submit = () => handleSubmit(async (_values) => {});
+
+  const submit = async () => {
+    // await submit({
+    //   title: title.value,
+    //   description: description.value,
+    //   permissions: permissions.value,
+    //   slug: slug.value,
+    //   baseRom: rom.value,
+    //   baseRomRegion: region.value,
+    //   baseRomVersion: version.value,
+    //   categories: categories.value,
+    //   release: release.value,
+    //   states: states.value,
+    //   mature: mature.value,
+    // });
+  };
+
+  const valid = computed(
+    () =>
+      RomhackDataSchema.safeParse({
+        title: title.value,
+        description: description.value,
+        permissions: permissions.value,
+        slug: slug.value,
+        baseRom: rom.value,
+        baseRomRegion: region.value,
+        baseRomVersion: version.value,
+        categories: categories.value,
+        release: release.value,
+        states: states.value,
+        mature: mature.value,
+      }).success,
+  );
+
+  const meta = { valid } as never;
+  const errors = {
+    title: [],
+    description: [],
+    permissions: [],
+    slug: [],
+    baseRom: [],
+    baseRomRegion: [],
+    baseRomVersion: [],
+    categories: [],
+    release: [],
+    states: [],
+    mature: [],
+  };
 </script>
 
 <style lang="scss" scoped></style>
