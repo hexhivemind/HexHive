@@ -1,3 +1,4 @@
+import type { UserSession } from '#auth-utils';
 import type { H3Event } from 'h3';
 
 export async function getTypedUserSession(
