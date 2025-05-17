@@ -2,25 +2,62 @@
   <v-container dense class="h-[90%]">
     <v-row class="h-full">
       <!-- Sidebar -->
-      <v-col md="4" cols="12">
-        <v-card class="h-full">
-          <v-img
-            :width="256"
-            aspect-ratio="1"
-            cover
-            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
-          />
+      <v-col cols="12" md="4">
+        <!-- Nametag -->
+        <v-card class="px-5 py-5 text-center relative">
+          <span
+            v-if="user.role !== 'user'"
+            :class="[
+              'absolute top-3 right-3 px-3 py-1 rounded-full text-xs ',
+              roleColor[user.role],
+            ]"
+          >
+            {{ user.role }}
+          </span>
 
-          <div class="grid grid-cols-1">
-            <span>{{ user.username }} ({{ user.pronouns }})</span>
-            <span>Joined: {{ joinDate.toFormat('yyyy-LL-dd') }}</span>
-            <span>
-              Last Active: {{ lastActiveDate.toFormat('yyyy-LL-dd') }}
-            </span>
+          <div class="flex flex-col items-center">
+            <v-img
+              class="rounded-full"
+              width="128"
+              height="128"
+              cover
+              src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
+            />
+            <!-- :src="user.avatar" -->
 
-            <div v-for="social in Object.keys(user.socials)" :key="social">
-              {{ social }}: {{ user.socials[social] }}
+            <div class="flex items-center mt-2">
+              <h2 class="text-xl font-semibold">
+                {{ user.displayName || user.username }}
+              </h2>
+              <p class="text-xs ml-2">({{ user.pronouns }})</p>
             </div>
+
+            <p>@{{ user.username }}</p>
+          </div>
+        </v-card>
+
+        <!-- STATS ROW -->
+        <v-card class="px-5 py-5 mt-4">
+          <h3 class="font-semibold text-lg mb-3">📊 User Stats</h3>
+          <ul class="space-y-2">
+            <li>
+              <strong>Joined on:</strong>
+              {{ joinDate.toFormat('yyyy-LL-dd') }}
+            </li>
+            <li>
+              <strong>Last Seen:</strong>
+              {{ lastActiveDate.toFormat('yyyy-LL-dd') }}
+            </li>
+          </ul>
+        </v-card>
+
+        <!-- SOCIALS ROW -->
+        <v-card class="px-5 py-5 mt-4">
+          <h3 class="font-semibold text-lg mb-3">🔗 Socials</h3>
+          <div v-for="(link, platform) in user.socials" :key="platform">
+            <a :href="link" target="_blank" class="hover:underline">
+              {{ platform }}: {{ link }}
+            </a>
           </div>
         </v-card>
       </v-col>
@@ -57,4 +94,10 @@
   const lastActiveDate = DateTime.fromJSDate(user.value.lastActiveDate!);
 
   const _username = route.params['username'];
+
+  const roleColor: Record<string, string> = {
+    user: 'bg-blue-100 text-blue-800',
+    moderator: 'bg-green-100 text-green-800',
+    admin: 'bg-red-100 text-red-800',
+  };
 </script>
