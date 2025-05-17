@@ -1,9 +1,9 @@
 <script lang="ts" setup>
   import { passwordSchema } from '~/shared/zod';
 
-  const { handleSubmit, meta, errors } = useForm({
-    validationSchema: toTypedSchema(passwordSchema),
-  });
+  // const { handleSubmit, meta, errors } = useForm({
+  //   validationSchema: toTypedSchema(passwordSchema),
+  // });
 
   const props = defineProps<{
     submit: (values: unknown) => void;
@@ -21,7 +21,22 @@
     validateOnMount: Boolean(p.value),
   });
 
-  const submit = handleSubmit(props.submit);
+  // const submit = handleSubmit(props.submit);
+
+  const submit = async () => {
+    await props.submit({
+      identity: identity.value,
+      password: password.value,
+    });
+  };
+
+  const valid = computed(
+    () =>
+      passwordSchema.safeParse({
+        identity: identity.value,
+        password: password.value,
+      }).success,
+  );
 </script>
 
 <template>
@@ -29,7 +44,6 @@
     <!-- Identity -->
     <v-text-field
       v-model="identity"
-      :error-messages="errors.identity"
       label="Email or Username"
       type="text"
       class="mb-4"
@@ -39,7 +53,6 @@
     <!-- Password-->
     <v-text-field
       v-model="password"
-      :error-messages="errors.password"
       label="Password"
       type="password"
       class="mb-4"
@@ -50,7 +63,7 @@
       <v-btn
         type="submit"
         color="primary"
-        :disabled="!meta.valid"
+        :disabled="!valid"
         class="justify-center w-48"
         :rounded="1"
       >

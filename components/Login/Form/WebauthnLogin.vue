@@ -1,9 +1,9 @@
 <script lang="ts" setup>
   import { webauthnSchema } from '~/shared/zod';
 
-  const { handleSubmit, meta, errors } = useForm({
-    validationSchema: toTypedSchema(webauthnSchema),
-  });
+  // const { handleSubmit, meta, errors } = useForm({
+  //   validationSchema: toTypedSchema(webauthnSchema),
+  // });
 
   const props = defineProps<{
     submit: (values: unknown) => void;
@@ -16,7 +16,19 @@
     validateOnMount: Boolean(i.value),
   });
 
-  const submit = handleSubmit(props.submit);
+  // const submit = handleSubmit(props.submit);
+  const submit = async () => {
+    await props.submit({
+      identity: identity.value,
+    });
+  };
+
+  const valid = computed(
+    () =>
+      webauthnSchema.safeParse({
+        identity: identity.value,
+      }).success,
+  );
 </script>
 
 <template>
@@ -24,7 +36,6 @@
     <!-- Identity -->
     <v-text-field
       v-model="identity"
-      :error-messages="errors.identity"
       label="Email or Username"
       type="text"
       class="mb-4"
@@ -35,7 +46,7 @@
       <v-btn
         type="submit"
         color="primary"
-        :disabled="!meta.valid"
+        :disabled="!valid"
         class="justify-center w-48"
         :rounded="1"
       >

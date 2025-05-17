@@ -5,14 +5,19 @@
     username as UsernameValidator,
   } from '~/shared/zod-helpers';
 
-  const { handleSubmit, meta, errors } = useForm({
-    validationSchema: toTypedSchema(
-      webauthnSchema.extend({
-        identity: EmailValidator,
-        username: UsernameValidator,
-      }),
-    ),
+  const validator = webauthnSchema.extend({
+    identity: EmailValidator,
+    username: UsernameValidator,
   });
+
+  // const { handleSubmit, meta, errors } = useForm({
+  //   validationSchema: toTypedSchema(
+  //     webauthnSchema.extend({
+  //       identity: EmailValidator,
+  //       username: UsernameValidator,
+  //     }),
+  //   ),
+  // });
 
   const props = defineProps<{
     submit: (values: unknown) => void;
@@ -30,7 +35,21 @@
     validateOnMount: Boolean(u.value),
   });
 
-  const submit = handleSubmit(props.submit);
+  // const submit = handleSubmit(props.submit);
+  const submit = async () => {
+    await props.submit({
+      identity: identity.value,
+      username: username.value,
+    });
+  };
+
+  const valid = computed(
+    () =>
+      validator.safeParse({
+        identity: identity.value,
+        username: username.value,
+      }).success,
+  );
 </script>
 
 <template>
@@ -38,7 +57,6 @@
     <!-- Identity -->
     <v-text-field
       v-model="identity"
-      :error-messages="errors.identity"
       label="Email Address"
       type="email"
       class="mb-4"
@@ -46,19 +64,13 @@
     />
 
     <!-- Username (signup only) -->
-    <v-text-field
-      v-model="username"
-      :error-messages="errors.username"
-      label="Username"
-      class="mb-4"
-      required
-    />
+    <v-text-field v-model="username" label="Username" class="mb-4" required />
 
     <div class="flex justify-center">
       <v-btn
         type="submit"
         color="primary"
-        :disabled="!meta.valid"
+        :disabled="!valid"
         class="justify-center w-48"
         :rounded="1"
       >

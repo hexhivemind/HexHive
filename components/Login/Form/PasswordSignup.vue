@@ -1,18 +1,27 @@
 <script lang="ts" setup>
   import { passwordValidator } from '~/shared/zod';
 
-  const { handleSubmit, meta, errors } = useForm({
-    validationSchema: toTypedSchema(
-      passwordValidator
-        .extend({
-          confirmPassword: z.string(),
-        })
-        .refine((data) => data.password === data.confirmPassword, {
-          path: ['confirmPassword'],
-          error: "Password doesn't match",
-        }),
-    ),
-  });
+  const validator = passwordValidator
+    .extend({
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      path: ['confirmPassword'],
+      error: "Password doesn't match",
+    });
+
+  // const { handleSubmit, meta, errors } = useForm({
+  //   validationSchema: toTypedSchema(
+  //     passwordValidator
+  //       .extend({
+  //         confirmPassword: z.string(),
+  //       })
+  //       .refine((data) => data.password === data.confirmPassword, {
+  //         path: ['confirmPassword'],
+  //         error: "Password doesn't match",
+  //       }),
+  //   ),
+  // });
 
   const props = defineProps<{
     submit: (values: unknown) => void;
@@ -40,7 +49,25 @@
     keepValueOnUnmount: true,
   });
 
-  const submit = handleSubmit(props.submit);
+  // const submit = handleSubmit(props.submit);
+  const submit = async () => {
+    await props.submit({
+      identity: identity.value,
+      username: username.value,
+      password: password.value,
+      confirmPassword: confirmPassword.value,
+    });
+  };
+
+  const valid = computed(
+    () =>
+      validator.safeParse({
+        identity: identity.value,
+        username: username.value,
+        password: password.value,
+        confirmPassword: confirmPassword.value,
+      }).success,
+  );
 </script>
 
 <template>
@@ -48,7 +75,6 @@
     <!-- Identity -->
     <v-text-field
       v-model="identity"
-      :error-messages="errors.identity"
       label="Email Address"
       type="email"
       class="mb-4"
@@ -56,18 +82,11 @@
     />
 
     <!-- Username (signup only) -->
-    <v-text-field
-      v-model="username"
-      :error-messages="errors.username"
-      label="Username"
-      class="mb-4"
-      required
-    />
+    <v-text-field v-model="username" label="Username" class="mb-4" required />
 
     <!-- Password-->
     <v-text-field
       v-model="password"
-      :error-messages="errors.password"
       label="Password"
       :type="showPassword ? 'text' : 'password'"
       class="mb-4"
@@ -79,7 +98,6 @@
     <!-- Confirm Password (signup only) -->
     <v-text-field
       v-model="confirmPassword"
-      :error-messages="errors.confirmPassword"
       label="Confirm Password"
       :type="showPassword ? 'text' : 'password'"
       class="mb-4"
@@ -92,7 +110,7 @@
       <v-btn
         type="submit"
         color="primary"
-        :disabled="!meta.valid"
+        :disabled="!valid"
         class="justify-center w-48"
         :rounded="1"
       >
