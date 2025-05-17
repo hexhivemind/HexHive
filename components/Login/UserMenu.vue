@@ -4,7 +4,7 @@
       <v-btn v-bind="props">
         <template #prepend>
           <!-- TODO: User Profile Picture -->
-          <v-avatar image="/favicon.ico"></v-avatar>
+          <v-avatar image="/favicon.ico" />
         </template>
         {{ user!.username }}
       </v-btn>
@@ -24,8 +24,10 @@
 </template>
 
 <script lang="ts" setup>
+  import type { User } from '#auth-utils';
+
   const { user: _user, clear } = useUserSession();
-  const user = _user as ComputedRef<UserSession['user'] | null>;
+  const user = _user as ComputedRef<User | null>;
 
   const menu = [
     {
