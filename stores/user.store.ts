@@ -4,7 +4,7 @@ export const useUserStore = defineStore('user', () => {
     joinDate: new Date(),
     lastActiveDate: new Date(),
     pronouns: 'They/Them',
-    role: 'user',
+    role: 'admin',
     socials: { discord: 'TestProfile', twitter: 'TestProfile' },
     username: 'Test',
     //
