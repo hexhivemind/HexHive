@@ -8,7 +8,8 @@ declare type Pronouns = 'He/Him' | 'She/Her' | 'They/Them' | string;
 declare type Socials =
   | 'Bluesky'
   | 'DeviantArt'
-  | 'Discord'
+  | 'Discord Username'
+  | 'Discord Server'
   | 'Github'
   | 'Ko-fi'
   | 'Linktr.ee'
@@ -23,9 +24,8 @@ declare interface User {
   displayName?: string;
   joinDate?: Date;
   lastActiveDate?: Date;
-  password: string;
   permissions: Permissions;
-  pronouns: Pronouns;
+  pronouns?: Pronouns;
   role: 'user' | 'moderator' | 'admin';
   socials: { [social in Socials]?: string } & { [other: string]: string };
   username: string;

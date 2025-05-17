@@ -27,6 +27,7 @@ export interface WebAuthnUser {
 export type UserDocument = User & {
   oauth?: Record<string, unknown>; // TODO: Type this better once implemented.
   credentials?: WebAuthnCredential[];
+  password: string;
 };
 
 const UserSchema = new Schema<UserDocument>({
