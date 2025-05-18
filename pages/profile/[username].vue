@@ -41,12 +41,34 @@
           <h3 class="font-semibold text-lg mb-3">📊 User Stats</h3>
           <ul class="space-y-2">
             <li>
-              <strong>Joined on:</strong>
-              {{ joinDate.toFormat('yyyy-LL-dd') }}
+              <strong>Joined on: </strong>
+              <v-tooltip bottom>
+                <template #default>
+                  <span>
+                    {{ joinDate.toFormat('yyyy-LL-dd HH:mm:ss') }}
+                  </span>
+                </template>
+                <template #activator="{ props }">
+                  <span v-bind="props">
+                    {{ joinDate.toFormat('yyyy-LL-dd') }}
+                  </span>
+                </template>
+              </v-tooltip>
             </li>
             <li>
-              <strong>Last Seen:</strong>
-              {{ lastActiveDate.toFormat('yyyy-LL-dd') }}
+              <strong>Last Seen: </strong>
+              <v-tooltip bottom>
+                <template #default>
+                  <span>
+                    {{ lastActiveDate.toFormat('yyyy-LL-dd HH:mm:ss') }}
+                  </span>
+                </template>
+                <template #activator="{ props }">
+                  <span v-bind="props">
+                    {{ lastActiveDate.toFormat('yyyy-LL-dd') }}
+                  </span>
+                </template>
+              </v-tooltip>
             </li>
           </ul>
         </v-card>
