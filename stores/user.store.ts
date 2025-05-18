@@ -6,18 +6,30 @@ export const useUserStore = defineStore('user', () => {
     pronouns: 'They/Them',
     role: 'admin',
     socials: {
-      discordUser: 'TestDiscordUser',
-      discordServer: 'TestDiscordServer',
-      github: 'TestGithub',
-      pokecommunity: 'TestPokecommunity',
-      twitter: 'TestTwitter',
+      'Discord User': 'TestDiscordUser',
+      'Discord Server': 'TestDiscordServer',
+      Github: 'TestGithub',
+      PokeCommunity: 'TestPokecommunity',
+      Twitter: 'TestTwitter',
     },
     username: 'Test',
     //
     avatar: '',
     email: '',
     permissions: { canManageFlags: false },
-  } as unknown as User);
+  } as User);
 
-  return { user };
+  const fetchOne = async (id: string) => {
+    return await useFetch<User>(`/api/profile/${id}`, {
+      method: 'GET',
+    });
+  };
+
+  const fetchAll = async () => {
+    return await useFetch<User[]>('/api/profile', {
+      method: 'GET',
+    });
+  };
+
+  return { user, fetchOne, fetchAll };
 });
