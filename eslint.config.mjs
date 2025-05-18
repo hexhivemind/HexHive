@@ -1,6 +1,7 @@
 // /* eslint-disable sort-keys */
 // @ts-check
 import withNuxt from './.nuxt/eslint.config.mjs';
+import prettier from 'eslint-config-prettier';
 
 export default withNuxt(
   // Your custom configs here
@@ -26,6 +27,8 @@ export default withNuxt(
       'vue/multi-word-component-names': 'off',
     },
   },
+
+  prettier,
 
   {
     rules: {
