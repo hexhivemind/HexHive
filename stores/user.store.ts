@@ -5,7 +5,13 @@ export const useUserStore = defineStore('user', () => {
     lastActiveDate: new Date(),
     pronouns: 'They/Them',
     role: 'admin',
-    socials: { discord: 'TestProfile', twitter: 'TestProfile' },
+    socials: {
+      discordUser: 'TestDiscordUser',
+      discordServer: 'TestDiscordServer',
+      github: 'TestGithub',
+      pokecommunity: 'TestPokecommunity',
+      twitter: 'TestTwitter',
+    },
     username: 'Test',
     //
     avatar: '',
