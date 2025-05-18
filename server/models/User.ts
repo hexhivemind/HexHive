@@ -31,12 +31,6 @@ export type UserDocument = User & {
 };
 
 const UserSchema = new Schema<UserDocument>({
-  username: {
-    type: String,
-    trim: true,
-    unique: true,
-    required: true,
-  },
   avatar: String,
   email: {
     type: String,
@@ -44,20 +38,40 @@ const UserSchema = new Schema<UserDocument>({
     lowercase: true,
     unique: true,
     required: true,
+    index: true,
   },
-  password: {
-    type: String,
-  },
-  role: {
-    type: String,
-    enum: ['user', 'moderator', 'admin'],
-    default: 'user',
-  },
+  displayName: { type: String, trim: true, index: true },
+  joinDate: { type: Date, default: () => new Date() },
+  lastActiveDate: { type: Date, default: () => new Date() },
   permissions: {
     canManageFlags: { type: Boolean, default: false },
     // Add more permissions here as needed
     // e.g., canDeleteFiles, canManageUsers, etc.
   },
+  pronouns: String,
+  role: {
+    type: String,
+    enum: runtimeTypes.UserRole,
+    default: 'user',
+    index: true,
+  },
+  socials: {
+    type: Map,
+    of: String,
+    default: {},
+  },
+  username: {
+    type: String,
+    trim: true,
+    unique: true,
+    required: true,
+    index: true,
+  },
+
+  password: {
+    type: String,
+  },
+
   // For implementing oauth stuff.
   oauth: {},
   // WebAuthn/Passkeys
