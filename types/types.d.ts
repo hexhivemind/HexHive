@@ -8,13 +8,14 @@ declare type Pronouns = 'He/Him' | 'She/Her' | 'They/Them' | string;
 declare type Socials =
   | 'Bluesky'
   | 'DeviantArt'
-  | 'Discord Username'
-  | 'Discord Server'
+  | 'Discord Username' // Can we use overlapping ( () ) icons?
+  | 'Discord Server' // Same as above?
   | 'Github'
   | 'Ko-fi'
   | 'Linktr.ee'
   | 'Pokecommunity'
   | 'Revolt'
+  | 'Twitch'
   | 'Twitter'
   | 'WhackAHack';
 
