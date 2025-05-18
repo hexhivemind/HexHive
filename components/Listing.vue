@@ -67,7 +67,7 @@
                 v-for="(screenshot, i) in model.screenshots"
                 :key="i"
                 :src="screenshot"
-              ></v-carousel-item>
+              />
             </v-carousel>
           </v-expansion-panel-text>
         </v-expansion-panel>
