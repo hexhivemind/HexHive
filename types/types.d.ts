@@ -1,16 +1,21 @@
-type Permissions = {
+type UserPermissions = {
   canManageFlags: boolean;
   [permission: string]: boolean;
 };
 
 declare type UserRole = 'user' | 'moderator' | 'admin';
 
-declare type Pronouns = 'He/Him' | 'She/Her' | 'They/Them' | string;
+declare type Pronouns =
+  | 'He/Him'
+  | 'She/Her'
+  | 'They/Them'
+  | 'Prefer not to say' // Special case, don't display this in the UI
+  | string;
 
 declare type Socials =
   | 'Bluesky'
   | 'DeviantArt'
-  | 'Discord Username' // Can we use overlapping ( () ) icons?
+  | 'Discord Username' // Can we use overlapping ( () ) icons? // What do you mean by overlapping icons? What Icons?
   | 'Discord Server' // Same as above?
   | 'Github'
   | 'Ko-fi'
@@ -23,12 +28,12 @@ declare type Socials =
   | 'WhackAHack';
 
 declare interface User {
-  avatar: string;
+  avatar?: string;
   email: string;
   displayName?: string;
   joinDate?: Date;
   lastActiveDate?: Date;
-  permissions: Permissions;
+  permissions: UserPermissions;
   pronouns?: Pronouns;
   role: UserRole;
   socials: { [social in Socials]?: string } & { [other: string]: string };
