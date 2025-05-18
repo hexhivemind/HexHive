@@ -3,6 +3,8 @@ type Permissions = {
   [permission: string]: boolean;
 };
 
+declare type UserRole = 'user' | 'moderator' | 'admin';
+
 declare type Pronouns = 'He/Him' | 'She/Her' | 'They/Them' | string;
 
 declare type Socials =
@@ -14,6 +16,7 @@ declare type Socials =
   | 'Ko-fi'
   | 'Linktr.ee'
   | 'Pokecommunity'
+  | 'Reddit'
   | 'Revolt'
   | 'Twitch'
   | 'Twitter'
@@ -27,7 +30,7 @@ declare interface User {
   lastActiveDate?: Date;
   permissions: Permissions;
   pronouns?: Pronouns;
-  role: 'user' | 'moderator' | 'admin';
+  role: UserRole;
   socials: { [social in Socials]?: string } & { [other: string]: string };
   username: string;
 }

@@ -16,7 +16,7 @@ import { format, resolveConfig } from 'prettier';
 async function generateRuntimeTypes(rootDir: string) {
   const baseDir = path.resolve(rootDir, 'types');
   // Types to generate runtime objects for, from types folder. Extensions optional
-  const typeFiles = ['listing'];
+  const typeFiles = ['listing', 'types'];
 
   const delcarationFiles = typeFiles.map((name) => {
     const fileName = name.endsWith('.d.ts') ? name : `${name}.d.ts`;
