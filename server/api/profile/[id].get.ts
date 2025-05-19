@@ -1,4 +1,5 @@
 import Users from '~/server/models/User';
+import { Types } from 'mongoose';
 
 export default defineEventHandler(async (event) => {
   const id = event.context.params?.id;
@@ -9,7 +10,11 @@ export default defineEventHandler(async (event) => {
       message: 'Username or ID is required',
     });
 
-  const user = await Users.findOne({ $or: [{ username: id }, { _id: id }] })
+  const user = await (
+    Types.ObjectId.isValid(id)
+      ? Users.findById(id)
+      : Users.findOne({ username: id })
+  )
     .select('-credentials -password -oauth')
     .lean<User>()
     .exec();

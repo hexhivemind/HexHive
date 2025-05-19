@@ -30,5 +30,8 @@ export default defineVitestConfig({
         ...coverageConfigDefaults.exclude,
       ],
     },
+    env: {
+      SEED_ADMINS: 'TestUser:test@example.com',
+    },
   },
 });

@@ -1,4 +1,5 @@
 export const useUserStore = defineStore('user', () => {
+  // Dummy data for testing/building profile page
   const user = ref({
     displayName: 'HexHive User',
     joinDate: new Date(),
