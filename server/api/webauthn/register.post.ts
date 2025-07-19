@@ -1,9 +1,9 @@
 import Users, {
   type WebAuthnCredential,
   type WebAuthnUser,
-} from '~/server/models/User';
+} from '~~/server/models/User';
 import type { H3Event } from 'h3';
-import { webauthnValidator } from '~/shared/zod';
+import { webauthnValidator } from '~~/shared/zod';
 
 export default defineWebAuthnRegisterEventHandler<WebAuthnUser>({
   // optional

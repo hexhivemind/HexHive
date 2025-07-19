@@ -1,4 +1,4 @@
-import Users from '~/server/models/User';
+import Users from '~~/server/models/User';
 
 export default defineNitroPlugin(async () => {
   await connectMongoose();

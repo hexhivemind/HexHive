@@ -6,7 +6,7 @@ import {
   emailOrUsername,
   SpriteEntrySchema,
   SpriteFileMapEntrySchema,
-} from '~/shared/zod-helpers';
+} from '~~/shared/zod-helpers';
 
 describe('Zod Primitives', () => {
   it('validates email correctly', () => {

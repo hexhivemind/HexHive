@@ -1,4 +1,4 @@
-import Users from '~/server/models/User';
+import Users from '~~/server/models/User';
 import { Types } from 'mongoose';
 
 export default defineEventHandler(async (event) => {

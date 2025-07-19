@@ -7,4 +7,22 @@ export default defineVuetifyConfiguration({
     defaultTheme: 'dark',
   },
   blueprint: md3,
+  icons: {
+    defaultSet: 'mdi',
+    sets: ['mdi', 'fa'],
+  },
+  defaults: {
+    VBtn: {
+      // color: 'primary',
+      rounded: null,
+    },
+    VBtnGroup: {
+      rounded: null,
+    },
+    VNumberInput: {
+      VBtn: {
+        color: 'transparent',
+      },
+    },
+  },
 });

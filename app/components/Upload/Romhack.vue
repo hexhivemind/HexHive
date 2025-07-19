@@ -89,7 +89,7 @@
 </template>
 
 <script setup lang="ts">
-  import { RomhackDataSchema } from '~/shared/zod';
+  import { RomhackDataSchema } from '~~/shared/zod';
 
   // const { handleSubmit, meta, errors } = useForm({
   //   validationSchema: toTypedSchema(RomhackDataSchema),

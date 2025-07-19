@@ -1,4 +1,4 @@
-import Users, { type WebAuthnCredential } from '~/server/models/User';
+import Users, { type WebAuthnCredential } from '~~/server/models/User';
 import type { H3Event } from 'h3';
 import type { VerifiedAuthenticationResponse } from '@simplewebauthn/server';
 

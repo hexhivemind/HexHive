@@ -1,6 +1,6 @@
 import { ZodError } from 'zod';
-import Users from '~/server/models/User';
-import { passwordValidator } from '~/shared/zod';
+import Users from '~~/server/models/User';
+import { passwordValidator } from '~~/shared/zod';
 
 export default defineEventHandler(async (event) => {
   try {

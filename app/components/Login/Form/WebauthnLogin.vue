@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-  import { passwordSchema } from '~/shared/zod';
+  import { webauthnSchema } from '~~/shared/zod';
 
   // const { handleSubmit, meta, errors } = useForm({
-  //   validationSchema: toTypedSchema(passwordSchema),
+  //   validationSchema: toTypedSchema(webauthnSchema),
   // });
 
   const props = defineProps<{
@@ -10,31 +10,23 @@
   }>();
 
   const i = defineModel<string>('identity', { default: '' });
-  const p = defineModel<string>('password', { default: '' });
 
-  const { value: identity } = useField('identity', undefined, {
+  const { value: identity } = useField<string>('identity', undefined, {
     syncVModel: 'identity',
     validateOnMount: Boolean(i.value),
   });
-  const { value: password } = useField('password', undefined, {
-    syncVModel: 'password',
-    validateOnMount: Boolean(p.value),
-  });
 
   // const submit = handleSubmit(props.submit);
-
   const submit = async () => {
     await props.submit({
       identity: identity.value,
-      password: password.value,
     });
   };
 
   const valid = computed(
     () =>
-      passwordSchema.safeParse({
+      webauthnSchema.safeParse({
         identity: identity.value,
-        password: password.value,
       }).success,
   );
 </script>
@@ -46,15 +38,6 @@
       v-model="identity"
       label="Email or Username"
       type="text"
-      class="mb-4"
-      required
-    />
-
-    <!-- Password-->
-    <v-text-field
-      v-model="password"
-      label="Password"
-      type="password"
       class="mb-4"
       required
     />

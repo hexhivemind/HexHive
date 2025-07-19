@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { passwordValidator } from '~/shared/zod';
+  import { passwordValidator } from '~~/shared/zod';
 
   const validator = passwordValidator
     .extend({

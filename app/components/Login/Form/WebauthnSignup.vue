@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-  import { webauthnSchema } from '~/shared/zod';
+  import { webauthnSchema } from '~~/shared/zod';
   import {
     email as EmailValidator,
     username as UsernameValidator,
-  } from '~/shared/zod-helpers';
+  } from '~~/shared/zod-helpers';
 
   const validator = webauthnSchema.extend({
     identity: EmailValidator,

@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   imports: {
-    dirs: ['~/shared/zod'],
+    dirs: ['~~/shared/zod'],
     presets: [
       {
         from: 'zod/v4',
@@ -66,7 +66,7 @@ export default defineNuxtConfig({
       websocket: true,
     },
     imports: {
-      dirs: ['~/shared/zod'],
+      dirs: ['~~/shared/zod'],
       presets: [
         {
           from: 'zod/v4',
@@ -99,7 +99,7 @@ export default defineNuxtConfig({
      * Directory that the component lives in.
      * @default "./components/ui"
      */
-    componentDir: './components/ui',
+    componentDir: './app/components/ui',
   },
 
   // See: https://nuxtseo.com/docs/sitemap/getting-started/installation

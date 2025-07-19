@@ -1,6 +1,6 @@
 // /* eslint-disable sort-keys */
 // @ts-check
-import withNuxt from './.nuxt/eslint.config.mjs';
+import withNuxt from '.nuxt/eslint.config.mjs';
 import prettier from 'eslint-config-prettier';
 
 export default withNuxt(

@@ -1,5 +1,5 @@
-import Sounds from '~/server/models/Listings/Sounds';
-import { SoundDataSchema } from '~/shared/zod';
+import Sounds from '~~/server/models/Listings/Sounds';
+import { SoundDataSchema } from '~~/shared/zod';
 
 export default defineEventHandler(async (event) => {
   return await createListingEndpoint(

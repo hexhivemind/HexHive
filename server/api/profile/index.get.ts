@@ -1,4 +1,4 @@
-import Users from '~/server/models/User';
+import Users from '~~/server/models/User';
 
 export default defineEventHandler(async () => {
   // TODO: Implement pagination, search, and sort.
