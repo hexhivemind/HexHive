@@ -9,7 +9,7 @@
     variant="outlined"
   />
 
-  <v-text-area
+  <v-textarea
     v-model="description"
     :error-messages="errors.description"
     label="Description"
